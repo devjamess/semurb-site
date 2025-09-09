@@ -1,17 +1,19 @@
 import React from 'react';
-import {Routes, Route, useLocation} from "react-router-dom";
-import Login from './pages/login';
+import {Routes, Route, BrowserRouter} from "react-router-dom";
+import Login from './pages/Login';
+import Home from './pages/Home';
 
 function App() {
-  const router = useLocation()
+
 
   return (
-    <>
-      <Routes location={router} key={router.pathname}>
-        <Route path="/" element={<Login />} />
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' Component={Home}/>
+        <Route path="/login" Component={ Login } />
       </Routes>
-    </>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;
