@@ -4,14 +4,14 @@ import MyChart from '../components/Graph';
 import '../styles/Home.css';
 function Home() {
   return (
-    <div>
+    <div className='body'>
       <Header />
       <div className='container-up'>
         <div className='container-graph'>
           <MyChart />
         </div>
 
-        <div className='continer-setor'>
+        <div className='container-setor'>
           <h2>Setor: ADMINISTRAÇÃO</h2> <hr />
           <div className='setor-cards'>
             <div className='setor-card'>

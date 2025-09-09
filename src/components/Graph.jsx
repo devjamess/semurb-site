@@ -14,6 +14,18 @@ function MyChart() {
       // Try different chart types by changing this property with one of: LineChart, BarChart, AreaChart...
       chartType="ColumnChart"
       data={data}
+      options={{
+        title: 'Funcionários por Escala',
+        chartArea: { width: '100%' },
+        hAxis: {
+          title: 'Escalas',
+          minValue: 0,
+        },
+        vAxis: {
+          title: 'Total de FUncionarios',
+        },
+        
+      }}
       legendToggle
     />
   );
