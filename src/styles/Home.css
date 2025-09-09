@@ -1,7 +1,9 @@
 .body{
     margin: 0;
 }
-
+*{
+    position: relative;
+}
 .container-up{
     display: flex;
     justify-content: space-evenly;
@@ -11,9 +13,12 @@
     gap: 2rem;
     padding: 2rem;
     flex-direction: row;
-    
 }
-
+h3{
+    color: rgb(51, 47, 76);
+    text-align: center;
+    margin-bottom: 1rem;
+}
 .container-graph{
     background-color: white;
     border-radius: 10px;
@@ -21,6 +26,7 @@
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
     width: 70%;
     height: 100%;
+    max-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,6 +37,24 @@
     border: 15px solid white;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
     width: 30%;
+    max-height: 100%;
 }
-
+.container-teams{
+    position: relative;
+    display: flex;
+    margin: 1rem;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1rem;
+}
+.team{
+    position: relative;
+    background-color: rgba(227, 227, 227, 0.848);
+    color: white;
+    border-radius: 10px;
+    width: 200px;
+}
+.title-setor{
+    margin: 1rem;
+}
 

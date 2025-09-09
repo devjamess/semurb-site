@@ -12,23 +12,21 @@ function Home() {
         </div>
 
         <div className='container-setor'>
+          <div className='title-setor'>
           <h2>Setor: ADMINISTRAÇÃO</h2> <hr />
-          <div className='setor-cards'>
-            <div className='setor-card'>
-              <h3>Setor 1</h3>
-              <p>Descrição do setor 1</p>
+          </div>
+          <div className='container-teams'>
+            <div className='team'>
+              <h3>Alpha</h3>
             </div>
-            <div className='setor-card'>
-              <h3>Setor 2</h3>
-              <p>Descrição do setor 2</p>
+            <div className='team'>
+              <h3>Beta</h3>
             </div>
-            <div className='setor-card'>
-              <h3>Setor 3</h3>
-              <p>Descrição do setor 3</p>
+            <div className='team'>
+              <h3>Charles</h3>
             </div>
-            <div className='setor-card'>
-              <h3>Setor 4</h3>
-              <p>Descrição do setor 4</p>
+            <div className='team'>
+              <h3>Delta</h3>
             </div>
           </div>
         </div>
