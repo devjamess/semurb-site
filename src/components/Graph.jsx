@@ -16,7 +16,7 @@ function MyChart() {
       data={data}
       options={{
         title: 'Funcionários por Escala',
-        chartArea: { width: '100%' },
+        chartArea: { width: '80%' },
         hAxis: {
           title: 'Escalas',
           minValue: 0,
@@ -26,7 +26,7 @@ function MyChart() {
         },
       }}
       width="100%"
-      height="400px"
+      height="300px"
       legendToggle
     />
   );

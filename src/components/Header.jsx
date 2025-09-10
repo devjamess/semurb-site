@@ -6,7 +6,7 @@ function Header() {
         <div className='header-part-left'> 
             <IoMdArrowBack size={30} color="yellow"/>  
             <IoIosHome size={30} color="yellow"/>
-            <h3>PAINEL PRINCIPAL</h3>  
+            <h3 className='painel'>PAINEL PRINCIPAL</h3>  
         </div>
 
         <div className='header-part-right'>

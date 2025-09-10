@@ -23,6 +23,7 @@ background-color: rgb(51, 47, 76);
     gap: 1rem;
     align-items: center;
     justify-content: center;
+    text-align: center;
     background-color: rgb(51, 47, 76);
 }
 .header-part-right{
@@ -34,6 +35,7 @@ background-color: rgb(51, 47, 76);
     justify-content: center;
     background-color: rgb(51, 47, 76);
 }
-h3{
+.painel{
     color: yellow;
+    margin:0;
 }

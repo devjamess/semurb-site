@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import MyChart from '../components/Graph';
+import CalendarHome from '../components/Calendar';
 import '../styles/Home.css';
 function Home() {
   return (
@@ -29,6 +30,12 @@ function Home() {
               <h3>Delta</h3>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className='container-down'>
+        <div className='container-calendar'>
+          <CalendarHome />
         </div>
       </div>
     </div>
