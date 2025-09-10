@@ -1,0 +1,99 @@
+.background-login {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1)), url('https://storage.googleapis.com/hostinger-horizons-assets-prod/acec149e-3587-41bf-87f0-d137ca8402b4/b0a5e7fd50891554ff91cb07a1742657.png');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-login {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10%;
+    box-shadow: 0 4px 6px rgba(2, 3, 10, 0.4);
+    width: 70%;
+    height: 70%;
+    justify-content: center;
+    align-items: center;
+    max-width: 50vw;
+    max-height: 30rem;
+}
+
+.logo-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--barueri-black);
+    border-top-left-radius: 10%;
+    border-bottom-left-radius: 10%;
+    width: 40%;
+    height: 100%;
+    
+}
+
+.form-login{
+    padding: 0 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: var(--barueri-white);
+    width: 60%;
+    height: 100%;
+    border-top-right-radius: 10%;
+    border-bottom-right-radius: 10%;
+
+}
+
+h1, h2{margin: 0;}
+.font-color{
+    color: var(--barueri-black);
+}.font-color-light{
+    color: var(--barueri-gray);
+}
+
+.content-login{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+}
+
+label{
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--barueri-blue-gray);
+}
+input{
+    outline: none;
+    border: none;
+    background: none;
+    border-bottom: 2px solid var(--barueri-gray);
+}
+button{
+    border: none;
+    outline: none;
+    padding: 0.8rem;
+    border-radius: 5px;
+    background-color: var(--barueri-black);
+    color: var(--barueri-white);
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+a{
+    text-decoration: none;
+    color: var(--barueri-gray);
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+}
+
+
