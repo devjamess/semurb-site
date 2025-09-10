@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #f3f3f3;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,13 +25,13 @@
   --barueri-dark-bg: #1A1A1A;
   --barueri-gray: #6B7280;
   --barueri-blue-gray: #4c596e;
+  
+  
 }
-
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
-
   }
 }

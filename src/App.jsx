@@ -1,18 +1,19 @@
-import React from 'react';
-import {Routes, Route, useLocation, Navigate} from "react-router-dom";
-import Login from './pages/login';
+import * as React from 'react';
+import {Routes, Route, BrowserRouter} from "react-router-dom";
+import Login from './pages/Login';
+import Home from './pages/Home';
 
 function App() {
-  const router = useLocation()
+
 
   return (
-    <>
-      <Routes location={router} key={router.pathname}>
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="/login" element={<Login />} />
+  
+      <Routes>
+        <Route path='/' element={ <Home /> }/>
+        <Route path="/login" element={ <Login /> } />
       </Routes>
-    </>
+    
   )
 }
 
-export default App
+export default App;
