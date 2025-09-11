@@ -3,7 +3,7 @@
     padding: 0;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1)), url('https://storage.googleapis.com/hostinger-horizons-assets-prod/acec149e-3587-41bf-87f0-d137ca8402b4/b0a5e7fd50891554ff91cb07a1742657.png');
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1)), url('../assets/images/background-login.png');
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -23,7 +23,9 @@
     max-width: 50vw;
     max-height: 30rem;
 }
-
+.semurb-logo-login{
+    background: url('../assets/images/semurb-logo-login.png') ;
+}
 .logo-login {
     display: flex;
     justify-content: center;
@@ -52,7 +54,7 @@
 
 }
 
-h1, h2{margin: 0;}
+h1, h2{margin: 0; color: white}
 .font-color{
     color: var(--barueri-black);
 }.font-color-light{

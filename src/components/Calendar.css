@@ -1,8 +1,7 @@
 
 .calendar-container {
-  width: 300px;
+  width: 100%;
   font-family: Arial, sans-serif;
-  border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -14,27 +13,30 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #f7f7f7;
-  border-bottom: 1px solid #eee;
+  background: none;
+
 }
 
-.calendar-title {
+.header-content{
   font-size: 1.2rem;
   font-weight: bold;
   text-transform: capitalize;
+  color: yellow
+}.consultarDatas{
+  color: black;
 }
 
-.calendar-nav-button {
+.nav-button {
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #555;
+  color: yellow;
   padding: 5px 10px;
   transition: color 0.2s ease-in-out;
 }
 
-.calendar-nav-button:hover {
+.nav-button:hover {
   color: #000;
 }
 
@@ -45,12 +47,13 @@
   padding: 10px;
 }
 
-.calendar-day-header {
+.days-of-week {
   text-align: center;
   font-weight: bold;
   font-size: 0.9rem;
   color: #777;
   padding: 5px 0;
+  border-bottom: 1px solid #eee;
 }
 
 .calendar-day {
@@ -59,7 +62,10 @@
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  background-color: #f9f9f9;
+  background-color: none;
+}
+.calendar-day:hover{
+  background-color: rgba(255, 255, 0, 0.426);
 }
 
 .calendar-day.day-valid:hover {
@@ -67,14 +73,14 @@
 }
 
 .calendar-day.selected {
-  background-color: #3498db;
+  background-color: yellow;
   color: white;
   font-weight: bold;
 }
 
 .calendar-day.today {
-  border: 2px solid #3498db;
-  background-color: #ecf0f1;
+  border: 2px solid yellow;
+  background-color: rgba(255, 255, 0, 0.486);
 }
 
 .calendar-day.today.selected {

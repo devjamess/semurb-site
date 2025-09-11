@@ -54,7 +54,7 @@ function CalendarHome({value, onDateChange}){
         )
     }
 
-    const daySelected = (day) => {
+    /*const daySelected = (day) => {
         if (!day || !value) return false;
         const dayIsSelected = new Date(
             currentDate.getFullYear(),
@@ -62,11 +62,12 @@ function CalendarHome({value, onDateChange}){
             day
         )
         return dayIsSelected.toDateString() === value.toDateString()
-        /*toDateString() converte a data escolhida em string(escrita)
+        
+        toDateString() converte a data escolhida em string(escrita)
         entao se clicarmos em algum dia ele retorna "DiaDaSemana Mes Dia Ano" 
         em texto
-        */
-    }
+        
+    }*/
     const isToday = (day) => {
     if (!day) return false;
     const dateToCheck = new Date(
@@ -87,22 +88,22 @@ function CalendarHome({value, onDateChange}){
     return(
         <div className="calendar-container">
             <div className="calendar-header">
-                <button className="back-month" onClick={BackMonth}> Voltar </button>
-                <span className="header-content">{MonthNames} {year}</span>
-                <button className="next-month" onClick={NextMonth}> Proximo </button>
+                <button className="nav-button" onClick={BackMonth}> Voltar </button>
+                <span className="header-content"><span className="consultarDatas">Consultar Datas:</span> {MonthNames} {year}</span>
+                <button className="nav-button" onClick={NextMonth}> Proximo </button>
             </div>
 
             <div className="calendar-grid">
                 {DaysOfWeek.map((day, index) => (
                     <div className="days-of-week" key={index}>
                         {day}
-                    </div>
+                    </div> 
                 ) 
                 )}
 
                 {days.map((day, index) =>(                    
                     <div 
-                    className={`calendar-day ${day ? 'day-selected' : ''} ${daySelected(day) ? 'selected' : ''} ${isToday(day) ? 'today' : ''}`}
+                    className={`calendar-day  ${isToday(day) ? 'today' : ''}`}
                     key={index}
                     onClick={() => day && onDateChange(new Date(
                         currentDate.getFullYear(),

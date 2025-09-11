@@ -1,12 +1,13 @@
 import React from "react";
 import '../styles/login.css'
+import logo from '../assets/images/semurb-logo-login.png'
 function Login() {
 
   return (
     <div className="background-login">
       <div className="container-login">
         <div className="logo-login">
-          <img src="https://storage.googleapis.com/hostinger-horizons-assets-prod/acec149e-3587-41bf-87f0-d137ca8402b4/32ac977fbe5d38dcda1f0da4ca00be86.png" alt="semurb-logo" />
+          <img src={logo} alt="semurb-logo" className=""/>
           <h1>Escala Semurb</h1>
         </div>
 

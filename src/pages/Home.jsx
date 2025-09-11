@@ -40,12 +40,10 @@ function Home() {
       </div>
 
       <div className='container-down'>
-        <div className='container-calendar'>
           <CalendarHome 
             value={selectedDate}
             onDateChange={handleDateSelect}
           />
-        </div>
       </div>
     </div>
   )
