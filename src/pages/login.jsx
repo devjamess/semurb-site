@@ -24,7 +24,7 @@ function Login() {
         <input type="password" id="password" />
 
         <button type="submit">Entrar</button>
-        <a href="#">Esqueceu a senha?</a>
+        <a href="/home">Esqueceu a senha?</a>
         </div> 
         </form>
       </div>

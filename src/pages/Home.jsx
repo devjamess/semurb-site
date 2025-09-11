@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../components/Header';
 import MyChart from '../components/Graph';
 import CalendarHome from '../components/Calendar';
 import '../styles/Home.css';
 function Home() {
+   const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
+    console.log('Data selecionada:', date.toLocaleDateString('pt-BR'));
+  };
   return (
     <div className='body'>
       <Header />
@@ -35,7 +41,10 @@ function Home() {
 
       <div className='container-down'>
         <div className='container-calendar'>
-          <CalendarHome />
+          <CalendarHome 
+            value={selectedDate}
+            onDateChange={handleDateSelect}
+          />
         </div>
       </div>
     </div>
