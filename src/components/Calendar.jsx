@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import './Calendar.css'
+import '../styles/Calendar.css';
 
 function CalendarHome({value, onDateChange}){
     const [currentDate, setCurrentDate] = useState(value ||new Date());

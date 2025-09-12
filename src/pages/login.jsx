@@ -1,8 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
 import '../styles/login.css'
 import logo from '../assets/images/semurb-logo-login.png'
+import {useAuth} from '../hook/useAuth'
 function Login() {
+  const navigate = useNavigate();
+  const {signIn} = useAuth();
+  const [matricula_funcionario, setMatricula] = useState()
+  const [senha, setSenha] = useState()
 
+  const handleSignIn = async e => {
+    e.prevenDefault();
+
+    const userData = await signIn(matricula_funcionario, senha);
+    if(userData){
+      navigate('/home');
+    } else {
+     alert('Falha no login, verifique suas credenciais')
+    }
+
+
+  }
   return (
     <div className="background-login">
       <div className="container-login">
@@ -11,7 +29,7 @@ function Login() {
           <h1>Escala Semurb</h1>
         </div>
 
-        <form className="form-login">
+        <form className="form-login" onSubmit={handleSignIn}>
           <div className="title-login">
           <h1 className="font-color">Administrador</h1>
           <h2 className="font-color-light">LOGIN</h2>
@@ -19,10 +37,13 @@ function Login() {
 
         <div className="content-login">
         <label > Numero de Matricula </label>
-        <input  type="number" id="registration" />
+        <input  type="number" id="matricula_funcionario" 
+        value={matricula_funcionario}
+        onChange={(e) => setMatricula(e.target.value)} />
 
         <label> Senha </label>
-        <input type="password" id="password" />
+        <input type="password" id="senha" 
+        value={senha} onChange={(e) => setSenha(e.target.value)} />
 
         <button type="submit">Entrar</button>
         <a href="/home">Esqueceu a senha?</a>

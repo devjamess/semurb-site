@@ -1,5 +1,5 @@
 import { IoMdArrowBack, IoIosHome, IoIosNotifications, IoMdMenu } from "react-icons/io";
-import './Header.css'
+import '../styles/Header.css'
 function Header() {
   return (
     <header>
