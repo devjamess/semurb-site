@@ -1,8 +1,7 @@
 
-import React,{createContext, useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import api from '../api/api';
-
-export const AuthContext = createContext();
+import  AuthContext  from "./authContextImport";
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -19,15 +18,15 @@ export const AuthProvider = ({ children }) => {
                 return;
             }
 
-            const {data} = await api.post('/loginAdm' ,{
+            const {data} = await api.post('/loginFuncionario' ,{
                 matricula_funcionario,
                 senha
             })
 
-            if(data){
-                setUser(data);
-                localStorage.setItem(user, JSON.stringify(data));
-                return data;
+            if(data &&data.funcionario){
+                setUser(data.funcionario);
+                localStorage.setItem('user_data', JSON.stringify(data.funcionario));
+                return data.funcionario;
             }
             return;
 
@@ -38,15 +37,22 @@ export const AuthProvider = ({ children }) => {
 
     useEffect (() => {
         const loadUser = async () => {
-            const storedUser = localStorage.getItem(user);
-            if(storedUser){
-                setUser(JSON.stringify(storedUser))
+            const storedUser = localStorage.getItem('user_data');
+            if (typeof storedUser === 'string' && storedUser.trim() !== '') {
+            try {
+                setUser(JSON.parse(storedUser));
+            } catch (e) {
+                // Se o JSON estiver corrompido, limpe o localStorage
+                console.error("Erro ao fazer parse do JSON do usuário:", e);
+                localStorage.removeItem('user_data');
             }
-            setLoading(false)
-        };
+        }
+        
+        setLoading(false);
+    };
 
-        loadUser();
-    }, []);
+    loadUser();
+}, []);
 
     if (loading) return;
 

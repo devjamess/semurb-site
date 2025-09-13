@@ -3,7 +3,7 @@ import '../styles/Calendar.css';
 
 function CalendarHome({value, onDateChange}){
     const [currentDate, setCurrentDate] = useState(value ||new Date());
-    const today = new Date();
+    // const today = new Date();
     /* new Date(year, month, day) pega data atual
         ano mes e dia -> nessa ordem
         mes eh tratado de 0(janeiro) a 11(dezembro)
@@ -68,6 +68,7 @@ function CalendarHome({value, onDateChange}){
         em texto
         
     }*/
+   /*
     const isToday = (day) => {
     if (!day) return false;
     const dateToCheck = new Date(
@@ -77,7 +78,7 @@ function CalendarHome({value, onDateChange}){
     );
     return dateToCheck.toDateString() === today.toDateString();
 }
-  
+  */
 
     const DaysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
     const MonthNames = currentDate.toLocaleString('pt-BR', {month: 'long'});
@@ -103,7 +104,9 @@ function CalendarHome({value, onDateChange}){
 
                 {days.map((day, index) =>(                    
                     <div 
-                    className={`calendar-day  ${isToday(day) ? 'today' : ''}`}
+                    //${isToday(day) ? 'today' : ''} destacar o dia atual
+                    //${daySelected(day) ? 'selected' : ''} destacar o dia selecionado
+                    className={`calendar-day  `}
                     key={index}
                     onClick={() => day && onDateChange(new Date(
                         currentDate.getFullYear(),

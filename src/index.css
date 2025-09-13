@@ -1,5 +1,14 @@
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: local('Montserrat-Regular'), url(./assets/fonts/Montserrat-Regular.ttf) format('truetype');
+}
+*{
+  font-family: 'Montserrat-Regular', sans-serif;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat-Regular', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -11,7 +20,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 
   
   --barueri-yellow: #F4D03F;

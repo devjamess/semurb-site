@@ -9,14 +9,16 @@ function Login() {
   const [matricula_funcionario, setMatricula] = useState()
   const [senha, setSenha] = useState()
 
-  const handleSignIn = async e => {
-    e.prevenDefault();
+  const handleSignIn = async (e) => {
+    e.preventDefault();
 
     const userData = await signIn(matricula_funcionario, senha);
     if(userData){
+      console.log(userData);
       navigate('/home');
     } else {
      alert('Falha no login, verifique suas credenciais')
+     console.log(userData);
     }
 
 
@@ -37,12 +39,13 @@ function Login() {
 
         <div className="content-login">
         <label > Numero de Matricula </label>
-        <input  type="number" id="matricula_funcionario" 
+        <input type="number" name="matricula_funcionario" 
+        id="matricula_funcionario" 
         value={matricula_funcionario}
         onChange={(e) => setMatricula(e.target.value)} />
 
         <label> Senha </label>
-        <input type="password" id="senha" 
+        <input type="password" name="senha" id="senha" 
         value={senha} onChange={(e) => setSenha(e.target.value)} />
 
         <button type="submit">Entrar</button>

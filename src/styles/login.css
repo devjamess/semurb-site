@@ -74,10 +74,13 @@ label{
     color: var(--barueri-blue-gray);
 }
 input{
+    color: var(--barueri-black);
     outline: none;
     border: none;
     background: none;
     border-bottom: 2px solid var(--barueri-gray);
+}input:focus{
+    color: var(--barueri-black);
 }
 button{
     border: none;

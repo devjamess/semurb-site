@@ -4,7 +4,7 @@
   font-family: Arial, sans-serif;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
   background-color: #fff;
 }
 
@@ -21,7 +21,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   text-transform: capitalize;
-  color: yellow
+  color: var(--barueri-yellow)
 }.consultarDatas{
   color: black;
 }
@@ -31,7 +31,7 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: yellow;
+  color: var(--barueri-yellow);
   padding: 5px 10px;
   transition: color 0.2s ease-in-out;
 }
@@ -57,12 +57,14 @@
 }
 
 .calendar-day {
+  color:  var(--barueri-black);
   text-align: center;
   padding: 8px 0;
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   background-color: none;
+ 
 }
 .calendar-day:hover{
   background-color: rgba(255, 255, 0, 0.426);
@@ -73,14 +75,14 @@
 }
 
 .calendar-day.selected {
-  background-color: yellow;
+  background-color: var(--barueri-yellow);
   color: white;
   font-weight: bold;
 }
 
 .calendar-day.today {
-  border: 2px solid yellow;
-  background-color: rgba(255, 255, 0, 0.486);
+  border: 2px solid var(--barueri-yellow);
+  background-color: var(--barueri-yellow);
 }
 
 .calendar-day.today.selected {

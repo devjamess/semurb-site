@@ -2,40 +2,44 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
 }
 
 header{
 position: relative;
 margin:0;
-padding: 0 2rem 0;
 display: flex;
-justify-content: space-between;
+justify-content: space-evenly;
+gap: 10rem;
 width: 100vw;
 height: 10vh;
-background-color: rgb(51, 47, 76);
+background-color: var(--barueri-black);
+}
+img{
+    height: 60px;
+    width: auto;
 }
 
 .header-part-left{
     margin: 0;
     display: flex;
     flex-direction: row;
-    gap: 1rem;
+    gap: 2rem;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: rgb(51, 47, 76);
 }
 .header-part-right{
     margin: 0;
     display: flex;
     flex-direction: row;
-    gap: 1rem;
+    gap: 2rem;
     align-items: center;
     justify-content: center;
-    background-color: rgb(51, 47, 76);
 }
 .painel{
-    color: yellow;
+    color: var(--barueri-yellow);
     margin:0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
 }

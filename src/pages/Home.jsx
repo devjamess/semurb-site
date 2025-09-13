@@ -3,16 +3,22 @@ import Header from '../components/Header';
 import MyChart from '../components/Graph';
 import CalendarHome from '../components/Calendar';
 import '../styles/Home.css';
+import {useAuth} from '../hook/useAuth';
 function Home() {
    const [selectedDate, setSelectedDate] = useState(null);
-
+   const { user } = useAuth();
+   console.log(user);
   const handleDateSelect = (date) => {
     setSelectedDate(date);
     console.log('Data selecionada:', date.toLocaleDateString('pt-BR'));
   };
   return (
     <div className='body'>
-      <Header />
+      <Header /> 
+
+      <div className="container-search">
+        <input type="search" placeholder='Buscar Funcionarios. . .' />
+      </div>
       <div className='container-up'>
         <div className='container-graph'>
           <MyChart />
@@ -20,7 +26,8 @@ function Home() {
 
         <div className='container-setor'>
           <div className='title-setor'>
-          <h2>Setor: ADMINISTRAÇÃO</h2> <hr />
+          <h2>Usuario: {user? user.nome : 'Desconhecido'}</h2> <hr />
+
           </div>
           <div className='container-teams'>
             <div className='team'>
