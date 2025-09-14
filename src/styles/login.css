@@ -20,8 +20,8 @@
     height: 70%;
     justify-content: center;
     align-items: center;
-    max-width: 50vw;
-    max-height: 30rem;
+    max-width: 900px;
+    max-height: 500px;
 }
 .semurb-logo-login{
     background: url('../assets/images/semurb-logo-login.png') ;
@@ -68,21 +68,21 @@ h1, h2{margin: 0; color: white}
     width: 100%;
 }
 
-label{
+.label-login{
     font-size: 1.2rem;
     font-weight: 500;
     color: var(--barueri-blue-gray);
 }
-input{
+.input-login{
     color: var(--barueri-black);
     outline: none;
     border: none;
     background: none;
     border-bottom: 2px solid var(--barueri-gray);
-}input:focus{
+}.input-login:focus{
     color: var(--barueri-black);
 }
-button{
+.button-login{
     border: none;
     outline: none;
     padding: 0.8rem;
@@ -94,7 +94,7 @@ button{
     cursor: pointer;
     transition: 0.3s;
 }
-a{
+.forgot-password{
     text-decoration: none;
     color: var(--barueri-gray);
     font-weight: 500;

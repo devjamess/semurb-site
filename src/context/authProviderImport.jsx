@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
                 return;
             }
 
-            const {data} = await api.post('/loginFuncionario' ,{
+            const {data} = await api.post('/loginAdm' ,{
                 matricula_funcionario,
                 senha
             })

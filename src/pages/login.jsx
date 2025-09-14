@@ -4,7 +4,7 @@ import '../styles/login.css'
 import logo from '../assets/images/semurb-logo-login.png'
 import {useAuth} from '../hook/useAuth'
 function Login() {
-  const navigate = useNavigate();
+  const route = useNavigate();
   const {signIn} = useAuth();
   const [matricula_funcionario, setMatricula] = useState()
   const [senha, setSenha] = useState()
@@ -15,7 +15,7 @@ function Login() {
     const userData = await signIn(matricula_funcionario, senha);
     if(userData){
       console.log(userData);
-      navigate('/home');
+      route('/home');
     } else {
      alert('Falha no login, verifique suas credenciais')
      console.log(userData);
@@ -38,18 +38,18 @@ function Login() {
           </div>
 
         <div className="content-login">
-        <label > Numero de Matricula </label>
-        <input type="number" name="matricula_funcionario" 
+        <label className='label-login'> Numero de Matricula </label>
+        <input className='input-login' type="number" name="matricula_funcionario" 
         id="matricula_funcionario" 
         value={matricula_funcionario}
         onChange={(e) => setMatricula(e.target.value)} />
 
-        <label> Senha </label>
-        <input type="password" name="senha" id="senha" 
+        <label className='label-login'> Senha </label>
+        <input className='input-login' type="password" name="senha" id="senha" 
         value={senha} onChange={(e) => setSenha(e.target.value)} />
 
-        <button type="submit">Entrar</button>
-        <a href="/home">Esqueceu a senha?</a>
+        <button className='button-login' type="submit">Entrar</button>
+        <a className='forgot-password' href="/home">Esqueceu a senha?</a>
         </div> 
         </form>
       </div>

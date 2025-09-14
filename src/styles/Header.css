@@ -1,10 +1,10 @@
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-header{
+.header{
 position: relative;
 margin:0;
 display: flex;
@@ -14,7 +14,7 @@ width: 100vw;
 height: 10vh;
 background-color: var(--barueri-black);
 }
-img{
+.img{
     height: 60px;
     width: auto;
 }
@@ -42,4 +42,8 @@ img{
     font-size: 1.5rem;
     font-weight: bold;
     text-transform: uppercase;
+}
+.menu{
+    background: none;
+    border: none;
 }

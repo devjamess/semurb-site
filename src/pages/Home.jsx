@@ -26,7 +26,7 @@ function Home() {
 
         <div className='container-setor'>
           <div className='title-setor'>
-          <h2>Usuario: {user? user.nome : 'Desconhecido'}</h2> <hr />
+          <h2>Setor: {user? user.id_setor : 'Desconhecido'}</h2> <hr />
 
           </div>
           <div className='container-teams'>

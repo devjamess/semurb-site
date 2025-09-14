@@ -1,9 +1,7 @@
 .body{
     margin: 0;
 }
-*{
-    position: relative;
-}
+
 .container-search{
     display: flex;
     justify-content: center;
