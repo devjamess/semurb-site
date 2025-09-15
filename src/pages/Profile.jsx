@@ -13,14 +13,14 @@ function Profile(){
             <div className="profile-container">
                 <div className="profile-card-up">
                 <IoIosContact size={200} color={'#6B7280'} />
-                <p className="profile-name"><strong >{user?.nome}</strong></p>
+                <p className="profile-name"><strong >{user?.funcionario.nome}</strong></p>
                 </div>
                 <div className="profile-card-down">
-                <p className="profile-info">Matricula: <span className="info-auth">{user?.matricula_funcionario}</span> </p>
-                <p className="profile-info">Telefone: <span className="info-auth">{user?.telefone}</span></p>
-                <p className="profile-info">Email: <span className="info-auth">{user?.email}</span></p>
-                <p className="profile-info">Escala: <span className="info-auth">{user?.id_escala}</span></p>
-                <p className="profile-info">Equipe: <span className="info-auth">{user?.equipe}</span></p>
+                <p className="profile-info">Matricula: <span className="info-auth">{user?.funcionario.matricula_funcionario}</span> </p>
+                <p className="profile-info">Telefone: <span className="info-auth">{user?.funcionario.telefone}</span></p>
+                <p className="profile-info">Email: <span className="info-auth">{user?.funcionario.email}</span></p>
+                <p className="profile-info">Escala: <span className="info-auth">{user?.escala.tipo_escala}</span></p>
+                <p className="profile-info">Equipe: <span className="info-auth">{user?.funcionario.equipe}</span></p>
                 </div>
                 <button className="confirm-button">Atualizar</button>
             </div>

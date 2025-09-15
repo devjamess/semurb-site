@@ -14,11 +14,9 @@ function Login() {
 
     const userData = await signIn(matricula_funcionario, senha);
     if(userData){
-      console.log(userData);
       route('/home');
     } else {
-     alert('Falha no login, verifique suas credenciais')
-     console.log(userData);
+     alert('Falha no login, verifique suas credenciais')   
     }
 
 

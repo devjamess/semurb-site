@@ -10,9 +10,6 @@ margin-top: 10vh;
 display: flex;
 height: 10vh;
 z-index: 1000;
-
-
-
 }
 .options{
     display:flex;

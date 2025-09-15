@@ -23,12 +23,13 @@ export const AuthProvider = ({ children }) => {
                 senha
             })
 
-            if(data &&data.funcionario){
-                setUser(data.funcionario);
-                localStorage.setItem('user_data', JSON.stringify(data.funcionario));
-                return data.funcionario;
+            if(data &&data){
+                setUser(data);
+                localStorage.setItem('user_data', JSON.stringify(data));
+                return data;
             }
             return;
+            
 
         } catch(error){
             console.error('Erro ao fazer login: ', error.message)

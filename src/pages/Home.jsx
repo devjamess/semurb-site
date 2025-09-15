@@ -7,7 +7,7 @@ import {useAuth} from '../hook/useAuth';
 function Home() {
    const [selectedDate, setSelectedDate] = useState(null);
    const { user } = useAuth();
-   console.log(user);
+   console.log(user)
   const handleDateSelect = (date) => {
     setSelectedDate(date);
     console.log('Data selecionada:', date.toLocaleDateString('pt-BR'));
@@ -26,7 +26,7 @@ function Home() {
 
         <div className='container-setor'>
           <div className='title-setor'>
-          <h2>Setor: {user? user.id_setor : 'Desconhecido'}</h2> <hr />
+          <h2>Setor: {user? user.setor.nome_setor: 'Desconhecido'}</h2> <hr />
 
           </div>
           <div className='container-teams'>
