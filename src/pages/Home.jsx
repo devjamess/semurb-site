@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Header from '../components/Header';
 import MyChart from '../components/Graph';
 import CalendarHome from '../components/Calendar';
+import AddEmployee from '../components/modals/AddEmployee'
 import '../styles/Home.css';
 import {useAuth} from '../hook/useAuth';
 function Home() {

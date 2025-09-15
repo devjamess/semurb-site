@@ -1,0 +1,30 @@
+
+.form-container{
+position: absolute;
+display: flex;
+height: 110vh;
+width: 100vw;
+z-index: 1000;
+background-color: rgba(0, 0, 0, 0.678);
+justify-content: center;
+align-items: center;
+}
+.form-card{
+    display:flex;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 30%;
+    height: 50%;
+    background-color: aliceblue;
+}
+.form-input{
+    color: var(--barueri-black);
+    outline: none;
+    border: none;
+    background: none;
+    border-bottom: 2px solid var(--barueri-gray);
+}
+
