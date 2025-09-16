@@ -4,22 +4,26 @@ import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import logo from '../assets/images/semurb-logo-header.png'
 import MenuHeader from './modals/Menu';
+
 function Header() {
     const route = useNavigate()
     const [isOpenModal, setIsOpenModal] = useState(false)
+
+    
+
   return (
     <header className='header'>
         <div className='header-part-left'> 
-            <IoMdArrowBack size={30} color='#F4D03F' onClick={()=> route('/home')}/>  
-            <IoIosHome size={30} color='#F4D03F'/>
+            <IoMdArrowBack cursor='pointer' size={30} color='#F4D03F' onClick={()=>route(-1)}/>  
+            <IoIosHome cursor='pointer' size={30} color='#F4D03F' onClick={()=> route('/home')}/>
             <p className='painel'>Secretaria Da Mobilidade Urbana</p>  
         </div>
 
         <div className='header-part-right'>
                 <img className='img' alt='SEMURB' src={logo}></img>
-                <IoIosNotifications size={30} color="#F4D03F"/>
+                <IoIosNotifications cursor='pointer' size={30} color="#F4D03F"/>
                 <button className='menu' onClick={setIsOpenModal} >
-                    <IoMdMenu size={30} color="#F4D03F" />
+                    <IoMdMenu cursor='pointer' size={30} color="#F4D03F" />
                 </button>
                  
         </div>

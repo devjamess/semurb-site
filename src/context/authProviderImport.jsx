@@ -5,7 +5,7 @@ import  AuthContext  from "./authContextImport";
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true)
 
     const signIn = async (matricula_funcionario, senha) => {
         try{
@@ -36,6 +36,37 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const logout = async() => {
+        setUser(null)
+        localStorage.removeItem('user_data')
+       
+    }
+
+    const addEmplyee = async(
+        nome,
+        matricula,
+        telefone,
+        email,
+        cargo,
+        regiao,
+        equipe
+    ) =>{
+        try{
+            const {data} = await api.post('/cadastrarFuncionario', {
+                matricula_adm:user?.funcionario.matricula_funcionario,
+                nome,
+                matricula_funcionario: matricula,
+                telefone,
+                email,
+                cargo,
+                regiao,
+                equipe,
+                id_setor: user?.funcionario.id_setor
+            })
+        }
+    } 
+
+
     useEffect (() => {
         const loadUser = async () => {
             const storedUser = localStorage.getItem('user_data');
@@ -59,7 +90,7 @@ export const AuthProvider = ({ children }) => {
 
     return(
         <AuthContext.Provider value={{
-            user, signIn
+            user, inUser: !!user, signIn, logout
         }}>
             {children}
         </AuthContext.Provider>

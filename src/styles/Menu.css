@@ -1,22 +1,29 @@
 
-.container{
+.menu-container{
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-position: absolute;
-right: 0;
-margin-top: 10vh;
-display: flex;
-height: 10vh;
-z-index: 1000;
-background-color: none;
+    z-index: 100;
+    position: absolute;
+    width: 200px;
+    height: 100%;
+    right: 0;
+    margin-top: 10vh;
+    background-color: none;
 }
 .options{
-    display:flex;
-    flex-wrap:wrap;
-    align-items: start;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    
 }
 .option{
-    width: 60%;
+    margin: 0;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--barueri-yellow);
+    background-color: var(--barueri-black);
+    cursor: pointer;
 }
 

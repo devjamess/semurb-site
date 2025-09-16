@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import Header from '../components/Header';
 import MyChart from '../components/Graph';
 import CalendarHome from '../components/Calendar';
-import AddEmployee from '../components/modals/AddEmployee'
+import AddEmployeeCard from '../components/modals/AddEmployee'
 import '../styles/Home.css';
 import {useAuth} from '../hook/useAuth';
-function Home() {
+
+  function Home() {
    const [selectedDate, setSelectedDate] = useState(null);
+   const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
    const { user } = useAuth();
    console.log(user)
   const handleDateSelect = (date) => {
@@ -15,10 +17,13 @@ function Home() {
   };
   return (
     <div className='body'>
+      <AddEmployeeCard isOpenEmployee={isOpenEmployeeModal} setIsOpenEmployee={() => setIsOpenEmployeeModal(!isOpenEmployeeModal)}/>
       <Header /> 
 
       <div className="container-search">
         <input type="search" placeholder='Buscar Funcionarios. . .' />
+        <button className="confirm-button" onClick={setIsOpenEmployeeModal}>Adicionar Funcionario</button>
+
       </div>
       <div className='container-up'>
         <div className='container-graph'>
