@@ -27,13 +27,12 @@ height: 100vh;
     background-color: aliceblue;
     gap: 0.5rem;
     padding: 1rem;
+    border: 5px solid var(--barueri-green);
     border-radius: 10px;
 }
 .form-card{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 1rem; 
 }
 .form-title{

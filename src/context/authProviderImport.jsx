@@ -42,9 +42,9 @@ export const AuthProvider = ({ children }) => {
        
     }
 
-    const addEmplyee = async(
+    const addEmployee = async(
         nome,
-        matricula,
+        matricula_funcionario,
         telefone,
         email,
         cargo,
@@ -53,16 +53,17 @@ export const AuthProvider = ({ children }) => {
     ) =>{
         try{
             const {data} = await api.post('/cadastrarFuncionario', {
-                matricula_adm:user?.funcionario.matricula_funcionario,
+                matricula_adm: user?.funcionario.matricula_funcionario,
                 nome,
-                matricula_funcionario: matricula,
+                matricula_funcionario,
                 telefone,
                 email,
                 cargo,
                 regiao,
                 equipe,
-                id_setor: user?.funcionario.id_setor
             })
+        }catch(error){
+            console.error('erro ao cadastrar :', error.message)
         }
     } 
 
@@ -90,7 +91,7 @@ export const AuthProvider = ({ children }) => {
 
     return(
         <AuthContext.Provider value={{
-            user, inUser: !!user, signIn, logout
+            user, inUser: !!user, signIn, logout, addEmployee
         }}>
             {children}
         </AuthContext.Provider>

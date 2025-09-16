@@ -19,6 +19,16 @@
     font-weight: bold;
     text-transform: uppercase;
 }
+.cancel-button{
+  width: 100%;
+  height: 50px;
+  border-radius: 7px;
+  border: none;
+  background-color: var(--barueri-red);
+  font-size: large;
+  font-weight: bold;
+  text-transform: uppercase;
+}
 
 :root {
   font-family: 'Montserrat-Regular';
