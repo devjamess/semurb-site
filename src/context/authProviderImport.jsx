@@ -49,7 +49,8 @@ export const AuthProvider = ({ children }) => {
         email,
         cargo,
         regiao,
-        equipe
+        equipe,
+        senha
     ) =>{
         try{
             const {data} = await api.post('/cadastrarFuncionario', {
@@ -61,7 +62,9 @@ export const AuthProvider = ({ children }) => {
                 cargo,
                 regiao,
                 equipe,
+                senha
             })
+            return data;
         }catch(error){
             console.error('erro ao cadastrar :', error.message)
         }
