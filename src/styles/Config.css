@@ -1,0 +1,25 @@
+.config-card{
+    margin: 10vh 0 0;
+    display: flex;
+    justify-content: center;
+}
+.config-options{
+    padding: 10vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--contents);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    width: 40vw;
+}.config-opition{
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgb(195, 195, 195);
+    color: var(--barueri-black);
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 100%;
+}

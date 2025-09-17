@@ -8,13 +8,15 @@
 *{
   font-family: 'Montserrat-Regular';
 }
-
+.body{
+  margin:0;
+}
 .confirm-button{
     width: 100%;
     height: 50px;
     border-radius: 7px;
     border: none;
-    background-color: var(--barueri-green);
+    background-color: var(--confirm);
     font-size: large;
     font-weight: bold;
     text-transform: uppercase;
@@ -24,10 +26,16 @@
   height: 50px;
   border-radius: 7px;
   border: none;
-  background-color: var(--barueri-red);
+  background-color: var(--cancel);
   font-size: large;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+input:focus{
+outline: none;
+}button{
+  cursor:pointer;
 }
 
 :root {
@@ -38,7 +46,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #f3f3f3;
+  background-color: var(--bg);
 
 
   
@@ -47,17 +55,7 @@
   -moz-osx-font-smoothing: grayscale;
 
  
-  --barueri-yellow: #F4D03F;
-  --barueri-black: #111827;
-  --barueri-dark-gray: #1f2937;
-  --barueri-white: #ffffff;
-  --barueri-green: #229954;
-  --barueri-orange: #F39C12;
-  --barueri-red: #E74C3C;
-  --barueri-blue: #2E86C1;
-  --barueri-dark-bg: #1A1A1A;
-  --barueri-gray: #6B7280;
-  --barueri-blue-gray: #4c596e;
+
 
 
 }

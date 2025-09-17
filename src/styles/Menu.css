@@ -1,29 +1,37 @@
 
 .menu-container{
-    margin: 0;
+    margin: 12vh 5vw 0;
+    padding:0;
     z-index: 100;
     position: absolute;
     width: 200px;
     height: 100%;
     right: 0;
-    margin-top: 10vh;
     background-color: none;
+    
 }
 .options{
     margin: 0;
+    padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    flex-wrap: wrap;
-    
+    background-color: var(--fix-dark);
+    border-radius: 10px;   
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); 
 }
 .option{
-    margin: 0;
+    margin: 0.5rem;
     width: 100%;
     padding: 1rem;
-    border: 1px solid var(--barueri-yellow);
-    background-color: var(--barueri-black);
-    cursor: pointer;
+    border: none;
+    background-color: var(--fix-dark);
+    font-weight: bold;
+    color: var(--text)
+}.option:hover{
+        background-color: var(--fix-yellow);
+        color: var(--on-text);
+        border-radius: 10px;
 }
 

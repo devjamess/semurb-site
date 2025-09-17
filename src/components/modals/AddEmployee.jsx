@@ -5,36 +5,43 @@ import { useState } from 'react';
 function AddEmployeeCard({isOpenEmployee, setIsOpenEmployee}) {
 
     const [currentPage, setCurrentPage] = useState(1)
+    const [createdEmployee, setEmployee] = useState(null)
+
+     const goNextPage = (employee) => {
+        setEmployee(employee)
+     setCurrentPage(2);
+  };
 
     const pages = [
-        <Page1 isOpenEmployee={isOpenEmployee} setIsOpenEmployee={setIsOpenEmployee} />,
-        <Page2 />
+        <Page1 goNextPage={goNextPage} isOpenEmployee={isOpenEmployee} setIsOpenEmployee={setIsOpenEmployee} />,
+        <Page2 employee={createdEmployee} setIsOpenEmployee={setIsOpenEmployee}/>
     ];
 
     return isOpenEmployee && (
         <div className='form-container'>
             {pages[currentPage - 1]}
-            <button onClick={() => {
-                setCurrentPage((prev) => prev < pages.length ? prev + 1 : prev)
-            }} style={{ zIndex: 999999999, position: "absolute", top: "50%", left: "50%"}}>Proximo</button>
         </div>
     )
 }
 
 
 
-function Page1({isOpenEmployee, setIsOpenEmployee}) {
-    const equipes = ['aplha', 'bravo', 'charles', 'delta' ]
-    const regioes = ['norte', 'sul']
+function Page1({setIsOpenEmployee, goNextPage}) {
 
-    const {addEmployee, user} = useAuth();
+    const {addEmployee, teams, regions} = useAuth();
+    
+ 
+
     async function handleAddEmployee(e){
         e.preventDefault();
 
-        const employee = await addEmployee({
-            ...form, 
-            matricula_funcionario: +form.matricula_funcionario})
-        console.log(employee)
+        const employee = await addEmployee(
+            nome, matricula_funcionario, telefone,
+            email, cargo, nome_regiao, nome_equipe, senha)
+       
+        if(employee){
+            goNextPage(employee)
+        }
     }
        const [nome, setNome] = useState()
        const [matricula_funcionario, setMatricula] = useState()
@@ -42,42 +49,64 @@ function Page1({isOpenEmployee, setIsOpenEmployee}) {
        const [telefone, setTelefone] = useState()
        const [email, setEmail] = useState()
        const [cargo, setCargo] = useState()
-       const [equipe, setEquipe] = useState()
-       const [regiao, setRegiao] = useState()
+       const [nome_equipe, setEquipe] = useState()
+       const [nome_regiao, setRegiao] = useState()
 
 
     return (
-    <div className=''>
+    <div>
         <div action="" className="form-card-position">
         <form onSubmit={handleAddEmployee} className="forms">            
             <p className="form-title">Adicionar Funcionario</p>
             <div className="form-card">
-            <input type="text"  className="form-input" placeholder='Nome Completo' 
-             value={nome} onChange={(e) => setNome(e.target.value) }))}/>
+            <input type="text" className="form-input" placeholder='Nome Completo' 
+             value={nome} onChange={(e) => setNome(e.target.value)} />
+
             <input type="number" className="form-input" placeholder='Matricula'
-             value={matricula_funcionario} onChange={(e) => setMatricula(e.target.value) }))}/>
+             value={matricula_funcionario} onChange={(e) => setMatricula(e.target.value) }/>
+
             <input type="tel" className="form-input" placeholder='Telefone'
-             value={telefone} onChange={() => setNomealue }))}/>
+             value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+
             <input type="email" className="form-input" placeholder='Email'
-             value={email} onChange={() => setNomee }))}/> 
+             value={email} onChange={(e) => setEmail(e.target.value) }/> 
+
             <input type="text" className="form-input" placeholder='Cargo'
-            value={cargo} onChange={() => setNomee }))}/>
-            <input type='password' className="form-input" 
-            value={senha} onChange={() => setNomee }))}/>
+            value={cargo} onChange={(e) => setCargo(e.target.value) }/>
+
+            <input type='password' className="form-input" placeholder='Senha'
+            value={senha} onChange={(e) => setSenha(e.target.value) }/>
             
-            <select className="form-input"
-            value={equipe} onChange={() => setNomeue }))}>
-                <option value="" className="">Selecione a equipe</option>
-                {equipes.map((equipe, i) => (
-                    <option value={equipe} key={i}>{equipe}</option>
-                ))}
-            </select>
-            <select  className="form-input"
-            value={regiao} onChange={() => setNomeue }))}>
-                <option value="" className="">Selecione a regiao</option>
-                {regioes.map((regiao, i)=>
-                    <option value={regiao} key={i} >{regiao}</option> )}
-            </select>
+            <input 
+            id="equipe-input"
+            list="equipes-list"
+            className="form-input"
+            placeholder="Equipe"
+            value={nome_equipe}
+            onChange={(e) => setEquipe(e.target.value)}
+            required
+            />
+            <datalist id="equipes-list">
+            {teams.map((eq) => (
+                <option key={eq.id_equipe} value={eq.nome_equipe} />
+            ))}
+            </datalist>
+
+           
+            <input 
+            id="regiao-input"
+            list="regiões-list"
+            className="form-input"
+            placeholder="Regiao"
+            value={nome_regiao}
+            onChange={(e) => setRegiao(e.target.value)}
+            required
+            />
+            <datalist id="regiões-list">
+            {regions.map((eq) => (
+                <option key={eq.id_regiao} value={eq.nome_regiao} />
+            ))}
+            </datalist>
             
             </div>
             <button type='submit' className='confirm-button' >Continuar</button>
@@ -89,10 +118,59 @@ function Page1({isOpenEmployee, setIsOpenEmployee}) {
   );
  } 
 
-function Page2 () {
-    return (
-        <h2 style={{ backgroundColor: "rgb(255, 0, 255)"}}>Page 2</h2>
-    )
+function Page2 ({employee, setIsOpenEmployee}) { 
+    const { addScale, scales } = useAuth();
+
+  const [data_inicio, setDataInicio] = useState("");
+  const [tipo_escala, setTipoEscala] = useState("");
+  const [dias_trabalhados, setDiasTrabalhados] = useState("");
+  const [dias_n_trabalhados, setDiasNTrabalhados] = useState("");
+
+  async function handleAddScale(e) {
+    e.preventDefault();
+    try {
+      const scale = await addScale(employee.matricula_funcionario, {
+        data_inicio, dias_trabalhados,
+        dias_n_trabalhados, tipo_escala
+    })
+      if (scale) {
+        alert("Escala cadastrada com sucesso!");
+        setIsOpenEmployee(false); // fecha modal depois de cadastrar
+      }
+    } catch (err) {
+      console.error("Erro ao cadastrar escala", err);
+    }
+  }
+
+  return (
+    <div className="form-card-position">
+      <form onSubmit={handleAddScale} className="forms">
+        <p className="form-title">Cadastrar Escala</p>
+        <div className="form-card">
+          <input type="date" className="form-input"
+            value={data_inicio} onChange={(e) => setDataInicio(e.target.value)} />
+          <select className="form-input"
+            value={tipo_escala} onChange={(e) => setTipoEscala(e.target.value)}>
+            <option value="">Selecione a escala</option>
+            {scales.map((te)=>(
+                <option key={te.id_escala} value={te.tipo_escala}></option>
+            ))}
+            <option value="6x1">6x1</option>
+            <option value="5x2">5x2</option>
+            <option value="12x36">12x36</option>
+          </select>
+          <input type="number" className="form-input" placeholder="Dias trabalhados"
+            value={dias_trabalhados} onChange={(e) => setDiasTrabalhados(e.target.value)} />
+          <input type="number" className="form-input" placeholder="Dias de folga"
+            value={dias_n_trabalhados} onChange={(e) => setDiasNTrabalhados(e.target.value)} />
+        </div>
+        <button type="submit" className="confirm-button"> Concluir </button>
+        <button type="button" className="cancel-button" onClick={() => setIsOpenEmployee(false)}>Fechar</button>
+      </form>
+    </div>
+  );
+
+    
 }
 
 export default AddEmployeeCard

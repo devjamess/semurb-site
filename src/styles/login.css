@@ -46,7 +46,7 @@
     align-items: start;
     flex-direction: column;
     gap: 1.5rem;
-    background-color: var(--barueri-white);
+    background-color: var(--contents);
     width: 60%;
     height: 100%;
     border-top-right-radius: 10%;
@@ -88,7 +88,7 @@ h1, h2{margin: 0; color: white}
     padding: 0.8rem;
     border-radius: 5px;
     background-color: var(--barueri-black);
-    color: var(--barueri-white);
+    color: var(--contents);
     font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;

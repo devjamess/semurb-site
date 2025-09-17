@@ -24,10 +24,10 @@ height: 100vh;
     flex-direction: column;
     max-width: 400px;
     max-height: 500px;
-    background-color: aliceblue;
+    background-color: var(--contents);
     gap: 0.5rem;
     padding: 1rem;
-    border: 5px solid var(--barueri-green);
+    border: 5px solid var(--confirm);
     border-radius: 10px;
 }
 .form-card{
@@ -39,13 +39,13 @@ height: 100vh;
     text-transform: uppercase;
     font-size: large;
     font-weight: bold;
-    color: var(--barueri-green);
+    color: var(--confirm);
 
 }
 .form-input{
-    color: var(--barueri-black);
+    color: var(--text);
     background: none;
-    border: 2px solid var(--barueri-green);
+    border: 2px solid var(--confirm);
     border-radius: 30px;
     padding: 0.5rem;
 }

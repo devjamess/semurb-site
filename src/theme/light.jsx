@@ -1,0 +1,18 @@
+export default {
+    "--bg": "#f3f3f3",
+    "--on-bg": "#111827",
+    "--text": "#111827",
+    "--on-text": "#ffffff",
+    "--fix-titles": "#F4D03F",
+    "--fix-yellow": "#F4D03F",
+    "--fix-dark": "#111827",
+    "--contents": "#ffffff",
+    "--barueri-white": "#ffffff",
+    "--confirm": "#229954",
+    "--hovers": "#f4d03faf",
+    "--cancel":"#E74C3C",
+    "--barueri-blue:": "#2E86C1",
+    "--barueri-dark-bg": "#1A1A1A",
+    "--fix-gray": "#8e99aeff",
+    "--barueri-blue-gray": "#4c596e",
+};

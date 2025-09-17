@@ -1,0 +1,31 @@
+
+.container-setor{
+    background-color: var(--contents);
+    border-radius: 10px;
+    border: 15px solid var(--contents);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    width: 30%;
+    height: 400px;
+    max-height: 400px;
+}
+.container-teams{
+    display: flex;
+    margin: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.team{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--hovers);
+    color: var(--text);
+    border-radius: 10px;
+    width: 150px;
+}
+.title-setor{
+    margin: 1rem;
+    color: black
+}

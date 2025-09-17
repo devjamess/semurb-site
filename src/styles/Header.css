@@ -12,7 +12,8 @@ justify-content: space-evenly;
 gap: 10rem;
 width: 100vw;
 height: 10vh;
-background-color: var(--barueri-black);
+background-color: var(--bg);
+box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
 }
 .img{
     height: 60px;
@@ -37,7 +38,7 @@ background-color: var(--barueri-black);
     justify-content: center;
 }
 .painel{
-    color: var(--barueri-yellow);
+    color: var(--fix-titles);
     margin:0;
     font-size: 1.5rem;
     font-weight: bold;
