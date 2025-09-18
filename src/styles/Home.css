@@ -14,9 +14,9 @@
     padding: 0 1rem;
     font-size: 1rem;
     background-color: var(--contents);
-    color: var(--barueri-black);
+    color: var(--text);
 }.container-search input::placeholder{
-    color: var(--barueri-gray);
+    color: var(--fix-gray);
     opacity: 0.7;
 }.container-search button{
     width: 30%;
@@ -30,8 +30,6 @@
     padding: 0 10rem 0;
     flex-direction: row;
 }
-
-
 .container-down{
     display: flex;
     justify-content: center;

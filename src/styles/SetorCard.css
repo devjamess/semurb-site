@@ -26,6 +26,11 @@
     width: 150px;
 }
 .title-setor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 1rem;
-    color: black
+    color: var(--text);
+}.setor{
+    border-bottom: 1px solid var(--fix-gray);
 }

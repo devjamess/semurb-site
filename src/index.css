@@ -33,6 +33,7 @@
 }
 
 input:focus{
+
 outline: none;
 }button{
   cursor:pointer;

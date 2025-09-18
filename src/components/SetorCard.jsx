@@ -10,9 +10,9 @@ export default function SetorCard(){
 
     return(
       <div className='container-setor'>
-          <div className='title-setor'>
-          <h2>Setor: {user? user.setor.nome_setor: 'Desconhecido'}</h2> <hr />
-
+          <div className='setor'>
+          <h2 className='title-setor'>
+            Setor: {user? user.setor.nome_setor: 'Desconhecido'}</h2>
           </div>
 
           <div className='container-teams'>
