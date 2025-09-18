@@ -84,7 +84,7 @@ function Page1({setIsOpenEmployee, goNextPage}) {
             placeholder="Equipe"
             value={nome_equipe}
             onChange={(e) => setEquipe(e.target.value)}
-            required
+            
             />
             <datalist id="equipes-list">
             {teams.map((eq) => (
@@ -100,7 +100,7 @@ function Page1({setIsOpenEmployee, goNextPage}) {
             placeholder="Regiao"
             value={nome_regiao}
             onChange={(e) => setRegiao(e.target.value)}
-            required
+            
             />
             <datalist id="regiões-list">
             {regions.map((eq) => (
@@ -165,7 +165,7 @@ function Page2 ({employee, setIsOpenEmployee}) {
             value={dias_n_trabalhados} onChange={(e) => setDiasNTrabalhados(e.target.value)} />
         </div>
         <button type="submit" className="confirm-button"> Concluir </button>
-        <button type="button" className="cancel-button" onClick={() => setIsOpenEmployee(false)}>Fechar</button>
+        <button  className="cancel-button" onClick={() => setIsOpenEmployee(false)}>Fechar</button>
       </form>
     </div>
   );

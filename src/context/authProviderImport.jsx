@@ -118,7 +118,7 @@ export const AuthProvider = ({ children }) => {
 
         const findEmployees = async () => {
             try{
-                const {data} = await api.get('/listarFuncionarios')
+                const {data} = await api.get(`/listarFuncionarios`)
                 setEmployees(data || [])
                 return data
             } catch (error) {

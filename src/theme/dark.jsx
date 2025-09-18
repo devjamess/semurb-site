@@ -7,7 +7,7 @@ export default {
     "--fix-yellow": "#F4D03F",
     "--fix-dark": "#111827",
     "--contents": "#1f2937",
-    "--barueri-white": "#ffffff",
+    "--fix-white": "#ffffff",
     "--confirm": "#229954",
     "--hovers": "#f39d12b1",
     "--cancel":"#E74C3C",

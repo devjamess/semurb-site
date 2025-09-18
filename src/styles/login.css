@@ -31,7 +31,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: var(--barueri-black);
+    background-color: var(--fix-dark);
     border-top-left-radius: 10%;
     border-bottom-left-radius: 10%;
     width: 40%;
@@ -46,7 +46,7 @@
     align-items: start;
     flex-direction: column;
     gap: 1.5rem;
-    background-color: var(--contents);
+    background-color: var(--fix-white);
     width: 60%;
     height: 100%;
     border-top-right-radius: 10%;
@@ -56,9 +56,9 @@
 
 h1, h2{margin: 0; color: white}
 .font-color{
-    color: var(--barueri-black);
+    color: var(--fix-dark);
 }.font-color-light{
-    color: var(--barueri-gray);
+    color: var(--fix-gray);
 }
 
 .content-login{
@@ -71,23 +71,23 @@ h1, h2{margin: 0; color: white}
 .label-login{
     font-size: 1.2rem;
     font-weight: 500;
-    color: var(--barueri-blue-gray);
+    color: var(--fix-dark);
 }
 .input-login{
-    color: var(--barueri-black);
+    color: var(--fix-dark);
     outline: none;
     border: none;
     background: none;
-    border-bottom: 2px solid var(--barueri-gray);
+    border-bottom: 2px solid var(--fix-gray);
 }.input-login:focus{
-    color: var(--barueri-black);
+    color: var(--fix-dark);
 }
 .button-login{
     border: none;
     outline: none;
     padding: 0.8rem;
     border-radius: 5px;
-    background-color: var(--barueri-black);
+    background-color: var(--fix-dark);
     color: var(--contents);
     font-size: 1.2rem;
     font-weight: 600;
@@ -96,7 +96,7 @@ h1, h2{margin: 0; color: white}
 }
 .forgot-password{
     text-decoration: none;
-    color: var(--barueri-gray);
+    color: var(--fix-gray);
     font-weight: 500;
     letter-spacing: 0.1rem;
 }
