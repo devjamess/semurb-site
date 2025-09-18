@@ -11,8 +11,8 @@ export default {
     "--confirm": "#229954",
     "--hovers": "#f4d03faf",
     "--cancel":"#E74C3C",
-    "--barueri-blue:": "#2E86C1",
+    "--id": "#2E86C1",
     "--barueri-dark-bg": "#1A1A1A",
     "--fix-gray": "#8e99aeff",
-    "--barueri-blue-gray": "#4c596e",
+    "--on-gray": "#b1bdceff",
 };

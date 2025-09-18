@@ -28,7 +28,7 @@
     border: none;
     background-color: var(--fix-dark);
     font-weight: bold;
-    color: var(--text)
+    color: var(--fix-titles);
 }.option:hover{
         background-color: var(--fix-yellow);
         color: var(--on-text);

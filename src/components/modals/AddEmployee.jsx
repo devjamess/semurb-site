@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react'; // Import useEffect
 
 function AddEmployeeCard({isOpenEmployee, setIsOpenEmployee, initialPage = 1}) {
 
-    const [currentPage, setCurrentPage] = useState(initialPage)
-    const [createdEmployee, setEmployee] = useState(null)
+ const [currentPage, setCurrentPage] = useState(initialPage)
+ const [createdEmployee, setEmployee] = useState(null)
 
     // Use useEffect to update currentPage when the modal opens with a new initialPage
     useEffect(() => {
@@ -14,21 +14,20 @@ function AddEmployeeCard({isOpenEmployee, setIsOpenEmployee, initialPage = 1}) {
         }
     }, [isOpenEmployee, initialPage]);
 
-     const goNextPage = (employee) => {
-        setEmployee(employee)
-     setCurrentPage(2);
-  };
+ const goNextPage = (employee) => {
+ setEmployee(employee)
+ setCurrentPage(2) };
 
-    const pages = [
-        <Page1 goNextPage={goNextPage} isOpenEmployee={isOpenEmployee} setIsOpenEmployee={setIsOpenEmployee} />,
-        <Page2 employee={createdEmployee} setIsOpenEmployee={setIsOpenEmployee}/>
-    ];
+ const pages = [
+ <Page1 goNextPage={goNextPage} isOpenEmployee={isOpenEmployee} setIsOpenEmployee={setIsOpenEmployee} />,
+ <Page2 employee={createdEmployee} setIsOpenEmployee={setIsOpenEmployee}/>
+ ];
 
-    return isOpenEmployee && (
-        <div className='form-container'>
-            {pages[currentPage - 1]}
-        </div>
-    )
+ return isOpenEmployee && (
+ <div className='form-container'>
+ {pages[currentPage - 1]}
+ </div>
+ )
 }
 
 // ... Page1 and Page2 components remain unchanged
@@ -127,28 +126,32 @@ function Page1({setIsOpenEmployee, goNextPage}) {
  } 
 
 function Page2 ({employee, setIsOpenEmployee}) { 
-    const { addScale, scales, employees} = useAuth();
+    const { addScale, scales} = useAuth();
     
-
+  const [matricula_funcionario, setMatriculaFuncionario] = useState(employee?.matricula_funcionario || "")
   const [data_inicio, setDataInicio] = useState("");
   const [tipo_escala, setTipoEscala] = useState("");
   const [dias_trabalhados, setDiasTrabalhados] = useState("");
   const [dias_n_trabalhados, setDiasNTrabalhados] = useState("");
-  const [matricula_funcionario, setMatriculaFuncionario] = useState(employee?.matricula_funcionario || "")
+  
 
   async function handleAddScale(e) {
     e.preventDefault();
     try {
-      const scale = await addScale(matricula_funcionario, {
-        data_inicio, dias_trabalhados,
-        dias_n_trabalhados, tipo_escala
-    })
+      const scale = await addScale(
+        matricula_funcionario,
+        data_inicio, 
+        dias_trabalhados,
+        dias_n_trabalhados, 
+        tipo_escala
+    )
       if (scale) {
         alert("Escala cadastrada com sucesso!");
         setIsOpenEmployee(false); // fecha modal depois de cadastrar
       }
     } catch (err) {
       console.error("Erro ao cadastrar escala", err);
+      alert("Erro ao cadastrar escala")
     }
   }
 
@@ -176,7 +179,7 @@ function Page2 ({employee, setIsOpenEmployee}) {
             />
             <datalist id="escalas-list">
             {scales.map(scalel => (
-                <option key={scalel.id_escala} value={scalel.tipo_escala} />
+                <option key={scalel.escala.id_escala} value={scalel.escala.tipo_escala} />
             ))}
             </datalist>
         </div>

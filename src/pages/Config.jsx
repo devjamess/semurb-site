@@ -9,7 +9,7 @@ function Config() {
         <div className="body">
             <div className="config-card">
                 <div className="config-options">
-                <buton onClick={toggleTheme} className="config-opition">Modo {mode === "light" ? "Dark" : "Light"} </buton>
+                <button onClick={toggleTheme} className="config-opition">Modo {mode === "light" ? "Escuro" : "Claro"} </button>
                 <button className="config-opition">Politica e Privacidade <IoIosArrowForward /></button>
                 <button className="config-opition">Acessibilidade <IoIosArrowForward /></button>
                 <button className="config-opition">Sobre <IoIosArrowForward /></button>

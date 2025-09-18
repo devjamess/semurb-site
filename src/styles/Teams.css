@@ -1,0 +1,22 @@
+.container-search-team{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 3rem 0;
+    gap: 1rem;
+}.container-search-team input{
+    width: 30%;
+    height: 2.5rem;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 0 1rem;
+    font-size: 1rem;
+    background-color: var(--contents);
+    color: var(--text);
+}.container-search-team input::placeholder{
+    color: var(--fix-gray);
+    opacity: 0.7;
+}.container-search-team button{
+    width: 20%;
+}

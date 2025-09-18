@@ -3,12 +3,12 @@ import {useParams} from 'react-router-dom'
 import {useState} from 'react'
 import AddEmployeeCard from '../components/modals/AddEmployee'
 import'../styles/EmployeeTable.css'
-
+import '../styles/Teams.css'
 function Teams() {
     
     const {teams, employees, user, regions, scales} = useAuth()
     const {id} = useParams()
-    const team = teams.find(tm => String(tm.id_equipe) === id)
+    teams.find(tm => String(tm.id_equipe) === id)
     const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
     const [startPage, setStartPage] = useState(1); // New state to control starting page
 
@@ -25,15 +25,42 @@ function Teams() {
             initialPage={startPage} // Pass the initial page
         />
 
-        <div className="container-search">
+      <div className="container-search-team">
         <button className='cancel-button' onClick={() => handleOpenModal(2)}> Atualizar Escala</button>
         <input type="search" placeholder='Buscar Funcionarios. . .' />
         <button className="confirm-button" onClick={() => handleOpenModal(1)}>Adicionar Funcionario</button>
       </div>
 
+<div className="table">
+  <div className="table-header">
+    <div>Matrícula</div>
+    <div>Nome</div>
+    <div>Email</div>
+    <div>Telefone</div>
+    <div>Setor</div>
+    <div>Equipe</div>
+    <div>Região</div>
+    <div>Escala</div>
+  </div>
 
+
+     {employees.filter(employee => employee.id_equipe == id).map((employee) => (  
+      <div className="table-row">
+            <div className='matricula'>{employee.matricula_funcionario}</div>
+            <div >{employee.nome}</div>
+            <div >{employee.email}</div>
+            <div >{employee.telefone}</div>
+            <div >{user?.setor.nome_setor}</div>
+            <div >{teams.find(team => (team.id_equipe == employee.id_equipe))?.nome_equipe}</div>
+            <div >{regions.find(region =>(region.id_regiao == employee.id_regiao))?.nome_regiao}</div>
+            <div >{scales.find(scale => (scale.escala.id_escala == employee.id_escala))?.escala.tipo_escala}</div>
+      </div>
+        ))}
+  </div>
+{/* 
         <div className="list">
         <table className='table'>
+        
       <thead className='the'>
         <tr className='tr1'>
           <th className="th">Matricula</th>
@@ -46,23 +73,21 @@ function Teams() {
           <th className="th">Escala</th>
         </tr>
       </thead>
-      <tbody className='tb'>
+      
         {employees.filter(employee => employee.id_equipe == id).map((employee) => (
-          <tr className='tr2' key={employee.matricula_funcionario}>
-            <td className="td mf">{employee.matricula_funcionario}</td>
-            <td className="td">{employee.nome}</td>
-            <td className="td">{employee.email}</td>
-            <td className="td">{employee.telefone}</td>
-            <td className="td">{user?.setor.nome_setor}</td>
-            <td className="td">{teams.find(team => (team.id_equipe == employee.id_equipe))?.nome_equipe}</td>
-            <td className="td">{regions.find(region =>(region.id_regiao == employee.id_regiao))?.nome_regiao}</td>
-            <td className="td">{scales.find(scale => (scale.id_escala == employee.id_escala))?.tipo_escala}</td>
-          </tr>
+            <div className='matricula'>{employee.matricula_funcionario}</div>
+            <div >{employee.nome}</div>
+            <div >{employee.email}</div>
+            <div >{employee.telefone}</div>
+            <div >{user?.setor.nome_setor}</div>
+            <div >{teams.find(team => (team.id_equipe == employee.id_equipe))?.nome_equipe}</div>
+            <div >{regions.find(region =>(region.id_regiao == employee.id_regiao))?.nome_regiao}</div>
+            <div >{scales.find(scale => (scale.escala.id_escala == employee.id_escala))?.escala.tipo_escala}</div>
         ))}
       </tbody>
     </table>
 
-        </div>
+        </div>*/}
       </div>
     )      
 

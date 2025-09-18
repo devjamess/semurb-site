@@ -167,7 +167,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         
-        findScales()
+        findScales();
         findTeams();
         findRegions();
         findEmployees();
