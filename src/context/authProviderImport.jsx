@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
                 senha
             })
 
-            if(data &&data){
+            if(data){
                 setUser(data);
                 localStorage.setItem('user_data', JSON.stringify(data));
                 return data;
@@ -118,17 +118,18 @@ export const AuthProvider = ({ children }) => {
 
         const findEmployees = async () => {
             try{
-                const {data} = await api.get(`/listarFuncionarios`)
+                console.log(user)
+                const {data} = await api.get(`/funcionariosSetor/${user?.funcionario.matricula_funcionario}`)
                 setEmployees(data || [])
                 return data
             } catch (error) {
-                console.error('Erro ao istar funcionarios', error.message)
+                console.error('Erro ao listar funcionarios', error.message)
             }
         };
 
         const findScales = async() => {
             try{
-                const {data} = await api.get('/listarEscalas')
+                const {data} = await api.get(`/escalasSetor/${user?.funcionario.matricula_funcionario}`)
                 setScales(data || [])
                 return data
             } catch (error) {
@@ -157,14 +158,17 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
         
     };
-    findScales()
-    findTeams();
-    findRegions();
-    findEmployees();
-
-        loadUser();
+    loadUser();
 
 }, []);
+
+    useEffect(() => {
+        
+        findScales()
+        findTeams();
+        findRegions();
+        findEmployees();
+    }, [user])
 
     if (loading) return;
 

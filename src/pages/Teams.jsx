@@ -6,7 +6,7 @@ import'../styles/EmployeeTable.css'
 
 function Teams() {
     
-    const {teams, employees, user} = useAuth()
+    const {teams, employees, user, regions, scales} = useAuth()
     const {id} = useParams()
     const team = teams.find(tm => String(tm.id_equipe) === id)
     const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
@@ -35,16 +35,16 @@ function Teams() {
         </tr>
       </thead>
       <tbody className='tb'>
-        {employees.map((item) => (
-          <tr className='tr2' key={item.matricula_funcionario}>
-            <td className="td mf">{item.matricula_funcionario}</td>
-            <td className="td">{item.nome}</td>
-            <td className="td">{item.email}</td>
-            <td className="td">{item.telefone}</td>
+        {employees.filter(employee => employee.id_equipe == id).map((employee) => (
+          <tr className='tr2' key={employee.matricula_funcionario}>
+            <td className="td mf">{employee.matricula_funcionario}</td>
+            <td className="td">{employee.nome}</td>
+            <td className="td">{employee.email}</td>
+            <td className="td">{employee.telefone}</td>
             <td className="td">{user?.setor.nome_setor}</td>
-            <td className="td">{team?.nome_equipe}</td>
-            <td className="td">{item.id_regiao}</td>
-            <td className="td">{item.id_escala}</td>
+            <td className="td">{teams.find(team => (team.id_equipe == employee.id_equipe))?.nome_equipe}</td>
+            <td className="td">{regions.find(region =>(region.id_regiao == employee.id_regiao))?.nome_regiao}</td>
+            <td className="td">{scales.find(scale => (scale.id_escala == employee.id_escala))?.tipo_escala}</td>
           </tr>
         ))}
       </tbody>
