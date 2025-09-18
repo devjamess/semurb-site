@@ -10,15 +10,27 @@ function Teams() {
     const {id} = useParams()
     const team = teams.find(tm => String(tm.id_equipe) === id)
     const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
+    const [startPage, setStartPage] = useState(1); // New state to control starting page
+
+    const handleOpenModal = (page) => {
+        setStartPage(page);
+        setIsOpenEmployeeModal(true);
+    };
 
     return(
     <div className="body">
-        <AddEmployeeCard isOpenEmployee={isOpenEmployeeModal} setIsOpenEmployee={() => setIsOpenEmployeeModal(!isOpenEmployeeModal)}/>
+        <AddEmployeeCard 
+            isOpenEmployee={isOpenEmployeeModal} 
+            setIsOpenEmployee={() => setIsOpenEmployeeModal(false)}
+            initialPage={startPage} // Pass the initial page
+        />
 
         <div className="container-search">
+        <button className='cancel-button' onClick={() => handleOpenModal(2)}> Atualizar Escala</button>
         <input type="search" placeholder='Buscar Funcionarios. . .' />
-        <button className="confirm-button" onClick={setIsOpenEmployeeModal}>Adicionar Funcionario</button>
+        <button className="confirm-button" onClick={() => handleOpenModal(1)}>Adicionar Funcionario</button>
       </div>
+
 
         <div className="list">
         <table className='table'>

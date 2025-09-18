@@ -77,6 +77,7 @@ export const AuthProvider = ({ children }) => {
     } 
 
     const addScale = async (
+        matricula_funcionario,
         data_inicio,
         dias_trabalhados,
         dias_n_trabalhados,
@@ -84,6 +85,8 @@ export const AuthProvider = ({ children }) => {
     ) => {
         try{
             const {data} = await api.post('/cadastrarEscala', {
+                matricula_adm: user?.funcionario.matricula_funcionario,
+                matricula_funcionario,
                 data_inicio,
                 dias_trabalhados,
                 dias_n_trabalhados,

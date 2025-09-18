@@ -1,29 +1,37 @@
 import '../../styles/AddEmployee.css'
 import {useAuth} from '../../hook/useAuth'
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Import useEffect
 
-function AddEmployeeCard({isOpenEmployee, setIsOpenEmployee}) {
+function AddEmployeeCard({isOpenEmployee, setIsOpenEmployee, initialPage = 1}) {
 
-    const [currentPage, setCurrentPage] = useState(1)
-    const [createdEmployee, setEmployee] = useState(null)
+    const [currentPage, setCurrentPage] = useState(initialPage)
+    const [createdEmployee, setEmployee] = useState(null)
 
-     const goNextPage = (employee) => {
-        setEmployee(employee)
-     setCurrentPage(2);
-  };
+    // Use useEffect to update currentPage when the modal opens with a new initialPage
+    useEffect(() => {
+        if (isOpenEmployee) {
+            setCurrentPage(initialPage);
+        }
+    }, [isOpenEmployee, initialPage]);
 
-    const pages = [
-        <Page1 goNextPage={goNextPage} isOpenEmployee={isOpenEmployee} setIsOpenEmployee={setIsOpenEmployee} />,
-        <Page2 employee={createdEmployee} setIsOpenEmployee={setIsOpenEmployee}/>
-    ];
+     const goNextPage = (employee) => {
+        setEmployee(employee)
+     setCurrentPage(2);
+  };
 
-    return isOpenEmployee && (
-        <div className='form-container'>
-            {pages[currentPage - 1]}
-        </div>
-    )
+    const pages = [
+        <Page1 goNextPage={goNextPage} isOpenEmployee={isOpenEmployee} setIsOpenEmployee={setIsOpenEmployee} />,
+        <Page2 employee={createdEmployee} setIsOpenEmployee={setIsOpenEmployee}/>
+    ];
+
+    return isOpenEmployee && (
+        <div className='form-container'>
+            {pages[currentPage - 1]}
+        </div>
+    )
 }
 
+// ... Page1 and Page2 components remain unchanged
 
 
 function Page1({setIsOpenEmployee, goNextPage}) {
@@ -119,17 +127,19 @@ function Page1({setIsOpenEmployee, goNextPage}) {
  } 
 
 function Page2 ({employee, setIsOpenEmployee}) { 
-    const { addScale, scales } = useAuth();
+    const { addScale, scales, employees} = useAuth();
+    
 
   const [data_inicio, setDataInicio] = useState("");
   const [tipo_escala, setTipoEscala] = useState("");
   const [dias_trabalhados, setDiasTrabalhados] = useState("");
   const [dias_n_trabalhados, setDiasNTrabalhados] = useState("");
+  const [matricula_funcionario, setMatriculaFuncionario] = useState(employee?.matricula_funcionario || "")
 
   async function handleAddScale(e) {
     e.preventDefault();
     try {
-      const scale = await addScale(employee.matricula_funcionario, {
+      const scale = await addScale(matricula_funcionario, {
         data_inicio, dias_trabalhados,
         dias_n_trabalhados, tipo_escala
     })
@@ -147,22 +157,28 @@ function Page2 ({employee, setIsOpenEmployee}) {
       <form onSubmit={handleAddScale} className="forms">
         <p className="form-title">Cadastrar Escala</p>
         <div className="form-card">
+          <input type="number" className="form-input"
+            value={matricula_funcionario} onChange={(e) => setMatriculaFuncionario(e.target.value)} />
           <input type="date" className="form-input"
             value={data_inicio} onChange={(e) => setDataInicio(e.target.value)} />
-          <select className="form-input"
-            value={tipo_escala} onChange={(e) => setTipoEscala(e.target.value)}>
-            <option value="">Selecione a escala</option>
-            {scales.map((te)=>(
-                <option key={te.id_escala} value={te.tipo_escala}></option>
-            ))}
-            <option value="6x1">6x1</option>
-            <option value="5x2">5x2</option>
-            <option value="12x36">12x36</option>
-          </select>
           <input type="number" className="form-input" placeholder="Dias trabalhados"
             value={dias_trabalhados} onChange={(e) => setDiasTrabalhados(e.target.value)} />
           <input type="number" className="form-input" placeholder="Dias de folga"
             value={dias_n_trabalhados} onChange={(e) => setDiasNTrabalhados(e.target.value)} />
+             <input 
+            id="escala-input"
+            list="escalas-list"
+            className="form-input"
+            placeholder="Escala"
+            value={tipo_escala}
+            onChange={(e) => setTipoEscala(e.target.value)}
+            
+            />
+            <datalist id="escalas-list">
+            {scales.map(scalel => (
+                <option key={scalel.id_escala} value={scalel.tipo_escala} />
+            ))}
+            </datalist>
         </div>
         <button type="submit" className="confirm-button"> Concluir </button>
         <button  className="cancel-button" onClick={() => setIsOpenEmployee(false)}>Fechar</button>
