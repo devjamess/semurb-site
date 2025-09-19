@@ -30,6 +30,7 @@
 }.profile-name{
     margin:0; padding:0;
     font-weight: bold;
+    font-size: xx-large;
     color: var(--text)
 }
 .profile-card-down{
@@ -41,9 +42,11 @@
 }.profile-info{
     color: var(--on-bg);
     font-weight: bold;
+    font-size: x-large;
 }.info-auth{
     color: var(--fix-gray);
     font-weight: 100;
+    font-size: x-large;
 }
 
 .profile-escale{

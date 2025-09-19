@@ -1,8 +1,8 @@
 
 function Admin () {
     return(
-        <div className="">ASJBFAH</div>
+        <h2 className="">ASWHFIASFNAPSFA</h2>
     )
 }
 
-export default Admin
+export default Admin;

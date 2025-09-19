@@ -7,6 +7,7 @@ import Teams from './pages/Teams'
 import Header from './components/Header'
 import Config from './pages/Config'
 import Admin from './pages/Admin'
+import LoginAdmin from './pages/loginAdmin'
 import {AuthProvider} from './context/authProviderImport'
 import {ThemeProvider} from './theme/ThemeProviderImport'
 import {useAuth} from './hook/useAuth'
@@ -46,20 +47,19 @@ function App() {
     return (
       <Routes location={location} key={location.pathname}>
         <Route path='/' element={ <Login /> } />
-        <Route path='/login/admin'/>
-      <Route element={<AdminAuth />}> 
-
+        <Route path='/login/admin' element={ <LoginAdmin />} />
+       
         <Route  element={<AuthApp />}>
           <Route path='/home' element={ <Home /> }/>
           <Route path='/profile' element={ <Profile /> } />
           <Route path='/teams/:id' element={ <Teams /> }/>
           <Route path='/config' element={ <Config />} />
         </Route>
-        
+
+      <Route element={<AdminAuth />}>
           <Route path='/admin' element={<Admin />} />
       </Route>
        
-    
       </Routes>
     
   ); 

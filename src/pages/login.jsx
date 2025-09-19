@@ -48,6 +48,7 @@ function Login() {
 
         <button className='button-login' type="submit">Entrar</button>
         <a className='forgot-password' href="/home">Esqueceu a senha?</a>
+        <a className='forgot-password' href="/login/admin">Admin</a>
         </div> 
         </form>
       </div>
