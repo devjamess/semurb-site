@@ -4,7 +4,7 @@ import AuthContext from '../context/authContextImport'
 export const useAuth =() => {
     const {user, inUser, signIn, logout, addEmployee, addScale,
         findTeams, teams, findRegions, regions, findEmployees, employees, 
-        findScales, scales} = useContext(AuthContext);
+        findScales, scales, admin, inAdmin, adminSignIn} = useContext(AuthContext);
 
     return{
         user,
@@ -21,6 +21,10 @@ export const useAuth =() => {
         findEmployees,
         employees,
         findScales,
-        scales
+        scales,
+
+        admin,
+        inAdmin,
+        adminSignIn
     }
 }

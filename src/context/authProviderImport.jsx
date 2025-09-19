@@ -5,11 +5,13 @@ import  AuthContext  from "./authContextImport";
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [admin, setAdmin] = useState(null)
     const [loading, setLoading] = useState(true)
     const [teams, setTeams] = useState([])
     const [regions, setRegions] = useState([])
     const [employees, setEmployees] = useState([])
     const [scales, setScales] = useState([])
+    
     const signIn = async (matricula_funcionario, senha) => {
         try{
             if(!matricula_funcionario || !senha){
@@ -98,6 +100,24 @@ export const AuthProvider = ({ children }) => {
         }
     }
     
+    const adminSignIn = async(registration, password) => {
+        try{
+            const {data} = await api.post('/loginMaster', {
+                registration,
+                password
+            })
+            if(data){
+                setAdmin(data);
+                localStorage.setItem('admin_data', JSON.stringify(data));
+                return data;
+            }
+            return;
+        }catch(error){
+            console.error("Erro ao fazer login como admin", error.message)
+        }
+    }
+
+
     //GET
         const findTeams = async () => {
             try {
@@ -165,13 +185,33 @@ export const AuthProvider = ({ children }) => {
 
 }, []);
 
+ useEffect (() => {
+        const loadAdmin = async () => {
+            const storedAdmin = localStorage.getItem('admin_data');
+            if (typeof storedAdmin === 'string' && storedAdmin.trim() !== '') {
+            try {
+                setAdmin(JSON.parse(storedAdmin));
+            } catch (e) {
+                // Se o JSON estiver corrompido, limpe o localStorage
+                console.error("Erro ao fazer parse do JSON do usuário:", e);
+                localStorage.removeItem('admin_data');
+            }
+        }
+        
+        setLoading(false);
+        
+    };
+    loadAdmin();
+
+}, []);
+
     useEffect(() => {
         
         findScales();
         findTeams();
         findRegions();
         findEmployees();
-    }, [user])
+    }, [user,admin])
 
     if (loading) return;
 
@@ -179,7 +219,11 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider value={{
             user, inUser: !!user, signIn, logout, addEmployee, addScale,
             findTeams, teams, findRegions, regions, findEmployees, employees,
-            findScales, scales
+            findScales, scales,
+
+            admin,
+            inAdmin: !!admin,
+            adminSignIn
         }}>
             {children}
         </AuthContext.Provider>
