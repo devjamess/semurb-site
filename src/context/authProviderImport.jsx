@@ -11,6 +11,8 @@ export const AuthProvider = ({ children }) => {
     const [regions, setRegions] = useState([])
     const [employees, setEmployees] = useState([])
     const [scales, setScales] = useState([])
+    const [allEmployees, setAllEmployees] = useState([])
+    const [allSectors, setAllSectors] = useState([])
     
     const signIn = async (matricula_funcionario, senha) => {
         try{
@@ -39,14 +41,12 @@ export const AuthProvider = ({ children }) => {
         } catch(error){
             console.error('Erro ao fazer login: ', error.message)
         }
-    }
-
+    };
     const logout = async() => {
         setUser(null)
         localStorage.removeItem('user_data')
        
-    }
-
+    };
     const addEmployee = async(
         nome,
         matricula_funcionario,
@@ -74,10 +74,9 @@ export const AuthProvider = ({ children }) => {
         }catch(error){
             console.error('erro ao cadastrar :', error.message)
             alert('Erro ao cadastrar funcionario')
-            return
+            return;
         }
-    } 
-
+    };
     const addScale = async (
         matricula_funcionario,
         data_inicio,
@@ -98,8 +97,10 @@ export const AuthProvider = ({ children }) => {
         } catch(error) {
             console.error('Erro ao cadastrar escala', error.message)
         }
-    }
+    };
     
+
+  
     const adminSignIn = async(registration, password) => {
         try{
             const {data} = await api.post('/loginMaster', {
@@ -115,6 +116,40 @@ export const AuthProvider = ({ children }) => {
         }catch(error){
             console.error("Erro ao fazer login como admin", error.message)
         }
+    };
+    const addSector = async(nome_setor) => {
+        try{
+        const {data} = await api.post('/cadastrarSetor', {
+            nome_setor
+        })
+        return data;
+        }catch(error){
+            console.error('Erro ao criar setor', error.message)
+        }
+    };
+    const addEmployeeAdmin = async(
+                matricula_funcionario,
+                nome,
+                email,
+                senha,
+                telefone,
+                cargo,
+                status_permissao,
+    ) => {
+        try{    
+            const {data} = await api.post('cadastrarFuncioanrio_master', {
+                 matricula_funcionario,
+                nome,
+                email,
+                senha,
+                telefone,
+                cargo,
+                status_permissao
+            })
+            return data
+        }catch(error){
+            console.error("Erro ao cadastrar Administrador", error.message)
+        }
     }
 
 
@@ -128,7 +163,6 @@ export const AuthProvider = ({ children }) => {
                 console.error("Erro ao buscar equipes:", error);
             }
         };
-
         const findRegions = async () => {
             try {
                 const { data } = await api.get('/regiao');
@@ -138,7 +172,6 @@ export const AuthProvider = ({ children }) => {
                 console.error("Erro ao buscar regiões:", error);
             }
         };
-
         const findEmployees = async () => {
             try{
                 console.log(user)
@@ -149,7 +182,6 @@ export const AuthProvider = ({ children }) => {
                 console.error('Erro ao listar funcionarios', error.message)
             }
         };
-
         const findScales = async() => {
             try{
                 const {data} = await api.get(`/escalasSetor/${user?.funcionario.matricula_funcionario}`)
@@ -158,10 +190,28 @@ export const AuthProvider = ({ children }) => {
             } catch (error) {
                 console.error('Erro ao listar escalas', error.message)
             }
-        }
+        };
 
 
-     
+
+        const findAllEmployees = async() => {
+            try{
+                const {data} = await api.get('/listarFuncionarios_master')
+                setAllEmployees(data || [])
+                return data
+            } catch (error) {
+                console.error('Erro ao buscar funcionarios', error.message)
+            }
+        };
+        const findAllSectors= async() => {
+            try{
+                const {data} = await api.get('/listarSetores')
+                setAllSectors(data || [])
+                return data
+            } catch (error) {
+                console.error('Erro ao buscar setores', error.message)
+            }
+        };
 
 
 
@@ -211,19 +261,40 @@ export const AuthProvider = ({ children }) => {
         findTeams();
         findRegions();
         findEmployees();
-    }, [user,admin])
+    }, [user])
+
+        useEffect(() => {
+
+        findAllSectors();
+        findAllEmployees();
+    }, [admin])
 
     if (loading) return;
 
     return(
         <AuthContext.Provider value={{
-            user, inUser: !!user, signIn, logout, addEmployee, addScale,
-            findTeams, teams, findRegions, regions, findEmployees, employees,
-            findScales, scales,
+            user, 
+            inUser: !!user, 
+            signIn, logout, 
+            addEmployee, addScale,
+            findTeams, 
+            teams, 
+            findRegions, 
+            regions, 
+            findEmployees, 
+            employees,
+            findScales, 
+            scales,
 
             admin,
             inAdmin: !!admin,
-            adminSignIn
+            adminSignIn,
+            addSector,
+            addEmployeeAdmin,
+            findAllEmployees,
+            allEmployees,
+            findAllSectors,
+            allSectors,
         }}>
             {children}
         </AuthContext.Provider>

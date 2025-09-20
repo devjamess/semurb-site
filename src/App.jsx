@@ -20,7 +20,7 @@ function AuthApp (){
 }
 
 function AdminAuth () {
-  const {inAdmin} = useAuth
+  const {inAdmin} = useAuth()
 
   if(inAdmin) {return(<div className="layout"> <Header /> <main className="main-layout"><Outlet /></main> </div>   )} else {<Navigate to='/login/admin' />}
 }

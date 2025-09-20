@@ -6,6 +6,7 @@ function MenuHeader({isOpen, setIsOpen }) {
     const route = useNavigate();
     async function handleLogout(){
         logout()
+        route('/')
     }
 
 if(user && isOpen)

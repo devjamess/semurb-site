@@ -10,12 +10,12 @@ function MyChart() {
 
   const data = [
     ["Escala", "Funcionarios", { role: "style" }],
-    ["6x1", 10, getCssVar("--fix-titles")],
-    ["5x2", 29, getCssVar("--fix-titles")],
-    ["4x3", 18, getCssVar("--fix-titles")],
-    ["3x4", 15, getCssVar("--fix-titles")],
-    ["2x5", 23, getCssVar("--fix-titles")],
-    ["1x6", 7, getCssVar("--fix-titles")],
+    ["6x1", 10, getCssVar("--fix-yellow")],
+    ["5x2", 29, getCssVar("--fix-yellow")],
+    ["4x3", 18, getCssVar("--fix-yellow")],
+    ["3x4", 15, getCssVar("--fix-yellow")],
+    ["2x5", 23, getCssVar("--fix-yellow")],
+    ["1x6", 7, getCssVar("--fix-yellow")],
   ];
 
  const options = {
