@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import api from '../api/api';
 import  AuthContext  from "./authContextImport";
+import MyChart from "../components/Graph";
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -232,6 +233,7 @@ export const AuthProvider = ({ children }) => {
         
     };
     loadUser();
+    
 
 }, []);
 

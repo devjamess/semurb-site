@@ -69,7 +69,7 @@ function Page1({setIsOpenEmployee, goNextPage}) {
             <input type="text" className="form-input" placeholder='Nome Completo' 
              value={nome} onChange={(e) => setNome(e.target.value)} />
 
-            <input type="number" className="form-input" placeholder='Matricula'
+            <input type="number"  className="form-input" placeholder='Matricula'
              value={matricula_funcionario} onChange={(e) => setMatricula(e.target.value) }/>
 
             <input type="tel" className="form-input" placeholder='Telefone'
@@ -116,8 +116,10 @@ function Page1({setIsOpenEmployee, goNextPage}) {
             </datalist>
             
             </div>
+            <div className="buttons-form">
             <button type='submit' className='confirm-button' >Continuar</button>
             <button className='cancel-button' onClick={setIsOpenEmployee}>Fechar</button>
+            </div>
         </form>
         </div>
     </div>
@@ -160,7 +162,7 @@ function Page2 ({employee, setIsOpenEmployee}) {
       <form onSubmit={handleAddScale} className="forms">
         <p className="form-title">Cadastrar Escala</p>
         <div className="form-card">
-          <input type="number" className="form-input"
+          <input type="number" className="form-input" placeholder='Matricula'
             value={matricula_funcionario} onChange={(e) => setMatriculaFuncionario(e.target.value)} />
           <input type="date" className="form-input"
             value={data_inicio} onChange={(e) => setDataInicio(e.target.value)} />

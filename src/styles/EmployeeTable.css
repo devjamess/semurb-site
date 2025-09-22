@@ -1,6 +1,6 @@
 .table {
   display: grid;
-  grid-template-columns: repeat(8, 1fr); /* 8 colunas */
+  grid-template-columns: repeat(8, 1fr); 
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
@@ -9,8 +9,8 @@
 }
 
 .table-header {
-  display: contents; /* mantém grid mas aplica aos filhos */
-  background-color: var(--on-gray); /* cor do cabeçalho */
+  display: contents; 
+  background-color: var(--on-gray); 
   color: var(--text);
   font-weight: bold;
   
@@ -23,7 +23,7 @@
 }
 
 .table-row {
-  display: contents; /* cada row usa grid nas 8 colunas */
+  display: contents; 
   color: var(--text)
 }
 
@@ -33,7 +33,7 @@
 }
 
 .table-row:nth-child(even) > div {
-  background-color: var(--contents); /* zebra striping */
+  background-color: var(--contents); 
 }
 
 .matricula {

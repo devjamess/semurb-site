@@ -11,17 +11,14 @@
 }
 
 .container-login {
-    position: relative;
     display: flex;
     flex-direction: row;
     border-radius: 10%;
     box-shadow: 0 4px 6px rgba(2, 3, 10, 0.4);
-    width: 70%;
-    height: 70%;
+    width: 700px;
+    height: 400px;
     justify-content: center;
     align-items: center;
-    max-width: 900px;
-    max-height: 500px;
 }
 .semurb-logo-login{
     background: url('../assets/images/semurb-logo-login.png') ;
@@ -40,12 +37,12 @@
 }
 
 .form-login{
-    padding: 0 2rem 0;
+    padding: 0 1rem 0;
     display: flex;
     justify-content: center;
     align-items: start;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     background-color: var(--fix-white);
     width: 60%;
     height: 100%;
@@ -64,7 +61,7 @@ h1, h2{margin: 0; color: white}
 .content-login{
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     width: 100%;
 }
 
@@ -75,12 +72,9 @@ h1, h2{margin: 0; color: white}
 }
 .input-login{
     color: var(--fix-dark);
-    outline: none;
     border: none;
     background: none;
     border-bottom: 2px solid var(--fix-gray);
-}.input-login:focus{
-    color: var(--fix-dark);
 }
 .button-login{
     border: none;
