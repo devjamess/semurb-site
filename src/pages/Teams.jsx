@@ -22,13 +22,13 @@ function Teams() {
         <AddEmployeeCard 
             isOpenEmployee={isOpenEmployeeModal} 
             setIsOpenEmployee={() => setIsOpenEmployeeModal(false)}
-            initialPage={startPage} // Pass the initial page
+            initialPage={startPage} 
         />
 
       <div className="container-search-team">
         <button className='cancel-button' onClick={() => handleOpenModal(2)}> Atualizar Escala</button>
         <input type="search" placeholder='Buscar Funcionarios. . .' />
-        <button className="confirm-button" onClick={() => handleOpenModal(1)}>Adicionar Funcionario</button>
+        <button className="confirm-button" onClick={() => handleOpenModal(1)}>Adicionar </button>
       </div>
 
 <div className="table">

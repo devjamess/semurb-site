@@ -20,10 +20,10 @@ height: 100vh;
 .forms{
     display:flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column;
-    max-width: 400px;
-    max-height: 500px;
+    width: 400px;
+    height: 500px;
     background-color: var(--contents);
     gap: 0.5rem;
     padding: 1rem;
@@ -46,7 +46,15 @@ height: 100vh;
     color: var(--text);
     background: none;
     border: 2px solid var(--confirm);
-    border-radius: 30px;
-    padding: 0.5rem;
+    padding: 0.7rem;
+    width: 100%;
+}
+.buttons-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
 }
 

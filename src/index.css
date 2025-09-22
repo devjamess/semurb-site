@@ -31,12 +31,26 @@
   font-weight: bold;
   text-transform: uppercase;
 }
+/* Chrome, Safari, Edge */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 input:focus{
 
+font-size: medium;
 outline: none;
 }button{
   cursor:pointer;
+}input::placeholder{
+  font-size: medium;
 }
 
 :root {
