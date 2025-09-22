@@ -5,6 +5,7 @@ function getCssVar(variable) {
   return getComputedStyle(document.documentElement).getPropertyValue(variable);
 }
 
+
 function MyChart() {
  
 
