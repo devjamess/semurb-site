@@ -3,26 +3,40 @@ import { useNavigate } from "react-router-dom";
 import '../styles/login.css'
 import logo from '../assets/images/semurb-logo-login.png'
 import {useAuth} from '../hook/useAuth'
+import Alert from '../components/modals/Alert'
+
 function Login() {
   const route = useNavigate();
   const {signIn} = useAuth();
   const [matricula_funcionario, setMatricula] = useState()
   const [senha, setSenha] = useState()
+  const [erroMessage, setErroMessage] = useState()
+  const [response, setResponse] = useState('Erro')
 
   const handleSignIn = async (e) => {
     e.preventDefault();
 
     const userData = await signIn(matricula_funcionario, senha);
-    if(userData){
+    if(userData.result){
       route('/home');
     } else {
-     alert('Falha no login, verifique suas credenciais')   
+     setResponse(response)
+     setErroMessage(userData.error)   
     }
 
 
   }
   return (
+    <div>
+      {erroMessage && 
+      <Alert response={response}
+      text='ao Fazer Login'
+      error={erroMessage}
+      onClose={() => setErroMessage("")}
+      />
+      }
     <div className="background-login">
+      
       <div className="container-login">
         <div className="logo-login">
           <img src={logo} alt="semurb-logo" className=""/>
@@ -53,6 +67,7 @@ function Login() {
         </form>
       </div>
 
+    </div>
     </div>
   )
 }

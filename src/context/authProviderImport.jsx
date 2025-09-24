@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import api from '../api/api';
-import  AuthContext  from "./authContextImport";
+import AuthContext from "./authContextImport";
 import Alert from "../components/modals/Alert";
 
 export const AuthProvider = ({ children }) => {
@@ -14,41 +14,41 @@ export const AuthProvider = ({ children }) => {
     const [scales, setScales] = useState([])
     const [allEmployees, setAllEmployees] = useState([])
     const [allSectors, setAllSectors] = useState([])
-    
-    const signIn = async (matricula_funcionario, senha) => {
-        try{
-            if(!matricula_funcionario || !senha){
-                alert('Preencha todos os campos');
-                return;
-            }
-            if (!/^\d+$/.test(matricula_funcionario)){
-                alert('Mátricula Inválida');
-                return;
-            }
 
-            const {data} = await api.post('/loginAdm' ,{
+    const signIn = async (matricula_funcionario, senha) => {
+        try {
+            if (!matricula_funcionario || !senha) {
+                const erro = 'Preencha todos os campos'
+                return {result: null, error: erro};
+            }
+            if (!/^\d+$/.test(matricula_funcionario)) {
+                const erro = 'Creedenciais Invalidas'
+                return{result: null, error: erro}
+            }
+            const { data } = await api.post('/loginAdm', {
                 matricula_funcionario,
                 senha
             })
 
-            if(data){
+            if (data) {
                 setUser(data);
                 localStorage.setItem('user_data', JSON.stringify(data));
-                return data;
+                return {result: data, error: null};
             }
-            return;
-            
-
-        } catch(error){
-            console.error('Erro ao fazer login: ', error.message)
+            return { result: data, error: null };
+        } catch (error) {
+            const erro = error.response?.data?.mensagem ||
+                "Erro Desconhecido"
+            console.error('Erro ao fazer login: ', erro)
+            return { result: null, error: erro }
         }
     };
-    const logout = async() => {
+    const logout = async () => {
         setUser(null)
         localStorage.removeItem('user_data')
-       
+
     };
-    const addEmployee = async(
+    const addEmployee = async (
         nome,
         matricula_funcionario,
         telefone,
@@ -57,9 +57,9 @@ export const AuthProvider = ({ children }) => {
         nome_regiao,
         nome_equipe,
         senha
-    ) =>{
-        try{
-            const {data} = await api.post('/cadastrarFuncionario', {
+    ) => {
+        try {
+            const { data } = await api.post('/cadastrarFuncionario', {
                 matricula_adm: user?.funcionario.matricula_funcionario,
                 nome,
                 matricula_funcionario,
@@ -71,14 +71,14 @@ export const AuthProvider = ({ children }) => {
                 senha
             })
             const sucess = 'Cadastro do funcionario realizado com sucesso'
-            return {result: data.funcionario, error: null, sucess: sucess}
-        }catch(error){
-            const erro = error.response?.data?.mensagem 
-            || "Erro Desconhecido"
+            return { result: data.funcionario, error: null, sucess: sucess }
+        } catch (error) {
+            const erro = error.response?.data?.mensagem
+                || "Erro Desconhecido"
             console.error('erro ao cadastrar :', erro)
-            return {result: null, error: erro, secess: null} ;
+            return { result: null, error: erro, secess: null };
         }
-    
+
     };
     const addScale = async (
         matricula_funcionario,
@@ -87,64 +87,67 @@ export const AuthProvider = ({ children }) => {
         dias_n_trabalhados,
         tipo_escala
     ) => {
-        try{
-            const {data} = await api.post('/cadastrarEscala', {
+        try {
+            const { data } = await api.post('/cadastrarEscala', {
                 matricula_adm: user?.funcionario.matricula_funcionario,
                 matricula_funcionario,
                 data_inicio,
                 dias_trabalhados,
                 dias_n_trabalhados,
                 tipo_escala
-            })        
+            })
             const sucess = "Cadastro da escala realizado com sucesso"
-            return {result:data.escala, error: null, sucess: sucess}
-        } catch(error) {
+            return { result: data.escala, error: null, sucess: sucess }
+        } catch (error) {
             const erro = error.response?.data?.mensagem
             console.error('Erro ao cadastrar escala', erro)
-            return {result: null, error: erro, sucess: null}
+            return { result: null, error: erro, sucess: null }
         }
     };
-    
 
-  
-    const adminSignIn = async(registration, password) => {
-        try{
-            const {data} = await api.post('/loginMaster', {
+
+
+    const adminSignIn = async (registration, password) => {
+        try {
+            const { data } = await api.post('/loginMaster', {
                 registration,
                 password
             })
-            if(data){
+            if (data) {
                 setAdmin(data);
                 localStorage.setItem('admin_data', JSON.stringify(data));
                 return data;
             }
-            return;
-        }catch(error){
-            console.error("Erro ao fazer login como admin", error.message)
+            return { result: data, error: null };
+        } catch (error) {
+            const erro = error.response?.data?.mensagem
+            console.error("Erro ao fazer login como admin", erro)
+            return { result: null, error: erro }
         }
     };
-    const addSector = async(nome_setor) => {
-        try{
-        const {data} = await api.post('/cadastrarSetor', {
-            nome_setor
-        })
-        return data;
-        }catch(error){
-            console.error('Erro ao criar setor', error.message)
+    const addSector = async (nome_setor) => {
+        try {
+            const { data } = await api.post('/cadastrarSetor', {
+                nome_setor
+            })
+            return { result: data, error: null };
+        } catch (error) {
+            const erro = error.response?.data?.mensagem
+            console.error('Erro ao criar setor', erro)
         }
     };
-    const addEmployeeAdmin = async(
-                matricula_funcionario,
-                nome,
-                email,
-                senha,
-                telefone,
-                cargo,
-                status_permissao,
+    const addEmployeeAdmin = async (
+        matricula_funcionario,
+        nome,
+        email,
+        senha,
+        telefone,
+        cargo,
+        status_permissao,
     ) => {
-        try{    
-            const {data} = await api.post('cadastrarFuncioanrio_master', {
-                 matricula_funcionario,
+        try {
+            const { data } = await api.post('cadastrarFuncioanrio_master', {
+                matricula_funcionario,
                 nome,
                 email,
                 senha,
@@ -152,125 +155,138 @@ export const AuthProvider = ({ children }) => {
                 cargo,
                 status_permissao
             })
-            return data
-        }catch(error){
-            console.error("Erro ao cadastrar Administrador", error.message)
+            return { result: data, error: null }
+        } catch (error) {
+            const erro = error.response?.data?.mensagem
+            console.error("Erro ao cadastrar Administrador", erro)
+            return { result: null, error: erro }
         }
     }
 
 
     //GET
-        const findTeams = async () => {
-            try {
-                const { data } = await api.get('/equipes');
-                    setTeams(data || [])
-                    return data
-            } catch (error) {
-                console.error("Erro ao buscar equipes:", error);
-            }
-        };
-        const findRegions = async () => {
-            try {
-                const { data } = await api.get('/regiao');
-                    setRegions(data || [])
-                    return data
-            } catch (error) {
-                console.error("Erro ao buscar regiões:", error);
-            }
-        };
-        const findEmployees = async () => {
-            try{
-                console.log(user)
-                const {data} = await api.get(`/funcionariosSetor/${user?.funcionario.matricula_funcionario}`)
-                setEmployees(data || [])
-                return data
-            } catch (error) {
-                console.error('Erro ao listar funcionarios', error.message)
-            }
-        };
-        const findScales = async() => {
-            try{
-                const {data} = await api.get(`/escalasSetor/${user?.funcionario.matricula_funcionario}`)
-                setScales(data || [])
-                return data
-            } catch (error) {
-                console.error('Erro ao listar escalas', error.message)
-            }
-        };
+    const findTeams = async () => {
+        try {
+            const { data } = await api.get('/equipes');
+            setTeams(data || [])
+            return {result: data, error: null}
+        } catch (error) {
+            const erro = error.response?.data?.mensagem
+            console.error("Erro ao buscar equipes:", erro);
+            return {result: null, error: erro}
+        }
+    };
+    const findRegions = async () => {
+        try {
+            const { data } = await api.get('/regiao');
+            setRegions(data || [])
+            return data
+        } catch (error) {
+            const erro = error.response?.data?.mensagem
+            console.error("Erro ao buscar regiões:", erro);
+            return {result: null, error: erro}
+        }
+    };
+    const findEmployees = async () => {
+        try {
+            console.log(user)
+            const { data } = await api.get(`/funcionariosSetor/${user?.funcionario.matricula_funcionario}`)
+            setEmployees(data || [])
+            return {result: data, error: null}
+        } catch (error) {
+            const erro = error.response?.data?.mensagem
+            console.error('Erro ao listar funcionarios', erro)
+            return {result: null, error: erro}
+        }
+    };
+    const findScales = async () => {
+        try {
+            const { data } = await api.get(`/escalasSetor/${user?.funcionario.matricula_funcionario}`)
+            setScales(data || [])
+            return {result: data, error: null}
+        } catch (error) {
+            const erro = error.response?.data?.mensagem
+            console.error('Erro ao listar escalas', erro)
+            return {result: null, error: erro}
+        }
+    };
 
 
 
-        const findAllEmployees = async() => {
-            try{
-                const {data} = await api.get('/listarFuncionarios_master')
-                setAllEmployees(data || [])
-                return data
-            } catch (error) {
-                console.error('Erro ao buscar funcionarios', error.message)
-            }
-        };
-        const findAllSectors= async() => {
-            try{
-                const {data} = await api.get('/listarSetores')
-                setAllSectors(data || [])
-                return data
-            } catch (error) {
-                console.error('Erro ao buscar setores', error.message)
-            }
-        };
+    const findAllEmployees = async () => {
+        try {
+            const { data } = await api.get('/listarFuncionarios_master')
+            setAllEmployees(data || [])
+            return {result: data, error: null}
+        } catch (error) {
+            const erro = error.response?.data?.mensagem
+            console.error('Erro ao buscar funcionarios', erro)
+            return {result: null, error: erro}
+        }
+    };
+    const findAllSectors = async () => {
+        try {
+            const { data } = await api.get('/listarSetores')
+            setAllSectors(data || [])
+            return {result: data, error: null}
+        } catch (error) {
+            const erro = error.response?.data?.mensagem
+            console.error('Erro ao buscar setores', erro)
+            return {result: null, error: erro}
+        }
+    };
 
 
 
-    useEffect (() => {
+    useEffect(() => {
         const loadUser = async () => {
             const storedUser = localStorage.getItem('user_data');
             if (typeof storedUser === 'string' && storedUser.trim() !== '') {
-            try {
-                setUser(JSON.parse(storedUser));
-            } catch (e) {
-                // Se o JSON estiver corrompido, limpe o localStorage
-                console.error("Erro ao fazer parse do JSON do usuário:", e);
-                localStorage.removeItem('user_data');
+                try {
+                    setUser(JSON.parse(storedUser));
+                } catch (e) {
+                    // Se o JSON estiver corrompido, limpe o localStorage
+                    console.error("Erro ao fazer parse do JSON do usuário:", e);
+                    localStorage.removeItem('user_data');
+                }
             }
-        }
-        
-        setLoading(false);
-        
-    };
-    loadUser();
-    
 
-}, []);
+            setLoading(false);
 
- useEffect (() => {
+        };
+        loadUser();
+
+
+    }, []);
+
+    useEffect(() => {
         const loadAdmin = async () => {
             const storedAdmin = localStorage.getItem('admin_data');
             if (typeof storedAdmin === 'string' && storedAdmin.trim() !== '') {
-            try {
-                setAdmin(JSON.parse(storedAdmin));
-            } catch (e) {
-                // Se o JSON estiver corrompido, limpe o localStorage
-                console.error("Erro ao fazer parse do JSON do usuário:", e);
-                localStorage.removeItem('admin_data');
+                try {
+                    setAdmin(JSON.parse(storedAdmin));
+                } catch (e) {
+                    // Se o JSON estiver corrompido, limpe o localStorage
+                    console.error("Erro ao fazer parse do JSON do usuário:", e);
+                    localStorage.removeItem('admin_data');
+                }
             }
-        }
-        
-        setLoading(false);
-        
-    };
-    loadAdmin();
 
-}, []);
+            setLoading(false);
+
+        };
+        loadAdmin();
+
+    }, []);
 
     useEffect(() => {
-        
         findScales();
         findTeams();
         findRegions();
         findEmployees();
     }, [user])
 
-        useEffect(() => {
+    useEffect(() => {
 
         findAllSectors();
         findAllEmployees();
@@ -278,19 +294,19 @@ export const AuthProvider = ({ children }) => {
 
     if (loading) return;
 
-    return(
+    return (
         <AuthContext.Provider value={{
-            user, 
-            inUser: !!user, 
-            signIn, logout, 
+            user,
+            inUser: !!user,
+            signIn, logout,
             addEmployee, addScale,
-            findTeams, 
-            teams, 
-            findRegions, 
-            regions, 
-            findEmployees, 
+            findTeams,
+            teams,
+            findRegions,
+            regions,
+            findEmployees,
             employees,
-            findScales, 
+            findScales,
             scales,
 
             admin,
