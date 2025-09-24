@@ -1,0 +1,22 @@
+.modal-list{
+    margin-right: 5vw;
+    position: absolute;
+    z-index: 1000;
+    top: 15vh;
+    right: 0;
+    width: 30vw;
+    height: 80vh;
+    background-color: var(--fix-dark);
+    border-radius: 20px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); 
+}
+.list-container{
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.2rem;
+}
+.list-content{
+    border-bottom: 1px solid var(--fix-gray)
+}

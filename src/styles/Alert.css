@@ -1,0 +1,26 @@
+.alert-container{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.alert-content{
+    z-index: 1000;
+    background-color: var(--contents);
+    width: 400px;
+    height: 200px;
+    padding: 1.5rem;
+    border-radius: 20px;
+    border: 0.5rem solid var(--fix-dark)
+}
+.alert-title{
+    font-size: x-large;
+    font-weight:  bold;
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+.alert-error{
+    color: var(--text);
+}

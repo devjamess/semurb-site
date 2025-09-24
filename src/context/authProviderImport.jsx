@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import api from '../api/api';
 import  AuthContext  from "./authContextImport";
-import MyChart from "../components/Graph";
+import Alert from "../components/modals/Alert";
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -70,13 +70,15 @@ export const AuthProvider = ({ children }) => {
                 nome_equipe,
                 senha
             })
-            alert('Cadastro Realizado com sucesso')
-            return data.funcionario
+            const sucess = 'Cadastro do funcionario realizado com sucesso'
+            return {result: data.funcionario, error: null, sucess: sucess}
         }catch(error){
-            console.error('erro ao cadastrar :', error.message)
-            alert('Erro ao cadastrar funcionario')
-            return;
+            const erro = error.response?.data?.mensagem 
+            || "Erro Desconhecido"
+            console.error('erro ao cadastrar :', erro)
+            return {result: null, error: erro, secess: null} ;
         }
+    
     };
     const addScale = async (
         matricula_funcionario,
@@ -94,9 +96,12 @@ export const AuthProvider = ({ children }) => {
                 dias_n_trabalhados,
                 tipo_escala
             })        
-            return data.escala
+            const sucess = "Cadastro da escala realizado com sucesso"
+            return {result:data.escala, error: null, sucess: sucess}
         } catch(error) {
-            console.error('Erro ao cadastrar escala', error.message)
+            const erro = error.response?.data?.mensagem
+            console.error('Erro ao cadastrar escala', erro)
+            return {result: null, error: erro, sucess: null}
         }
     };
     

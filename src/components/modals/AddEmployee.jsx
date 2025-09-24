@@ -1,6 +1,7 @@
 import '../../styles/AddEmployee.css'
 import {useAuth} from '../../hook/useAuth'
 import { useState, useEffect } from 'react'; // Import useEffect
+import Alert from './Alert'
 
 function AddEmployeeCard({isOpenEmployee, setIsOpenEmployee, initialPage = 1}) {
 
@@ -36,9 +37,10 @@ function AddEmployeeCard({isOpenEmployee, setIsOpenEmployee, initialPage = 1}) {
 function Page1({setIsOpenEmployee, goNextPage}) {
 
     const {addEmployee, teams, regions} = useAuth();
+    const [erroMessage, setErroMessage] = useState() 
+    const [response, setResponse] = useState('Erro')
+    const [save, setSave] = useState()
     
- 
-
     async function handleAddEmployee(e){
         e.preventDefault();
 
@@ -46,8 +48,13 @@ function Page1({setIsOpenEmployee, goNextPage}) {
             nome, matricula_funcionario, telefone,
             email, cargo, nome_regiao, nome_equipe, senha)
        
-        if(employee){
-            goNextPage(employee)
+        if(employee.result ){
+            setResponse('Sucesso')
+            setErroMessage(employee.sucess)
+            setSave(employee.result)
+        } else {
+          setResponse(response)
+          setErroMessage(employee.error)
         }
     }
        const [nome, setNome] = useState()
@@ -62,6 +69,17 @@ function Page1({setIsOpenEmployee, goNextPage}) {
 
     return (
     <div>
+      {erroMessage && 
+      (<Alert response={response}
+        text='ao Cadastrar Funcionario' 
+        error={erroMessage} 
+        onClose={() => {setErroMessage("");
+          if (response === 'Sucesso' && save){
+            goNextPage(save);
+          }}
+        }/>)
+      }
+
         <div action="" className="form-card-position">
         <form onSubmit={handleAddEmployee} className="forms">            
             <p className="form-title">Adicionar Funcionario</p>
@@ -129,7 +147,9 @@ function Page1({setIsOpenEmployee, goNextPage}) {
 
 function Page2 ({employee, setIsOpenEmployee}) { 
     const { addScale, scales} = useAuth();
-    
+    const [erroMessage, setErroMessage] = useState() 
+    const [response, setResponse] = useState('Erro')
+    const [save, setSave] = useState()
   const [matricula_funcionario, setMatriculaFuncionario] = useState(employee?.matricula_funcionario || "")
   const [data_inicio, setDataInicio] = useState("");
   const [tipo_escala, setTipoEscala] = useState("");
@@ -139,7 +159,6 @@ function Page2 ({employee, setIsOpenEmployee}) {
 
   async function handleAddScale(e) {
     e.preventDefault();
-    try {
       const scale = await addScale(
         matricula_funcionario,
         data_inicio, 
@@ -147,18 +166,31 @@ function Page2 ({employee, setIsOpenEmployee}) {
         dias_n_trabalhados, 
         tipo_escala
     )
-      if (scale) {
-        alert("Escala cadastrada com sucesso!");
-        setIsOpenEmployee(false); // fecha modal depois de cadastrar
+      if (scale.result) {
+        setResponse('Sucesso')
+        setErroMessage(scale.sucess)
+        setSave(scale)// fecha modal depois de cadastrar
+      } else {
+        setResponse(response)
+        setErroMessage(scale.error)
       }
-    } catch (err) {
-      console.error("Erro ao cadastrar escala", err);
-      alert("Erro ao cadastrar escala")
-    }
   }
 
   return (
+    <div>
+      {erroMessage && 
+      <Alert response={response}
+      text='ao Cadastrar Escala'
+      error={erroMessage}
+      onClose={() => {setErroMessage("")
+        if(response === 'Sucesso' && save){
+          setIsOpenEmployee(false)
+        }}
+      }/>
+      }
     <div className="form-card-position">
+      
+
       <form onSubmit={handleAddScale} className="forms">
         <p className="form-title">Cadastrar Escala</p>
         <div className="form-card">
@@ -185,9 +217,12 @@ function Page2 ({employee, setIsOpenEmployee}) {
             ))}
             </datalist>
         </div>
+        <div className="buttons-form">
         <button type="submit" className="confirm-button"> Concluir </button>
         <button  className="cancel-button" onClick={() => setIsOpenEmployee(false)}>Fechar</button>
+      </div>
       </form>
+    </div>
     </div>
   );
 
