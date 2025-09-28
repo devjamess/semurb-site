@@ -1,4 +1,9 @@
-
+.search-list{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    border: none;
+}
 .container-search{
     display: flex;
     justify-content: center;
@@ -7,7 +12,6 @@
     padding: 3rem 0;
     gap: 1rem;
 }.container-search input{
-    width: 50%;
     height: 2.5rem;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.2);

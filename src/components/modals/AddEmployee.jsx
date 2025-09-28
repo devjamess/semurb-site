@@ -3,20 +3,24 @@ import {useAuth} from '../../hook/useAuth'
 import { useState, useEffect } from 'react'; // Import useEffect
 import Alert from './Alert'
 
-function AddEmployeeCard({isOpenEmployee, setIsOpenEmployee, initialPage = 1}) {
+function AddEmployeeCard({isOpenEmployee, setIsOpenEmployee, initialPage = 1, currentEmployee}) {
 
  const [currentPage, setCurrentPage] = useState(initialPage)
- const [createdEmployee, setEmployee] = useState(null)
+ const [createdEmployee, setEmployee] = useState(currentEmployee? currentEmployee : null)
 
     // Use useEffect to update currentPage when the modal opens with a new initialPage
-    useEffect(() => {
-        if (isOpenEmployee) {
-            setCurrentPage(initialPage);
-        }
-    }, [isOpenEmployee, initialPage]);
+   useEffect(() => {
+  if (isOpenEmployee) {
+    setCurrentPage(initialPage);
+    if (currentEmployee) {
+      setEmployee(currentEmployee);
+    }
+  }
+}, [isOpenEmployee, initialPage, currentEmployee]);
+
 
  const goNextPage = (employee) => {
- setEmployee(employee)
+ setEmployee(currentEmployee? currentEmployee : employee)
  setCurrentPage(2) };
 
  const pages = [
@@ -145,12 +149,12 @@ function Page1({setIsOpenEmployee, goNextPage}) {
   );
  } 
 
-function Page2 ({employee, setIsOpenEmployee}) { 
+function Page2 ({currentEmployee, employee, setIsOpenEmployee}) { 
     const { addScale, scales} = useAuth();
     const [erroMessage, setErroMessage] = useState() 
     const [response, setResponse] = useState('Erro')
     const [save, setSave] = useState()
-  const [matricula_funcionario, setMatriculaFuncionario] = useState(employee?.matricula_funcionario || "")
+  const [matricula_funcionario, setMatriculaFuncionario] = useState(employee?.matricula_funcionario || currentEmployee?.matricula_funcionario)
   const [data_inicio, setDataInicio] = useState("");
   const [tipo_escala, setTipoEscala] = useState("");
   const [dias_trabalhados, setDiasTrabalhados] = useState("");

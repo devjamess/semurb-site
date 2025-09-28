@@ -12,7 +12,7 @@ export default {
     "--hovers": "#f4d03faf",
     "--cancel":"#E74C3C",
     "--id": "#2E86C1",
-    "--barueri-dark-bg": "#1A1A1A",
+    "--hover-contents": "#ddddddff",
     "--fix-gray": "#8e99aeff",
     "--on-gray": "#b1bdceff",
 };

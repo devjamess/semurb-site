@@ -1,12 +1,17 @@
 import { IoIosContact } from "react-icons/io";
-import CalendarHome from '../components/Calendar'
-import Header from '../components/Header'
+import CalendarProfile from '../components/CalendarProfile'
+import {useState} from 'react'
 import { useAuth } from '../hook/useAuth'
 import '../styles/Profile.css'
 
 function Profile() {
     const { user } = useAuth()
-    console.log(user)
+    const [selectedDate, setSelectedDate] = useState(null);
+    const handleDateSelect = (date) => {
+    setSelectedDate(date);
+    console.log('Data selecionada:', date.toLocaleDateString('pt-BR'));
+  };
+    
     return (
         <div className="body">
 
@@ -31,7 +36,13 @@ function Profile() {
                 </div>
 
                 <div className="profile-escale">
-                    <CalendarHome />
+                    <CalendarProfile
+
+                        value={selectedDate}
+                        onDateChange={handleDateSelect}
+                        escala={user?.escala} // vem do backend junto do funcionário
+                    />
+
                     <div className="profile-escale-details">
                         <div className="details">Folgas</div>
                         <div className="details">Feriados</div>

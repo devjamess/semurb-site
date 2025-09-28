@@ -8,6 +8,7 @@ import Header from './components/Header'
 import Config from './pages/Config'
 import Admin from './pages/Admin'
 import LoginAdmin from './pages/loginAdmin'
+import Employees from './pages/Emplyees'
 import {AuthProvider} from './context/authProviderImport'
 import {ThemeProvider} from './theme/ThemeProviderImport'
 import {useAuth} from './hook/useAuth'
@@ -54,6 +55,7 @@ function App() {
           <Route path='/profile' element={ <Profile /> } />
           <Route path='/teams/:id' element={ <Teams /> }/>
           <Route path='/config' element={ <Config />} />
+          <Route path='/employees/:id' element={ <Employees />} />
         </Route>
 
       <Route element={<AdminAuth />}>

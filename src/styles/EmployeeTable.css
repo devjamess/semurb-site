@@ -4,38 +4,32 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  background: var(--on-gray);
   margin: 0 10vw 0;
+  background-color: var(--contents);
 }
-
 .table-header {
   display: contents; 
-  background-color: var(--on-gray); 
   color: var(--text);
   font-weight: bold;
-  
+ 
 }
-
 .table-header > div {
   padding: 12px;
+  background-color: var(--on-gray); 
   text-align: left;
   border-bottom: 1px solid var(--fix-gray) ;
 }
-
 .table-row {
   display: contents; 
-  color: var(--text)
+  color: var(--text);
 }
-
 .table-row > div {
   padding: 12px;
-  background-color: var(--contents);
 }
-
-.table-row:nth-child(even) > div {
-  background-color: var(--contents); 
+.table-row:hover > div{
+  background-color: var(--hover-contents);
+  cursor: pointer;
 }
-
 .matricula {
   color: var(--id);
   font-weight: bold;

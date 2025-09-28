@@ -1,17 +1,25 @@
 import {useAuth} from '../hook/useAuth'
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import {useState} from 'react'
 import AddEmployeeCard from '../components/modals/AddEmployee'
 import'../styles/EmployeeTable.css'
 import '../styles/Teams.css'
+
 function Teams() {
+    
+    const route = useNavigate()
     
     const {teams, employees, user, regions, scales} = useAuth()
     const {id} = useParams()
     teams.find(tm => String(tm.id_equipe) === id)
-    const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
-    const [startPage, setStartPage] = useState(1); // New state to control starting page
 
+    const [search, setSearch] = useState('')
+    const searchLowerCase = search.toLowerCase();
+    const employeesList = employees.filter((employee) => 
+    employee.nome.toLowerCase().includes(searchLowerCase))
+
+    const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
+    const [startPage, setStartPage] = useState(1); 
     const handleOpenModal = (page) => {
         setStartPage(page);
         setIsOpenEmployeeModal(true);
@@ -27,7 +35,7 @@ function Teams() {
 
       <div className="container-search-team">
         <button className='cancel-button' onClick={() => handleOpenModal(2)}> Atualizar Escala</button>
-        <input type="search" placeholder='Buscar Funcionarios. . .' />
+        <input type="search" placeholder='Buscar Funcionarios. . .' value={search} onChange={(e)=> setSearch(e.target.value)} />
         <button className="confirm-button" onClick={() => handleOpenModal(1)}>Adicionar </button>
       </div>
 
@@ -44,8 +52,8 @@ function Teams() {
   </div>
 
 
-     {employees.filter(employee => employee.id_equipe == id).map((employee) => (  
-      <div className="table-row">
+     {employeesList.filter(employee => employee.id_equipe == id).map((employee) => (  
+      <div className="table-row" key={employee.matricula_funcionario} onClick={() => route(`/employees/${employee.matricula_funcionario}`)}>
             <div className='matricula'>{employee.matricula_funcionario}</div>
             <div >{employee.nome}</div>
             <div >{employee.email}</div>

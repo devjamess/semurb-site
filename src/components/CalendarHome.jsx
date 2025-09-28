@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import '../styles/Calendar.css';
 
-function CalendarHome({value, onDateChange}){
+export default function CalendarHome ({value, onDateChange}) {
     const [currentDate, setCurrentDate] = useState(value ||new Date());
     // const today = new Date();
     /* new Date(year, month, day) pega data atual
@@ -123,4 +123,6 @@ function CalendarHome({value, onDateChange}){
     )
 }
 
-export default CalendarHome;
+
+
+

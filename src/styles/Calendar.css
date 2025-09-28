@@ -88,3 +88,14 @@
 .calendar-day.today.selected {
   border-color: var(--text);
 }
+.calendar-day.work-day {
+  background-color: var(--confirm); 
+  color: var(--text);
+  border-radius: 4px;
+}
+
+.calendar-day.rest-day {
+  background-color: var(--cancel); 
+  color: var(--text);
+  border-radius: 4px;
+}
