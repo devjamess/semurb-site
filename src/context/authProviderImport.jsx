@@ -104,7 +104,28 @@ export const AuthProvider = ({ children }) => {
             return { result: null, error: erro, sucess: null }
         }
     };
-
+    const addTurn = async(
+        matricula_funcionario,
+        inicio_turno,
+        termino_turno,
+        duracao_turno,
+        intervalo_turno,
+        
+    ) => {
+        try {
+            const {data} = await api.post('/cadastrarTurno', {
+                matricula_funcionario,
+                inicio_turno,
+                termino_turno,
+                duracao_turno,
+                intervalo_turno
+            })
+            const sucess = "Cadastro da escala realizado com sucesso"
+            return { result: data.turno, error: null, sucess: sucess }
+        }catch(error){
+            
+        }
+    }
 
 
     const adminSignIn = async (registration, password) => {
