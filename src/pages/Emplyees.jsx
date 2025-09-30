@@ -3,22 +3,18 @@ import { useAuth } from '../hook/useAuth'
 import { IoIosContact } from 'react-icons/io'
 import CalendarProfile from '../components/CalendarProfile'
 import { useState } from 'react'
-import AddEmployeeCard from "../components/modals/AddEmployee"
+import UpdateScale from "../components/modals/UpdateScale"
 
 function Employee() {
 
     const { employees, user, teams, scales, regions } = useAuth()
     const { id } = useParams()
     employees.find(employee => String(employee.matricula_funcionario) === id)
-    const employee = employees.find(employee => String(employee.matricula_funcionario) === id)
-
+    const CurrentEmployee = employees.find(employee => String(employee.matricula_funcionario) === id)
+    console.log('Atual:', CurrentEmployee)
 
     const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
-    const [startPage, setStartPage] = useState(1);
-    const handleOpenModal = (page) => {
-        setStartPage(page);
-        setIsOpenEmployeeModal(true);
-    };
+   
 
     const [selectedDate, setSelectedDate] = useState(null);
     const handleDateSelect = (date) => {
@@ -28,11 +24,10 @@ function Employee() {
 
     return (
         <div className="body">
-            <AddEmployeeCard
-                isOpenEmployee={isOpenEmployeeModal}
-                setIsOpenEmployee={() => setIsOpenEmployeeModal(false)}
-                initialPage={startPage}
-                currentEmployee={employee}
+            <UpdateScale
+            employee={CurrentEmployee?.matricula_funcionario}
+            setIsOpenEmployee={()=> setIsOpenEmployeeModal(!isOpenEmployeeModal)}
+            isOpenEmployee={isOpenEmployeeModal}
             />
 
             <div className="container">
@@ -62,14 +57,14 @@ function Employee() {
                     <CalendarProfile
                         value={selectedDate}
                         onDateChange={handleDateSelect}
-                        escala={scales.find(scale => (scale.escala.id_escala == employee.id_escala))?.escala} // vem do backend junto do funcionário 
+                        escala={scales.find(scale => (scale.escala.id_escala == CurrentEmployee?.id_escala))?.escala} // vem do backend junto do funcionário 
                     />
                     <div className="profile-escale-details">
                         <div className="details">Folgas</div>
                         <div className="details">Feriados</div>
                         <div className="details">Trabalho</div>
                     </div>
-                    <button className="confirm-button" onClick={() => handleOpenModal(2)}>Nova Escala</button>
+                    <button className="confirm-button" onClick={()=>setIsOpenEmployeeModal(!isOpenEmployeeModal)}>Nova Escala</button>
 
                 </div>
 

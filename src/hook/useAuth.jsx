@@ -6,7 +6,7 @@ export const useAuth =() => {
         user, inUser, signIn, logout, addEmployee, addScale,
         findTeams, teams, findRegions, regions, findEmployees, employees, 
         findScales, scales, admin, inAdmin, adminSignIn, allEmployees,allSectors,
-        addSector
+        addSector, updateScale, addTurn
     } = useContext(AuthContext);
 
     return{
@@ -16,6 +16,8 @@ export const useAuth =() => {
         inUser,
         addEmployee,
         addScale,
+        addTurn,
+        updateScale,
 
         findTeams,
         teams,

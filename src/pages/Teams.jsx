@@ -19,24 +19,19 @@ function Teams() {
     employee.nome.toLowerCase().includes(searchLowerCase))
 
     const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
-    const [startPage, setStartPage] = useState(1); 
-    const handleOpenModal = (page) => {
-        setStartPage(page);
-        setIsOpenEmployeeModal(true);
-    };
-
+ 
     return(
     <div className="body">
         <AddEmployeeCard 
             isOpenEmployee={isOpenEmployeeModal} 
-            setIsOpenEmployee={() => setIsOpenEmployeeModal(false)}
-            initialPage={startPage} 
+            setIsOpenEmployee={() => setIsOpenEmployeeModal(!isOpenEmployeeModal)}
+
         />
 
       <div className="container-search-team">
-        <button className='cancel-button' onClick={() => handleOpenModal(2)}> Atualizar Escala</button>
+        <button className='alert-button'> Notificar Pendência</button>
         <input type="search" placeholder='Buscar Funcionarios. . .' value={search} onChange={(e)=> setSearch(e.target.value)} />
-        <button className="confirm-button" onClick={() => handleOpenModal(1)}>Adicionar </button>
+        <button className="confirm-button" onClick={() => setIsOpenEmployeeModal(!isOpenEmployeeModal)}>Adicionar </button>
       </div>
 
 <div className="table">

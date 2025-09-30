@@ -120,10 +120,12 @@ export const AuthProvider = ({ children }) => {
                 duracao_turno,
                 intervalo_turno
             })
-            const sucess = "Cadastro da escala realizado com sucesso"
+            const sucess = "Cadastro do Turno realizado com sucesso"
             return { result: data.turno, error: null, sucess: sucess }
         }catch(error){
-            
+             const erro = error.response?.data?.mensagem
+            console.error('Erro ao cadastrar turno', erro)
+            return { result: null, error: erro, sucess: null }
         }
     }
 
@@ -176,14 +178,40 @@ export const AuthProvider = ({ children }) => {
                 cargo,
                 status_permissao
             })
-            return { result: data, error: null }
-        } catch (error) {
-            const erro = error.response?.data?.mensagem
-            console.error("Erro ao cadastrar Administrador", erro)
-            return { result: null, error: erro }
+            const sucess = "Administrador cadastrado com sucesso"
+            return { result: data, error: null, sucess: sucess }
+        }catch(error){
+             const erro = error.response?.data?.mensagem
+            console.error('Erro ao cadastrar administrador', erro)
+            return { result: null, error: erro, sucess: null }
         }
     }
 
+    //PUT
+    const updateScale = async(
+        matricula_funcionario,
+        data_inicio,
+        dias_trabalhados,
+        dias_n_trabalhados,
+        tipo_escala
+    ) => {
+        try{
+        const {data} = await api.put('alterarEscala', {
+        matricula_adm: user?.funcionario.matricula_funcionario,
+        matricula_funcionario,
+        data_inicio,
+        dias_trabalhados,
+        dias_n_trabalhados,
+        tipo_escala
+            })
+        const sucess = "Escala atualizada com sucesso"
+            return { result: data.escala, error: null, sucess: sucess }
+        }catch(error){
+             const erro = error.response?.data?.mensagem
+            console.error('Erro ao atualizar escala', erro)
+            return { result: null, error: erro, sucess: null }
+        }
+    }
 
     //GET
     const findTeams = async () => {
@@ -301,6 +329,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
+         if (!user?.funcionario?.matricula_funcionario) return;
         findScales();
         findTeams();
         findRegions();
@@ -313,7 +342,9 @@ export const AuthProvider = ({ children }) => {
         findAllEmployees();
     }, [admin])
 
-    if (loading) return;
+    if (loading) {
+        return <div className="loading">Carregando...</div>
+    };
 
     return (
         <AuthContext.Provider value={{
@@ -321,6 +352,10 @@ export const AuthProvider = ({ children }) => {
             inUser: !!user,
             signIn, logout,
             addEmployee, addScale,
+            addTurn,
+
+            updateScale,
+
             findTeams,
             teams,
             findRegions,
@@ -335,6 +370,7 @@ export const AuthProvider = ({ children }) => {
             adminSignIn,
             addSector,
             addEmployeeAdmin,
+
             findAllEmployees,
             allEmployees,
             findAllSectors,
