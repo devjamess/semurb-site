@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     const [scales, setScales] = useState([])
     const [allEmployees, setAllEmployees] = useState([])
     const [allSectors, setAllSectors] = useState([])
-
+    const [turns, setTurns] = useState([])
     const signIn = async (matricula_funcionario, senha) => {
         try {
             if (!matricula_funcionario || !senha) {
@@ -30,7 +30,9 @@ export const AuthProvider = ({ children }) => {
                 senha
             })
 
-            if (data) {
+            if (data?.token) {
+                localStorage.setItem('authToken', data.token);
+                localStorage.setItem('user', JSON.stringify(data.funcionario));
                 setUser(data);
                 localStorage.setItem('user_data', JSON.stringify(data));
                 return {result: data, error: null};
@@ -114,6 +116,7 @@ export const AuthProvider = ({ children }) => {
     ) => {
         try {
             const {data} = await api.post('/cadastrarTurno', {
+                matricula_adm: user?.funcionario.matricula_funcionario,
                 matricula_funcionario,
                 inicio_turno,
                 termino_turno,
@@ -170,6 +173,7 @@ export const AuthProvider = ({ children }) => {
     ) => {
         try {
             const { data } = await api.post('cadastrarFuncioanrio_master', {
+                
                 matricula_funcionario,
                 nome,
                 email,
@@ -259,6 +263,17 @@ export const AuthProvider = ({ children }) => {
             return {result: null, error: erro}
         }
     };
+    const findTurns = async () => {
+        try{
+            const {data} = await api.get('/listarTurnos')
+            setTurns(data || [])
+            return {result: data, error: null}
+        } catch(error){
+            const erro = error.response?.data?.mensagem
+            console.error('Erro ao listar turnos', erro)
+            return {result: null, error: erro}
+        }
+    }
 
 
 
@@ -288,7 +303,7 @@ export const AuthProvider = ({ children }) => {
 
 
     useEffect(() => {
-        const loadUser = async () => {
+        const loadUser = async () => {    
             const storedUser = localStorage.getItem('user_data');
             if (typeof storedUser === 'string' && storedUser.trim() !== '') {
                 try {
@@ -353,7 +368,6 @@ export const AuthProvider = ({ children }) => {
             signIn, logout,
             addEmployee, addScale,
             addTurn,
-
             updateScale,
 
             findTeams,
@@ -364,6 +378,8 @@ export const AuthProvider = ({ children }) => {
             employees,
             findScales,
             scales,
+            findTurns,
+            turns,
 
             admin,
             inAdmin: !!admin,
