@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
     const [teams, setTeams] = useState([])
     const [regions, setRegions] = useState([])
-    const [employees, setEmployees] = useState([])
+    const [employees, setEmployees] = useState(undefined)
     const [scales, setScales] = useState([])
     const [allEmployees, setAllEmployees] = useState([])
     const [allSectors, setAllSectors] = useState([])

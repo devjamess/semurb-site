@@ -1,8 +1,10 @@
 import React, {useState} from "react";
 import '../styles/Calendar.css';
+import { useNavigate } from "react-router-dom";
 
 export default function CalendarHome ({value, onDateChange}) {
     const [currentDate, setCurrentDate] = useState(value ||new Date());
+    const route = useNavigate();
     // const today = new Date();
     /* new Date(year, month, day) pega data atual
         ano mes e dia -> nessa ordem
@@ -111,7 +113,8 @@ export default function CalendarHome ({value, onDateChange}) {
                     onClick={() => day && onDateChange(new Date(
                         currentDate.getFullYear(),
                         currentDate.getMonth(),
-                        day
+                        day,
+                        route(`/currentday/${day}`)
                     ))
                     }>
                         {day}

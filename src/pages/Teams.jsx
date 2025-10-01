@@ -15,7 +15,7 @@ function Teams() {
 
     const [search, setSearch] = useState('')
     const searchLowerCase = search.toLowerCase();
-    const employeesList = employees.filter((employee) => 
+    const employeesList = !employees ? [] : employees.filter((employee) => 
     employee.nome.toLowerCase().includes(searchLowerCase))
 
     const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
@@ -47,7 +47,7 @@ function Teams() {
   </div>
 
 
-     {employeesList.filter(employee => employee.id_equipe == id).map((employee) => (  
+     {employees === undefined ? <h2 style={{color: 'black'}}>Loading...</h2> : employeesList.filter(employee => employee.id_equipe == id).map((employee) => (  
       <div className="table-row" key={employee.matricula_funcionario} onClick={() => route(`/employees/${employee.matricula_funcionario}`)}>
             <div className='matricula'>{employee.matricula_funcionario}</div>
             <div >{employee.nome}</div>
