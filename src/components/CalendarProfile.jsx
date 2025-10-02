@@ -38,7 +38,6 @@ export default function CalendarProfile ({ value, onDateChange, escala }) {
     const month = currentDate.getMonth();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-    // caso 1: escala em dias (6x1, 5x2, etc.)
     if (escala.dias_trabalhados && escala.dias_n_trabalhados) {
       const cycleLength = escala.dias_trabalhados + escala.dias_n_trabalhados;
 

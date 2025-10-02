@@ -209,8 +209,15 @@ function Page2({ employee, setIsOpenEmployee, goNextPage }) {
             <input type="number" className="form-input" placeholder="Dias de folga"
               value={dias_n_trabalhados} onChange={(e) => setDiasNTrabalhados(e.target.value)} />
 
-            <input id="escala-input" list="escalas-list" className="form-input"
-              placeholder="Escala" value={tipo_escala} onChange={(e) => setTipoEscala(e.target.value)} />
+            <input
+              id="escala-input"
+              list="escalas-list"
+              className="form-input"
+              placeholder="Escala"
+              value={tipo_escala}
+              onChange={(e) => setTipoEscala(e.target.value)}
+
+            />
             <datalist id="escalas-list">
               {scales.map(scalel => (
                 <option key={scalel.escala.id_escala} value={scalel.escala.tipo_escala} />
@@ -286,20 +293,20 @@ function Page3({ employee, setIsOpenEmployee }) {
             <input type="number" className="form-input" placeholder="Matricula"
               value={matricula_funcionario} onChange={(e) => setMatriculaFuncionario(e.target.value)} />
 
-            <label className="form-label">Inicio do Turno</label> 
-            <input type="time" className="form-input" 
+            <label className="form-label">Inicio do Turno</label>
+            <input type="time" className="form-input"
               value={inicio_turno} onChange={(e) => setInicioTurno(e.target.value)} />
 
             <label className="form-label">Termino do Turno</label>
-            <input type="time" className="form-input" 
+            <input type="time" className="form-input"
               value={termino_turno} onChange={(e) => setTerminoTurno(e.target.value)} />
 
             <label className="form-label">Duração do Turno</label>
-            <input type="time" className="form-input" 
+            <input type="time" className="form-input"
               value={duracao_turno} onChange={(e) => setDuracaoTurno(e.target.value)} />
 
             <label className="form-label">Intervalo do Turno</label>
-            <input type="time" className="form-input" 
+            <input type="time" className="form-input"
               value={intervalo_turno} onChange={(e) => setIntervaloTurno(e.target.value)} />
           </div>
 

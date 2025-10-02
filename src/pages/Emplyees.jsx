@@ -30,7 +30,7 @@ function Employee() {
 
             <div className="container">
                 {employees?.filter(employee => employee.matricula_funcionario == id).map((employee) => (
-                    <div className="profile-container">
+                    <div key={employee.matricula_funcionario }className="profile-container">
                         <div className="profile-card-up">
                             <IoIosContact size={200} color={'#6B7280'} />
 
@@ -55,7 +55,7 @@ function Employee() {
                     <CalendarProfile
                         value={selectedDate}
                         onDateChange={handleDateSelect}
-                        escala={scales?.find(scale => (scale.escala.id_escala == CurrentEmployee?.id_escala))?.escala} // vem do backend junto do funcionário 
+                        escala={scales?.find(scale => (scale.escala.id_escala == CurrentEmployee?.id_escala))?.escala} 
                     />
                     <div className="profile-escale-details">
                         <div className="details">Folgas</div>

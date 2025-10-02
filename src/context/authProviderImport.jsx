@@ -1,8 +1,6 @@
-
 import { useState, useEffect } from "react";
 import api from '../api/api';
 import AuthContext from "./authContextImport";
-import Alert from "../components/modals/Alert";
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
