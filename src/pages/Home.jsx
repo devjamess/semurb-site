@@ -12,7 +12,7 @@ import '../styles/EmployeeList.css'
   const route = useNavigate()
   const {employees, teams} = useAuth()
   const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
-
+    console.log(employees)
   const [selectedDate, setSelectedDate] = useState(null);
   const handleDateSelect = (date) => {
     setSelectedDate(date);
@@ -21,7 +21,7 @@ import '../styles/EmployeeList.css'
 
    const [search, setSearch] = useState('')
     const searchLowerCase = search.toLowerCase();
-    const employeesList = employees.filter((employee) => 
+    const employeesList = employees?.filter((employee) => 
     employee.nome.toLowerCase().includes(searchLowerCase))
 
   return (
