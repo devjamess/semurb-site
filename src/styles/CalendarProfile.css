@@ -1,14 +1,13 @@
 
-.calendar-container {
+.calendar-container-profile {
   width: 100%;
   font-family: Arial, sans-serif;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
   background-color: var(--contents);
 }
 
-.calendar-header {
+.calendar-header-profile {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,16 +16,16 @@
 
 }
 
-.header-content{
+.header-content-profile{
   font-size: 1.2rem;
   font-weight: bold;
   text-transform: capitalize;
   color: var(--fix-titles)
-}.consultarDatas{
+}.consultarDatas-profile{
   color: var(--text);
 }
 
-.nav-button {
+.nav-button-profile {
   background: none;
   border: none;
   font-size: 1.5rem;
@@ -36,18 +35,18 @@
   transition: color 0.2s ease-in-out;
 }
 
-.nav-button:hover {
+.nav-button-profile:hover {
   color: var(--text);
 }
 
-.calendar-grid {
+.calendar-grid-profile {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 2px;
   padding: 10px;
 }
 
-.days-of-week {
+.days-of-week-profile {
   text-align: center;
   font-weight: bold;
   font-size: 0.9rem;
@@ -56,7 +55,7 @@
   border-bottom: 1px solid var(--fix-gray);
 }
 
-.calendar-day {
+.calendar-day-profile {
   color:  var(--text);
   text-align: center;
   padding: 8px 0;
@@ -66,35 +65,35 @@
   background-color: none;
  
 }
-.calendar-day:hover{
+.calendar-day-profile:hover{
   background-color: var(--hovers);
 }
 
-.calendar-day.day-valid:hover {
+.calendar-day.day-valid-profile:hover {
   background-color: var(--hovers);
 }
 
-.calendar-day.selected {
+.calendar-day-profile.selected {
   background-color: var(--fix-titles);
   color: var(--text);
   font-weight: bold;
 }
 
-.calendar-day.today {
+.calendar-day-profile.today {
   border: 2px solid var(--fix-titles);
   background-color: var(--fix-titles);
 }
 
-.calendar-day.today.selected {
+.calendar-day-profile.today.selected {
   border-color: var(--text);
 }
-.calendar-day.work-day {
+.calendar-day-profile.work-day {
   background-color: var(--confirm); 
   color: var(--text);
   border-radius: 4px;
 }
 
-.calendar-day.rest-day {
+.calendar-day-profile.rest-day {
   background-color: var(--cancel); 
   color: var(--text);
   border-radius: 4px;

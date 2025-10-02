@@ -349,6 +349,7 @@ export const AuthProvider = ({ children }) => {
         findTeams();
         findRegions();
         findEmployees();
+        findTurns();
     }, [user])
 
     useEffect(() => {

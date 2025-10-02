@@ -1,9 +1,10 @@
 .config-card{
-    margin: 10vh 0 0;
+    margin:  0;
     display: flex;
     justify-content: center;
 }
 .config-options{
+    margin: 10vh;
     padding: 10vh;
     display: flex;
     flex-direction: column;

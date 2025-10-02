@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import '../styles/Calendar.css'
+import '../styles/CalendarProfile.css'
 
 export default function CalendarProfile ({ value, onDateChange, escala }) {
    const [currentDate, setCurrentDate] = useState(value || new Date());
@@ -29,7 +29,6 @@ export default function CalendarProfile ({ value, onDateChange, escala }) {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
   };
 
-  // 🔥 gera mapa de trabalho/folga baseado na escala
   const getWorkDaysMap = () => {
     if (!escala) return {};
 
@@ -88,22 +87,22 @@ export default function CalendarProfile ({ value, onDateChange, escala }) {
   const workDaysMap = getWorkDaysMap();
 
   return (
-    <div className="calendar-container">
-      <div className="calendar-header">
-        <button className="nav-button" onClick={BackMonth}>
+    <div className="calendar-container-profile">
+      <div className="calendar-header-profile">
+        <button className="nav-button-profile" onClick={BackMonth}>
           Voltar
         </button>
-        <span className="header-content">
-          <span className="consultarDatas">Consultar Datas:</span> {MonthNames} {year}
+        <span className="header-content-profile">
+          <span className="consultarDatas-profile">Consultar Datas:</span> {MonthNames} {year}
         </span>
-        <button className="nav-button" onClick={NextMonth}>
+        <button className="nav-button-profile" onClick={NextMonth}>
           Próximo
         </button>
       </div>
 
-      <div className="calendar-grid">
+      <div className="calendar-grid-profile">
         {DaysOfWeek.map((day, index) => (
-          <div className="days-of-week" key={index}>
+          <div className="days-of-week-profile" key={index}>
             {day}
           </div>
         ))}
@@ -111,7 +110,7 @@ export default function CalendarProfile ({ value, onDateChange, escala }) {
         {days.map((day, index) => (
           <div
             key={index}
-            className={`calendar-day 
+            className={`calendar-day-profile 
               ${workDaysMap[day] === "work" ? "work-day" : ""} 
               ${workDaysMap[day] === "rest" ? "rest-day" : ""}`}
             onClick={() =>

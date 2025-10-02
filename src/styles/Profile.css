@@ -1,17 +1,16 @@
-
 .container{
-    margin: 2vh 10vw 0;
+    margin: 0 10vw 0;
     gap: 5rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     height: 80vh;
 }@media (min-width: 1024px) {
   .container {
-    grid-template-columns: repeat(2, 1fr); /* lg:grid-cols-3 */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 .profile-container{
-    margin: 0;
+    margin: 10vh 0 0;
     padding: 2rem;
     height: 100%;
     display: flex;
@@ -50,7 +49,7 @@
 }
 
 .profile-escale{
-    margin: 0;
+    margin: 10vh 0 0;
     height: 100%;
     padding: 2rem;
     display: flex;

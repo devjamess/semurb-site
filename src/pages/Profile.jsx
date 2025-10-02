@@ -23,13 +23,13 @@ function Profile() {
                         <h2 className="profile-name">{user?.funcionario.nome}</h2>
                     </div>
                     <div className="profile-card-down">
-                        <p className="profile-info">Matricula: <span className="info-auth">{user?.funcionario.matricula_funcionario}</span> </p>
-                        <p className="profile-info">Telefone: <span className="info-auth">{user?.funcionario.telefone}</span></p>
-                        <p className="profile-info">Email: <span className="info-auth">{user ? user.funcionario.email : 'Desconhecido'}</span></p>
-                        <p className="profile-info">Escala: <span className="info-auth">{user ? user.escala.tipo_escala : 'Desconhecido'}</span></p>
-                        <p className="profile-info">Equipe: <span className="info-auth">{user.equipe ? user.equipe.nome_equipe : 'Desconhecido'}</span></p>
-                        <p className="profile-info">Regiao: <span className="info-auth">{user.regiao ? user.regiao.nome_regiao : 'Desconhecido'}</span></p>
-                        <p className="profile-info">Setor: <span className="info-auth">{user ? user.setor.nome_setor : 'Desconhecido'}</span></p>
+                        <p className="profile-info">Matricula: <span className="info-auth">{user?.funcionario?.matricula_funcionario}</span> </p>
+                        <p className="profile-info">Telefone: <span className="info-auth">{user?.funcionario?.telefone}</span></p>
+                        <p className="profile-info">Email: <span className="info-auth">{user ? user.funcionario?.email : 'Desconhecido'}</span></p>
+                        <p className="profile-info">Escala: <span className="info-auth">{user ? user.escala?.tipo_escala : 'Desconhecido'}</span></p>
+                        <p className="profile-info">Equipe: <span className="info-auth">{user.equipe ? user.equipe?.nome_equipe : 'Desconhecido'}</span></p>
+                        <p className="profile-info">Regiao: <span className="info-auth">{user.regiao ? user.regiao?.nome_regiao : 'Desconhecido'}</span></p>
+                        <p className="profile-info">Setor: <span className="info-auth">{user ? user.setor?.nome_setor : 'Desconhecido'}</span></p>
 
                     </div>
                     <button className="confirm-button">Atualizar</button>
@@ -40,7 +40,7 @@ function Profile() {
 
                         value={selectedDate}
                         onDateChange={handleDateSelect}
-                        escala={user?.escala} // vem do backend junto do funcionário
+                        escala={user?.escala} 
                     />
 
                     <div className="profile-escale-details">

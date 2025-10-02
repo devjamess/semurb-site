@@ -9,13 +9,11 @@ function Employee() {
 
     const { employees, user, teams, scales, regions } = useAuth()
     const { id } = useParams()
-    employees.find(employee => String(employee.matricula_funcionario) === id)
-    const CurrentEmployee = employees.find(employee => String(employee.matricula_funcionario) === id)
-    console.log('Atual:', CurrentEmployee)
+    employees?.find(employee => String(employee.matricula_funcionario) === id)
+    const CurrentEmployee = employees?.find(employee => String(employee.matricula_funcionario) === id)
 
     const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
    
-
     const [selectedDate, setSelectedDate] = useState(null);
     const handleDateSelect = (date) => {
         setSelectedDate(date);
@@ -31,7 +29,7 @@ function Employee() {
             />
 
             <div className="container">
-                {employees.filter(employee => employee.matricula_funcionario == id).map((employee) => (
+                {employees?.filter(employee => employee.matricula_funcionario == id).map((employee) => (
                     <div className="profile-container">
                         <div className="profile-card-up">
                             <IoIosContact size={200} color={'#6B7280'} />
@@ -57,7 +55,7 @@ function Employee() {
                     <CalendarProfile
                         value={selectedDate}
                         onDateChange={handleDateSelect}
-                        escala={scales.find(scale => (scale.escala.id_escala == CurrentEmployee?.id_escala))?.escala} // vem do backend junto do funcionário 
+                        escala={scales?.find(scale => (scale.escala.id_escala == CurrentEmployee?.id_escala))?.escala} // vem do backend junto do funcionário 
                     />
                     <div className="profile-escale-details">
                         <div className="details">Folgas</div>

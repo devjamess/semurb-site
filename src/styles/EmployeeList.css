@@ -14,11 +14,12 @@
     background: transparent;
 }
 .list::-webkit-scrollbar-thumb {
-    background: var(--fix-dark);
+    background: var(--fix-gray);
     border-radius: 8px;
 }
 .list::-webkit-scrollbar-track {
-    background: transparent;
+    background: var(--contents);
+    height: 8px;
 }
 .list>div{
     border: none; 

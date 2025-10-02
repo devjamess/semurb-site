@@ -6,10 +6,18 @@
     format('truetype');
 }
 *{
-  font-family: 'Montserrat-Regular';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat-Regular', sans-serif;
+    transition: all 0.5s ease-in-out;
 }
 .body{
   margin:0;
+  background-color: var(--bg);
+  min-width: 100vw;
+  min-height: 200vh;
+  overflow: hidden;
 }
 .confirm-button{
     width: 100%;
@@ -20,6 +28,7 @@
     font-size: large;
     font-weight: bold;
     text-transform: uppercase;
+    color: var(--text);
 }
 .cancel-button{
   width: 100%;
@@ -30,6 +39,7 @@
   font-size: large;
   font-weight: bold;
   text-transform: uppercase;
+  color: var(--text);
 }
 /* Chrome, Safari, Edge */
 input::-webkit-outer-spin-button,
@@ -37,14 +47,13 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 /* Firefox */
 input[type=number] {
+  appearance: textfield; 
   -moz-appearance: textfield;
 }
 
 input:focus{
-
 font-size: medium;
 outline: none;
 }button{

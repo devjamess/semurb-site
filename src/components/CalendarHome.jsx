@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import '../styles/Calendar.css';
+import '../styles/CalendarHome.css';
 import { useNavigate } from "react-router-dom";
 
 export default function CalendarHome ({value, onDateChange}) {

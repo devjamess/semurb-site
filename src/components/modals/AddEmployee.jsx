@@ -281,19 +281,25 @@ function Page3({ employee, setIsOpenEmployee }) {
         <form onSubmit={handleAddTurn} className="forms">
           <p className="form-title">Cadastrar Turno</p>
           <div className="form-card">
+
+            <label className="form-label">Matricula do Funcionário</label>
             <input type="number" className="form-input" placeholder="Matricula"
               value={matricula_funcionario} onChange={(e) => setMatriculaFuncionario(e.target.value)} />
 
-            <input type="time" className="form-input" placeholder="Início do turno"
+            <label className="form-label">Inicio do Turno</label> 
+            <input type="time" className="form-input" 
               value={inicio_turno} onChange={(e) => setInicioTurno(e.target.value)} />
 
-            <input type="time" className="form-input" placeholder="Término do turno"
+            <label className="form-label">Termino do Turno</label>
+            <input type="time" className="form-input" 
               value={termino_turno} onChange={(e) => setTerminoTurno(e.target.value)} />
 
-            <input type="time" className="form-input" placeholder="Duração (horas)"
+            <label className="form-label">Duração do Turno</label>
+            <input type="time" className="form-input" 
               value={duracao_turno} onChange={(e) => setDuracaoTurno(e.target.value)} />
 
-            <input type="time" className="form-input" placeholder="Intervalo (minutos)"
+            <label className="form-label">Intervalo do Turno</label>
+            <input type="time" className="form-input" 
               value={intervalo_turno} onChange={(e) => setIntervaloTurno(e.target.value)} />
           </div>
 

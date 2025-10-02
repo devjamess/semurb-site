@@ -1,0 +1,98 @@
+.calendar-container {
+  width: 100%;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--contents);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: none;
+}
+
+.header-content{
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: var(--fix-titles)
+}.consultarDatas{
+  color: var(--text);
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--fix-yellow);
+  padding: 5px 10px;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-button:hover {
+  color: var(--text);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  padding: 10px;
+}
+
+.days-of-week {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: var(--fix-gray);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--fix-gray);
+}
+
+.calendar-day {
+  color:  var(--text);
+  text-align: center;
+  padding: 8px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  background-color: none;
+ 
+}
+.calendar-day:hover{
+  background-color: var(--hovers);
+}
+
+.calendar-day.day-valid:hover {
+  background-color: var(--hovers);
+}
+
+.calendar-day.selected {
+  background-color: var(--fix-titles);
+  color: var(--text);
+  font-weight: bold;
+}
+
+.calendar-day.today {
+  border: 2px solid var(--fix-titles);
+  background-color: var(--fix-titles);
+}
+
+.calendar-day.today.selected {
+  border-color: var(--text);
+}
+.calendar-day.work-day {
+  background-color: var(--confirm); 
+  color: var(--text);
+  border-radius: 4px;
+}
+
+.calendar-day.rest-day {
+  background-color: var(--cancel); 
+  color: var(--text);
+  border-radius: 4px;
+}

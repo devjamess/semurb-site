@@ -8,8 +8,6 @@ bottom: 0;
 z-index: 1000;
 background-color: rgba(0, 0, 0, 0.678);
 height: 100vh;
-
-
 }
 .form-card-position{
     display: flex;
@@ -41,6 +39,11 @@ height: 100vh;
     font-weight: 900;
     color: var(--text);
 
+}
+.form-label{
+    font-size: medium;
+    font-weight: 500;
+    color: var(--text);
 }
 .form-input{
     color: var(--text);
