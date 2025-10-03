@@ -7,7 +7,7 @@ import Alert from '../components/modals/Alert'
 
 function Login() {
   const route = useNavigate();
-  const {signIn} = useAuth();
+  const {signIn, logout} = useAuth();
   const [matricula_funcionario, setMatricula] = useState()
   const [senha, setSenha] = useState()
   const [erroMessage, setErroMessage] = useState()
@@ -22,6 +22,7 @@ function Login() {
     } else {
      setResponse(response)
      setErroMessage(userData.error)   
+     logout()
     }
 
 
@@ -40,13 +41,13 @@ function Login() {
       <div className="container-login">
         <div className="logo-login">
           <img src={logo} alt="semurb-logo" className=""/>
-          <h1>Escala Semurb</h1>
+          <p className="font-title-logo">Escala Semurb</p>
         </div>
 
         <form className="form-login" onSubmit={handleSignIn}>
           <div className="title-login">
-          <h1 className="font-color">Administrador</h1>
-          <h2 className="font-color-light">LOGIN</h2>
+          <p className="font-title">Administrador</p>
+          <p className="font-subtitle">LOGIN</p>
           </div>
 
         <div className="content-login">
@@ -60,7 +61,8 @@ function Login() {
         <input className='input-login' type="password" name="senha" id="senha" 
         value={senha} onChange={(e) => setSenha(e.target.value)} />
 
-        <button className='button-login' type="submit">Entrar</button>
+        <button className='button-login' type="submit"
+        disabled={!matricula_funcionario || !senha}>Entrar</button>
         <a className='forgot-password' href="/home">Esqueceu a senha?</a>
         <a className='forgot-password' href="/login/admin">Admin</a>
         </div> 

@@ -5,7 +5,7 @@ import logo from '../assets/images/semurb-logo-login.png'
 import {useAuth} from '../hook/useAuth'
 function LoginAdmin() {
   const route = useNavigate();
-  const {adminSignIn} = useAuth();
+  const {adminSignIn, logout} = useAuth();
   const [registration, setMatricula] = useState()
   const [password, setPassword] = useState()
 
@@ -16,7 +16,8 @@ function LoginAdmin() {
     if(adminData){
       route('/admin');
     } else {
-     alert('Falha no login, verifique suas credenciais')   
+     alert('Falha no login, verifique suas credenciais') 
+     logout()  
     }
 
 
@@ -26,13 +27,13 @@ function LoginAdmin() {
       <div className="container-login">
         <div className="logo-login">
           <img src={logo} alt="semurb-logo" className=""/>
-          <h1>Escala Semurb</h1>
+          <p className="font-title-logo">Escala Semurb</p>
         </div>
 
         <form className="form-login" onSubmit={handleSignIn}>
           <div className="title-login">
-          <h1 className="font-color">Administrador</h1>
-          <h2 className="font-color-light">LOGIN</h2>
+          <p className="font-title">Administrador</p>
+          <p className="font-subtitle">LOGIN</p>
           </div>
 
         <div className="content-login">

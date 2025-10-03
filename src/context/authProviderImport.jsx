@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import api from '../api/api';
 import AuthContext from "./authContextImport";
 
+import { addEmployee, addEmployeeAdmin, findEmployees, findAllEmployees } from "../services/employeesServices";
+import { addScale, findScales, updateScale } from "../services/scalesServices";
+
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [admin, setAdmin] = useState(null)
@@ -12,7 +15,8 @@ export const AuthProvider = ({ children }) => {
     const [scales, setScales] = useState([])
     const [allEmployees, setAllEmployees] = useState([])
     const [allSectors, setAllSectors] = useState([])
-    const [turns, setTurns] = useState([])
+    //const [turns, setTurns] = useState([])
+
     const signIn = async (matricula_funcionario, senha) => {
         try {
             if (!matricula_funcionario || !senha) {
@@ -46,64 +50,11 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         setUser(null)
         localStorage.removeItem('user_data')
+        localStorage.removeItem('authToken')
 
     };
-    const addEmployee = async (
-        nome,
-        matricula_funcionario,
-        telefone,
-        email,
-        cargo,
-        nome_regiao,
-        nome_equipe,
-        senha
-    ) => {
-        try {
-            const { data } = await api.post('/cadastrarFuncionario', {
-                matricula_adm: user?.funcionario.matricula_funcionario,
-                nome,
-                matricula_funcionario,
-                telefone,
-                email,
-                cargo,
-                nome_regiao,
-                nome_equipe,
-                senha
-            })
-            const sucess = 'Cadastro do funcionario realizado com sucesso'
-            return { result: data.funcionario, error: null, sucess: sucess }
-        } catch (error) {
-            const erro = error.response?.data?.mensagem
-                || "Erro Desconhecido"
-            console.error('erro ao cadastrar :', erro)
-            return { result: null, error: erro, secess: null };
-        }
 
-    };
-    const addScale = async (
-        matricula_funcionario,
-        data_inicio,
-        dias_trabalhados,
-        dias_n_trabalhados,
-        tipo_escala
-    ) => {
-        try {
-            const { data } = await api.post('/cadastrarEscala', {
-                matricula_adm: user?.funcionario.matricula_funcionario,
-                matricula_funcionario,
-                data_inicio,
-                dias_trabalhados,
-                dias_n_trabalhados,
-                tipo_escala
-            })
-            const sucess = "Cadastro da escala realizado com sucesso"
-            return { result: data.escala, error: null, sucess: sucess }
-        } catch (error) {
-            const erro = error.response?.data?.mensagem
-            console.error('Erro ao cadastrar escala', erro)
-            return { result: null, error: erro, sucess: null }
-        }
-    };
+    
     const addTurn = async(
         matricula_funcionario,
         inicio_turno,
@@ -140,7 +91,7 @@ export const AuthProvider = ({ children }) => {
             if (data) {
                 setAdmin(data);
                 localStorage.setItem('admin_data', JSON.stringify(data));
-                return data;
+                return data ;
             }
             return { result: data, error: null };
         } catch (error) {
@@ -160,60 +111,10 @@ export const AuthProvider = ({ children }) => {
             console.error('Erro ao criar setor', erro)
         }
     };
-    const addEmployeeAdmin = async (
-        matricula_funcionario,
-        nome,
-        email,
-        senha,
-        telefone,
-        cargo,
-        status_permissao,
-    ) => {
-        try {
-            const { data } = await api.post('cadastrarFuncioanrio_master', {
-                
-                matricula_funcionario,
-                nome,
-                email,
-                senha,
-                telefone,
-                cargo,
-                status_permissao
-            })
-            const sucess = "Administrador cadastrado com sucesso"
-            return { result: data, error: null, sucess: sucess }
-        }catch(error){
-             const erro = error.response?.data?.mensagem
-            console.error('Erro ao cadastrar administrador', erro)
-            return { result: null, error: erro, sucess: null }
-        }
-    }
+   
 
     //PUT
-    const updateScale = async(
-        matricula_funcionario,
-        data_inicio,
-        dias_trabalhados,
-        dias_n_trabalhados,
-        tipo_escala
-    ) => {
-        try{
-        const {data} = await api.put('alterarEscala', {
-        matricula_adm: user?.funcionario.matricula_funcionario,
-        matricula_funcionario,
-        data_inicio,
-        dias_trabalhados,
-        dias_n_trabalhados,
-        tipo_escala
-            })
-        const sucess = "Escala atualizada com sucesso"
-            return { result: data.escala, error: null, sucess: sucess }
-        }catch(error){
-             const erro = error.response?.data?.mensagem
-            console.error('Erro ao atualizar escala', erro)
-            return { result: null, error: erro, sucess: null }
-        }
-    }
+   
 
     //GET
     const findTeams = async () => {
@@ -238,54 +139,23 @@ export const AuthProvider = ({ children }) => {
             return {result: null, error: erro}
         }
     };
-    const findEmployees = async () => {
-        try {
-            console.log(user)
-            const { data } = await api.get(`/funcionariosSetor/${user?.funcionario.matricula_funcionario}`)
-            setEmployees(data || [])
-            return {result: data, error: null}
-        } catch (error) {
-            const erro = error.response?.data?.mensagem
-            console.error('Erro ao listar funcionarios', erro)
-            return {result: null, error: erro}
-        }
-    };
-    const findScales = async () => {
-        try {
-            const { data } = await api.get(`/escalasSetor/${user?.funcionario.matricula_funcionario}`)
-            setScales(data || [])
-            return {result: data, error: null}
-        } catch (error) {
-            const erro = error.response?.data?.mensagem
-            console.error('Erro ao listar escalas', erro)
-            return {result: null, error: erro}
-        }
-    };
-    const findTurns = async () => {
-        try{
-            const {data} = await api.get('/listarTurnos')
-            setTurns(data || [])
-            return {result: data, error: null}
-        } catch(error){
-            const erro = error.response?.data?.mensagem
-            console.error('Erro ao listar turnos', erro)
-            return {result: null, error: erro}
-        }
-    }
+   
+    
+    // const findTurns = async () => {
+    //     try{
+    //         const {data} = await api.get('/listarTurnos')
+    //         setTurns(data || [])
+    //         return {result: data, error: null}
+    //     } catch(error){
+    //         const erro = error.response?.data?.mensagem
+    //         console.error('Erro ao listar turnos', erro)
+    //         return {result: null, error: erro}
+    //     }
+    // }
 
 
 
-    const findAllEmployees = async () => {
-        try {
-            const { data } = await api.get('/listarFuncionarios_master')
-            setAllEmployees(data || [])
-            return {result: data, error: null}
-        } catch (error) {
-            const erro = error.response?.data?.mensagem
-            console.error('Erro ao buscar funcionarios', erro)
-            return {result: null, error: erro}
-        }
-    };
+   
     const findAllSectors = async () => {
         try {
             const { data } = await api.get('/listarSetores')
@@ -293,7 +163,7 @@ export const AuthProvider = ({ children }) => {
             return {result: data, error: null}
         } catch (error) {
             const erro = error.response?.data?.mensagem
-            console.error('Erro ao buscar setores', erro)
+            console.error('Erro ao buscar TODOS setores', erro)
             return {result: null, error: erro}
         }
     };
@@ -342,22 +212,28 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-         if (!user?.funcionario?.matricula_funcionario) return;
-        findScales();
-        findTeams();
-        findRegions();
-        findEmployees();
-        findTurns();
+         if (user?.funcionario?.matricula_funcionario) {
+            (async () => {
+                await findTeams();
+                await findRegions();
+                //await findTurns();
+                setEmployees(await findEmployees(user));
+                setScales(await findScales(user));
+            })();
+         }
     }, [user])
 
     useEffect(() => {
-
-        findAllSectors();
-        findAllEmployees();
+        if (admin) {
+        (async () => {
+            await findAllSectors();
+            setAllEmployees(await findAllEmployees());
+        })();
+        }
     }, [admin])
 
     if (loading) {
-        return <div className="loading">Carregando...</div>
+        return <h1 className="loading">Carregando...</h1>
     };
 
     return (
@@ -377,8 +253,8 @@ export const AuthProvider = ({ children }) => {
             employees,
             findScales,
             scales,
-            findTurns,
-            turns,
+           // findTurns,
+            //turns,
 
             admin,
             inAdmin: !!admin,
