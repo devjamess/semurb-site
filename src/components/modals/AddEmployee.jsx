@@ -123,7 +123,7 @@ function Page1({ isOpenEmployee, setIsOpenEmployee, goNextPage }) {
             <input name='nome_equipe' id="equipe-input" list="equipes-list" className="form-input"
               placeholder="Equipe" value={form.nome_equipe} onChange={handleChange} />
             <datalist id="equipes-list">
-              {teams?.result?.map((eq) => (
+              {teams?.result?.result?.map((eq) => (
                 <option key={eq.id_equipe} value={eq.nome_equipe} />
               ))}
             </datalist>

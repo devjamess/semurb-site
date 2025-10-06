@@ -12,8 +12,8 @@ function Teams() {
     const {teams, employees, user, regions, scales} = useAuth()
     const {id} = useParams()
 
-    teams?.find(tm => String(tm.id_equipe) === id)
-    
+
+
     const [search, setSearch] = useState('')
     const searchLowerCase = search.toLowerCase();
     const employeesList = !employees ? [] : employees?.result?.filter((employee) => 
@@ -54,10 +54,10 @@ function Teams() {
             <div >{employee.nome}</div>
             <div >{employee.email}</div>
             <div >{employee.telefone}</div>
-            <div >{user?.setor.nome_setor}</div>
-            <div >{teams?.find(team => (team.id_equipe == employee.id_equipe))?.nome_equipe}</div>
-            <div >{regions?.find(region =>(region.id_regiao == employee.id_regiao))?.nome_regiao}</div>
-            <div >{scales?.result?.find(scale => (scale.id_escala == employee.id_escala))?.tipo_escala}</div>
+            <div >{user.setor?.nome_setor}</div>
+            <div >{teams.result?.find(team => (team.id_equipe == employee.id_equipe))?.nome_equipe}</div>
+            <div >{regions.result?.find(region =>(region.id_regiao == employee.id_regiao))?.nome_regiao}</div>
+            <div >{scales.result?.id_escala == employee.id_escala ? scales.result?.tipo_escala : ''}</div>
       </div>
         ))}
   </div>

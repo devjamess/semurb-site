@@ -37,10 +37,10 @@ function EditEmployee() {
 
   const sector = allSectors.result?.setores?.find(sector => (
     currentEmployee?.id_setor == sector.id_setor))?.nome_setor
-  const team = teams?.find(team => (
+  const team = teams?.result?.find(team => (
     currentEmployee?.id_equipe == team.id_equipe
   ))?.nome_equipe
-  const region = regions?.find(region => (
+  const region = regions?.result?.find(region => (
     currentEmployee?.id_regiao == region.id_regiao
   ))?.nome_regiao
   const scale = scales?.result?.find(scale => (

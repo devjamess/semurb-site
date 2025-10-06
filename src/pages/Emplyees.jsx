@@ -53,8 +53,8 @@ function Employee() {
               <p className="profile-info">Telefone: <span className="info-auth">{CurrentEmployee?.telefone}</span></p>
               <p className="profile-info">Email: <span className="info-auth">{CurrentEmployee?.email}</span></p>
               <p className="profile-info">Escala: <span className="info-auth">{scales?.result?.find(scale => (scale.id_escala == CurrentEmployee?.id_escala))?.tipo_escala}</span></p>
-              <p className="profile-info">Equipe: <span className="info-auth">{teams?.find(team => (team.id_equipe == CurrentEmployee?.id_equipe))?.nome_equipe}</span></p>
-              <p className="profile-info">Regiao: <span className="info-auth">{regions?.find(region => (region.id_regiao == CurrentEmployee?.id_regiao))?.nome_regiao}</span></p>
+              <p className="profile-info">Equipe: <span className="info-auth">{teams?.result?.find(team => (team.id_equipe == CurrentEmployee?.id_equipe))?.nome_equipe}</span></p>
+              <p className="profile-info">Regiao: <span className="info-auth">{regions?.result?.find(region => (region.id_regiao == CurrentEmployee?.id_regiao))?.nome_regiao}</span></p>
               <p className="profile-info">Setor: <span className="info-auth">{user?.setor?.nome_setor}</span></p>
             </div>
             <button className="confirm-button">Atualizar</button>

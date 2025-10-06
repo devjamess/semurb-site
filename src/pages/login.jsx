@@ -63,7 +63,7 @@ function Login() {
 
         <button className='button-login' type="submit"
         disabled={!matricula_funcionario || !senha}>Entrar</button>
-        <a className='forgot-password' href="/home">Esqueceu a senha?</a>
+        <a className='forgot-password' href="/">Esqueceu a senha?</a>
         <a className='forgot-password' href="/login/admin">Admin</a>
         </div> 
         </form>

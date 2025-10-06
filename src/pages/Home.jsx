@@ -46,7 +46,7 @@ import '../styles/EmployeeList.css'
         onClick={() => route(`/employees/${employee.matricula_funcionario}`)}>
           <p className="list-info">{employee.nome}</p>
           <p className="list-info-bottom">
-              Equipe: {teams?.find(team => (team.id_equipe == employee.id_equipe))?.nome_equipe}</p>
+              Equipe: {teams?.result?.find(team => (team.id_equipe == employee.id_equipe))?.nome_equipe}</p>
         </div>
       ) )}
         </div>

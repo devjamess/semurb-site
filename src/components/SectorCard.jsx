@@ -16,7 +16,7 @@ export default function SectorCard() {
       </div>
 
       <div className='container-teams'>
-        {teams?.map((tm) => (
+        {teams?.result?.map((tm) => (
           <div className='team' key={tm.id_equipe} onClick={() => route(`/teams/${tm.id_equipe}`)} >
             <p>{tm.nome_equipe}</p>
           </div>

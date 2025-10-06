@@ -1,8 +1,6 @@
  import api from "../api/api";
  
- export const addEmployee = async (
-    user, payload
-    ) => {
+ export const addEmployee = async (user, payload) => {
         try {
             const { data } = await api.post('/cadastrarFuncionario', {
                 matricula_adm: user?.funcionario.matricula_funcionario,
