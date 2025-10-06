@@ -3,9 +3,9 @@ import { useAuth } from '../../hook/useAuth'
 import { useState, useEffect } from 'react'
 import Alert from './Alert'
 
-function AddEmployeeCard({ isOpenEmployee, setIsOpenEmployee }) {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [createdEmployee, setCreatedEmployee] = useState(null) // guarda funcionário criado
+function AddEmployeeCard({ isOpenEmployee, setIsOpenEmployee, setPage, employee }) {
+  const [currentPage, setCurrentPage] = useState(setPage || 1)
+  const [createdEmployee, setCreatedEmployee] = useState(employee || null) // guarda funcionário criado
 
   const goNextPage = (employee) => {
     if (employee) setCreatedEmployee(employee)
@@ -40,33 +40,39 @@ function AddEmployeeCard({ isOpenEmployee, setIsOpenEmployee }) {
 }
 
 function Page1({ isOpenEmployee, setIsOpenEmployee, goNextPage }) {
-  const { addEmployee, teams, regions, findTeams, findRegions } = useAuth()
+  const { addEmployee, teams, regions, findTeams, findRegions, user } = useAuth()
   const [erroMessage, setErroMessage] = useState()
   const [response, setResponse] = useState('Erro')
   const [save, setSave] = useState()
 
-  const [nome, setNome] = useState("")
-  const [matricula_funcionario, setMatricula] = useState("")
-  const [senha, setSenha] = useState("")
-  const [telefone, setTelefone] = useState("")
-  const [email, setEmail] = useState("")
-  const [cargo, setCargo] = useState("")
-  const [nome_equipe, setEquipe] = useState("")
-  const [nome_regiao, setRegiao] = useState("")
+  const [form, setForm] = useState({
+    matricula_funcionario: '', 
+    nome: '',
+    telefone: '',
+    email: '',
+    cargo: '',
+    nome_equipe: '',
+    nome_regiao: '',
+  })
+  const handleChange = (e) => {
+      const { name, value } = e.target;
+        setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+ 
 
   useEffect(() => {
     if (isOpenEmployee) {
-      findTeams()
-      findRegions()
+      findTeams();
+      findRegions();
     }
   }, [isOpenEmployee])
 
   async function handleAddEmployee(e) {
     e.preventDefault()
-    const employee = await addEmployee(
-      nome, matricula_funcionario, telefone,
-      email, cargo, nome_regiao, nome_equipe, senha
-    )
+    const employee = await addEmployee(user, form)
 
     if (employee.result) {
       setResponse('Sucesso')
@@ -97,48 +103,44 @@ function Page1({ isOpenEmployee, setIsOpenEmployee, goNextPage }) {
       <div className="form-card-position">
         <form onSubmit={handleAddEmployee} className="forms">
           <p className="form-title">Adicionar Funcionario</p>
-          <div className="form-card ">
-            <input type="text" className="form-input" placeholder="Nome Completo"
-              value={nome} onChange={(e) => setNome(e.target.value)} />
+          <div className="form-card "> 
+            
+            <input name='matricula_funcionario' type="number" className="form-input" placeholder="Matricula"
+              value={form.matricula_funcionario} onChange={handleChange}  />
 
-            <input type="number" className="form-input" placeholder="Matricula"
-              value={matricula_funcionario} onChange={(e) => setMatricula(e.target.value)} />
+            <input name='nome' type="text" className="form-input" placeholder="Nome Completo"
+              value={form.nome} onChange={handleChange}  />
+           
+            <input name='telefone' type="tel" className="form-input" placeholder="Telefone"
+              value={form.telefone} onChange={handleChange}  />
 
-            <input type="tel" className="form-input" placeholder="Telefone"
-              value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+            <input name='email' type="email" className="form-input" placeholder="Email"
+              value={form.email} onChange={handleChange} />
 
-            <input type="email" className="form-input" placeholder="Email"
-              value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input name='cargo' type="text" className="form-input" placeholder="Cargo"
+              value={form.cargo} onChange={handleChange}  />
 
-            <input type="text" className="form-input" placeholder="Cargo"
-              value={cargo} onChange={(e) => setCargo(e.target.value)} />
-
-            <input type="password" className="form-input" placeholder="Senha"
-              value={senha} onChange={(e) => setSenha(e.target.value)} />
-
-            <input id="equipe-input" list="equipes-list" className="form-input"
-              placeholder="Equipe" value={nome_equipe} onChange={(e) => setEquipe(e.target.value)} />
+            <input name='nome_equipe' id="equipe-input" list="equipes-list" className="form-input"
+              placeholder="Equipe" value={form.nome_equipe} onChange={handleChange} />
             <datalist id="equipes-list">
-              {teams.map((eq) => (
+              {teams?.result?.map((eq) => (
                 <option key={eq.id_equipe} value={eq.nome_equipe} />
               ))}
             </datalist>
 
-            <input id="regiao-input" list="regioes-list" className="form-input"
-              placeholder="Regiao" value={nome_regiao} onChange={(e) => setRegiao(e.target.value)} />
+            <input name='nome_regiao' id="regiao-input" list="regioes-list" className="form-input"
+              placeholder="Regiao" value={form.nome_regiao} onChange={handleChange} />
             <datalist id="regioes-list">
-              {regions.map((eq) => (
+              {regions?.result?.map((eq) => (
                 <option key={eq.id_regiao} value={eq.nome_regiao} />
               ))}
             </datalist>
           </div>
 
           <div className="buttons-form">
-            <button type="submit" className="confirm-button"
-              disabled={
-                !nome || !matricula_funcionario || !telefone || !email ||
-                !cargo || !senha || !nome_equipe || !nome_regiao
-              }>
+            <button type="submit" className={`confirm-button ${
+              Object.values(form).some(values => values === '') ? 'disable' : ''}`}
+              disabled={Object.values(form).some(values => values === '')}>
               Continuar
             </button>
             <button type="button" className="cancel-button" onClick={() => setIsOpenEmployee(false)}>Fechar</button>
@@ -150,23 +152,28 @@ function Page1({ isOpenEmployee, setIsOpenEmployee, goNextPage }) {
 }
 
 function Page2({ employee, setIsOpenEmployee, goNextPage }) {
-  const { addScale, scales } = useAuth()
+  const { addScale, scales, user } = useAuth()
   const [erroMessage, setErroMessage] = useState()
   const [response, setResponse] = useState('Erro')
   const [save, setSave] = useState()
 
-  const [matricula_funcionario, setMatriculaFuncionario] = useState(employee?.matricula_funcionario || "")
-  const [data_inicio, setDataInicio] = useState("")
-  const [tipo_escala, setTipoEscala] = useState("")
-  const [dias_trabalhados, setDiasTrabalhados] = useState("")
-  const [dias_n_trabalhados, setDiasNTrabalhados] = useState("")
-
+ const [form, serForm] = useState({
+      matricula_funcionario: employee.matricula_funcionario,
+      data_inicio: '',
+      tipo_escala: '',
+      dias_trabalhados: '',
+      dias_n_trabalhados: '',
+    })
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+        serForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   async function handleAddScale(e) {
     e.preventDefault()
-    const scale = await addScale(
-      matricula_funcionario, data_inicio, dias_trabalhados,
-      dias_n_trabalhados, tipo_escala
-    )
+    const scale = await addScale(user, form)
     if (scale.result) {
       setResponse('Sucesso')
       setErroMessage(scale.sucess)
@@ -197,40 +204,38 @@ function Page2({ employee, setIsOpenEmployee, goNextPage }) {
         <form onSubmit={handleAddScale} className="forms">
           <p className="form-title">Cadastrar Escala</p>
           <div className="form-card">
-            <input type="number" className="form-input" placeholder="Matricula"
-              value={matricula_funcionario} onChange={(e) => setMatriculaFuncionario(e.target.value)} />
+            <input name='matricula_funcionario' type="number" className="form-input" placeholder="Matricula"
+              value={form.matricula_funcionario} onChange={handleChange} />
 
-            <input type="date" className="form-input"
-              value={data_inicio} onChange={(e) => setDataInicio(e.target.value)} />
+            <input name='data_inicio' type="date" className="form-input"
+              value={form.data_inicio} onChange={handleChange} />
 
-            <input type="number" className="form-input" placeholder="Dias trabalhados"
-              value={dias_trabalhados} onChange={(e) => setDiasTrabalhados(e.target.value)} />
+            <input name='dias_trabalhados' type="number" className="form-input" placeholder="Dias trabalhados"
+              value={form.dias_trabalhados} onChange={handleChange} />
 
-            <input type="number" className="form-input" placeholder="Dias de folga"
-              value={dias_n_trabalhados} onChange={(e) => setDiasNTrabalhados(e.target.value)} />
+            <input name='dias_n_trabalhados' type="number" className="form-input" placeholder="Dias de folga"
+              value={form.dias_n_trabalhados} onChange={handleChange} />
 
-            <input
+            <input name='tipo_escala'
               id="escala-input"
               list="escalas-list"
               className="form-input"
               placeholder="Escala"
-              value={tipo_escala}
-              onChange={(e) => setTipoEscala(e.target.value)}
+              value={form.tipo_escala}
+              onChange={handleChange}
 
             />
             <datalist id="escalas-list">
-              {scales.map(scalel => (
-                <option key={scalel.escala.id_escala} value={scalel.escala.tipo_escala} />
+              {scales?.result?.map(scalel => (
+                <option key={scalel.id_escala} value={scalel.tipo_escala} />
               ))}
             </datalist>
           </div>
 
           <div className="buttons-form">
-            <button type="submit" className="confirm-button"
-              disabled={
-                !matricula_funcionario || !data_inicio ||
-                !dias_trabalhados || !dias_n_trabalhados || !tipo_escala
-              }>
+            <button type="submit" className={`confirm-button 
+            ${Object.values(form).some(value => value === '') ? 'disable' : '' }`}
+            disabled={Object.values(form).some(value => value === '')}>
               Concluir
             </button>
             <button type="button" className="cancel-button" onClick={() => setIsOpenEmployee(false)}>Fechar</button>
@@ -247,7 +252,7 @@ function Page3({ employee, setIsOpenEmployee }) {
   const [response, setResponse] = useState('Erro')
   const [save, setSave] = useState()
 
-  const [matricula_funcionario, setMatriculaFuncionario] = useState(employee?.matricula_funcionario || "")
+  const [matricula_funcionario, setMatriculaFuncionario] = useState(employee?.matricula_funcionario)
   const [inicio_turno, setInicioTurno] = useState("")
   const [termino_turno, setTerminoTurno] = useState("")
   const [duracao_turno, setDuracaoTurno] = useState("")
@@ -256,7 +261,9 @@ function Page3({ employee, setIsOpenEmployee }) {
   async function handleAddTurn(e) {
     e.preventDefault()
     const turn = await addTurn(
-      matricula_funcionario, inicio_turno, termino_turno, duracao_turno, intervalo_turno
+      matricula_funcionario, 
+      inicio_turno, termino_turno, 
+      duracao_turno, intervalo_turno
     )
     if (turn.result) {
       setResponse('Sucesso')

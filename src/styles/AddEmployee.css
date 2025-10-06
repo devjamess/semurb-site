@@ -49,6 +49,7 @@ height: 100vh;
     background: none;
     border: 2px solid var(--fix-dark);
     padding: 0.7rem;
+    font-size: medium;
 
 }
 .buttons-form{
@@ -61,6 +62,7 @@ height: 100vh;
 }
 .disable{
     opacity: 0.5;
+    cursor: not-allowed
 }
 .admin-setor{
     display: grid;

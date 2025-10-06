@@ -1,7 +1,7 @@
 import api from "../api/api";
 
 export const addScale = async (
-        payload, user
+        user, payload
     ) => {
         try {
             const { data } = await api.post('/cadastrarEscala', {
@@ -28,7 +28,9 @@ export const updateScale = async(
         const sucess = "Escala atualizada com sucesso"
             return { result: data.escala, error: null, sucess: sucess }
         }catch(error){
-             const erro = error.response?.data?.mensagem
+             const erro = error?.response?.data?.mensagem || 
+             error.response?.data?.erro ||
+             error.message
             console.error('Erro ao atualizar escala', erro)
             return { result: null, error: erro, sucess: null }
         }
@@ -37,7 +39,8 @@ export const updateScale = async(
 export const findScales = async () => {
         try {
             const { data } = await api.get(`/escalas`)
-            return {result: data, error: null}
+             const sucess = "Escalas listadas com sucesso"
+        return { result: data, error: null, sucess: sucess }
         } catch (error) {
             const erro = error.response?.data?.mensagem
             console.error('Erro ao listar escalas', erro)

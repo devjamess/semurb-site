@@ -1,22 +1,33 @@
 import {useAuth} from '../hook/useAuth'
 import {useParams, useNavigate} from 'react-router-dom'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import'../styles/EmployeeTable.css'
 
 function Sectors() {
     
     const route = useNavigate()
     
-    const {allSectors, allEmployees} = useAuth()
+    const {allSectors, allEmployees, getAllEmployees} = useAuth()
     const {id} = useParams()
-    console.log(allEmployees)
 
-    allSectors.result?.setores?.find(sector => String(sector.id_setor) === id)
-    
     const [search, setSearch] = useState('')
     const searchLowerCase = search.toLowerCase();
-    const employeesList = !allEmployees ? [] : allEmployees?.result?.filter((employee) => 
+
+    useEffect(()=>{
+      getAllEmployees()
+    },[getAllEmployees])
+
+    if(!allSectors.sucess) 
+    return <p className="loading-text">Carregando setores...</p>;
+   
+    if(!allEmployees.sucess) 
+    return <p className="loading-text">Carregando funcionários do setor...</p>
+
+    const employeesList = allEmployees?.result?.filter((employee) => 
     employee.nome.toLowerCase().includes(searchLowerCase))
+
+    if(!employeesList)
+    return <p className="loading-text">Não foi possivel encontrar os funcionários.</p>;
 
     return(
     <div className="body">
@@ -36,8 +47,7 @@ function Sectors() {
   </div>
 
 
-     {allEmployees === undefined ? <p className="loading-text">Loading...</p> 
-     : employeesList?.filter(employee => employee.id_setor == id).map((employee) => (  
+     {employeesList?.filter(employee => employee.id_setor == id).map((employee) => (  
       <div className="table-row" key={employee.matricula_funcionario} 
       onClick={() => route(`/edit-employee/${employee.matricula_funcionario}`)}>
             <div className='matricula'>{employee.matricula_funcionario}</div>

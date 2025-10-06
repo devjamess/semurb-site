@@ -11,7 +11,7 @@ export default function AddAdmin({isOpenModal, setIsOpenModal}) {
 
 
 
-    const [form, serForm] = useState({
+    const [form, setForm] = useState({
       matricula_funcionario: '',
       nome: '',
       email: '',
@@ -22,7 +22,7 @@ export default function AddAdmin({isOpenModal, setIsOpenModal}) {
     })
     const handleChange = (e) => {
       const { name, value } = e.target;
-        serForm((prev) => ({
+        setForm((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -48,7 +48,9 @@ export default function AddAdmin({isOpenModal, setIsOpenModal}) {
           error={erroMessage}
           onClose={() => {
             setErroMessage("")
+            setIsOpenModal(!isOpenModal)
           }}
+          
         />
       )}
         <div className="form-card-position admin-card">

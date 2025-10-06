@@ -11,8 +11,9 @@
             const sucess = 'Cadastro do funcionario realizado com sucesso'
             return { result: data.funcionario, error: null, sucess: sucess }
         } catch (error) {
-            const erro = error.response?.data?.mensagem
-                || "Erro Desconhecido"
+            const erro = error.response?.data?.mensagem || 
+            error.message ||
+            "Erro Desconhecido"
             console.error('erro ao cadastrar :', erro)
             return { result: null, error: erro, sucess: null };
         }
@@ -21,7 +22,8 @@
     export const findAllEmployees = async () => {
         try {
             const { data } = await api.get('/listarFuncionarios_master')
-            return {result: data.funcionarios, error: null}
+             const sucess = "TODOS funcionarios listados com sucesso"
+        return { result: data.funcionarios, error: null, sucess: sucess }
         } catch (error) {
             const erro = error.response?.data?.mensagem
             console.error('Erro ao buscar TODOS funcionarios', erro)
@@ -46,7 +48,8 @@
     export const findEmployees = async (user) => {
         try {
             const { data } = await api.get(`/funcionariosSetor/${user?.funcionario.matricula_funcionario}`)
-            return {result: data, error: null}
+             const sucess = "funcionarios listados com sucesso"
+        return { result: data, error: null, sucess: sucess }
         } catch (error) {
             const erro = error.response?.data?.mensagem
             console.error('Erro ao listar funcionarios', erro)

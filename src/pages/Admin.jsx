@@ -11,16 +11,22 @@ function Admin() {
 
   const { allEmployees, allSectors } = useAuth()
   const route = useNavigate()
+  const [isOpenModalAdmin, setIsOpenModalAdmin] = useState(false)
+  const [isOpenModalSector, setIsOpenModalSector] = useState(false)
 
   const [search, setSearch] = useState('')
   const searchLowerCase = search.toLowerCase();
-  const allEmployeesList = !allEmployees ? [] :
-    allEmployees?.result?.filter((employee) =>
-      employee.nome.toLowerCase().includes(searchLowerCase)
-    );
+ 
 
-  const [isOpenModalAdmin, setIsOpenModalAdmin] = useState(false)
-  const [isOpenModalSector, setIsOpenModalSector] = useState(false)
+   if (!allEmployees || !allEmployees.result || !allEmployees.sucess)
+  return <p className='loading-text'>Carregando funcionários...</p>;
+  
+
+  const allEmployeesList = allEmployees?.result?.filter((employee) =>
+  employee.nome.toLowerCase().includes(searchLowerCase))
+
+  if(!allEmployeesList) return <p className="loading-text">Não foi possivel encontrar os funcionários</p>;
+  
   return (
     <div className="body" >
       <AddAdmin isOpenModal={isOpenModalAdmin} setIsOpenModal={setIsOpenModalAdmin} />

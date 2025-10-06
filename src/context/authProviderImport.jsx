@@ -5,7 +5,7 @@ import AuthContext from "./authContextImport";
 import { addEmployee, addEmployeeAdmin, findEmployees, findAllEmployees } from "../services/employeesServices";
 import { addScale, findScales, updateScale } from "../services/scalesServices";
 import { findAllSectors, addSector } from "../services/sectorsServices";
-import { addAdmin } from "../services/adminsServices"
+import { addAdmin, deleteEmployee } from "../services/adminsServices"
 
 export const AuthProvider = ({ children }) => {
 
@@ -105,6 +105,21 @@ export const AuthProvider = ({ children }) => {
             console.error("Erro ao fazer login como admin", erro)
             return { result: null, error: erro }
         }
+    };
+
+     const getAllEmployees = async () => {
+        const res = await findAllEmployees();
+        setAllEmployees(res);
+    };
+
+    // Função para deletar funcionário e atualizar lista
+    const handleDeleteEmployee = async (matricula_funcionario) => {
+        const res = await deleteEmployee(matricula_funcionario);
+        if(res.result){
+            await getAllEmployees(); 
+            // atualiza lista global
+        }
+        return res;
     };
 
 
@@ -265,10 +280,13 @@ useEffect(() => {
             user,
             inUser: !!user,
             signIn, logout,
-            addEmployee, addScale,
+            addEmployee, 
+            addScale,
             addTurn,
             updateScale,
             addAdmin,
+            deleteEmployee: handleDeleteEmployee,
+            getAllEmployees,
 
             findTeams,
             teams,
