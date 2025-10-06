@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {Routes, Route, Navigate, Outlet} from "react-router-dom";
 import Login from './pages/login';
 import Home from './pages/Home';
@@ -10,10 +9,14 @@ import Admin from './pages/Admin'
 import LoginAdmin from './pages/loginAdmin'
 import Employees from './pages/Emplyees'
 import CurrentDay from './pages/CurrentDay'
+import Sectors from './pages/Sectors'
+import EditEmployee from './pages/EditEmployees'
+
 import {AuthProvider} from './context/authProviderImport'
 import {ThemeProvider} from './theme/ThemeProviderImport'
 import {useAuth} from './hook/useAuth'
 import { BrowserRouter, useLocation } from 'react-router-dom';
+
 
 function AuthApp (){
   const {inUser} = useAuth()
@@ -29,6 +32,9 @@ function AdminAuth () {
 
 
 export default function RootApp(){
+
+
+
   return(
     
     <AuthProvider>
@@ -62,6 +68,8 @@ function App() {
 
       <Route element={<AdminAuth />}>
           <Route path='/admin' element={<Admin />} />
+          <Route path='/sectors/:id' element={<Sectors />} />
+          <Route path='/edit-employee/:id' element={<EditEmployee />} />
       </Route>
        
       </Routes>

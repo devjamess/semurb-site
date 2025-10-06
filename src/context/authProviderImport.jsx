@@ -4,8 +4,11 @@ import AuthContext from "./authContextImport";
 
 import { addEmployee, addEmployeeAdmin, findEmployees, findAllEmployees } from "../services/employeesServices";
 import { addScale, findScales, updateScale } from "../services/scalesServices";
+import { findAllSectors, addSector } from "../services/sectorsServices";
+import { addAdmin } from "../services/adminsServices"
 
 export const AuthProvider = ({ children }) => {
+
     const [user, setUser] = useState(null);
     const [admin, setAdmin] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -15,17 +18,18 @@ export const AuthProvider = ({ children }) => {
     const [scales, setScales] = useState([])
     const [allEmployees, setAllEmployees] = useState([])
     const [allSectors, setAllSectors] = useState([])
+
     //const [turns, setTurns] = useState([])
 
     const signIn = async (matricula_funcionario, senha) => {
         try {
             if (!matricula_funcionario || !senha) {
                 const erro = 'Preencha todos os campos'
-                return {result: null, error: erro};
+                return { result: null, error: erro };
             }
             if (!/^\d+$/.test(matricula_funcionario)) {
                 const erro = 'Creedenciais Invalidas'
-                return{result: null, error: erro}
+                return { result: null, error: erro }
             }
             const { data } = await api.post('/loginAdm', {
                 matricula_funcionario,
@@ -34,10 +38,9 @@ export const AuthProvider = ({ children }) => {
 
             if (data?.token) {
                 localStorage.setItem('authToken', data.token);
-                localStorage.setItem('user', JSON.stringify(data.funcionario));
                 setUser(data);
                 localStorage.setItem('user_data', JSON.stringify(data));
-                return {result: data, error: null};
+                return { result: data, error: null };
             }
             return { result: data, error: null };
         } catch (error) {
@@ -49,22 +52,24 @@ export const AuthProvider = ({ children }) => {
     };
     const logout = async () => {
         setUser(null)
+        setAdmin(null)
         localStorage.removeItem('user_data')
         localStorage.removeItem('authToken')
+        localStorage.removeItem('admin_data')
 
     };
 
-    
-    const addTurn = async(
+
+    const addTurn = async (
         matricula_funcionario,
         inicio_turno,
         termino_turno,
         duracao_turno,
         intervalo_turno,
-        
+
     ) => {
         try {
-            const {data} = await api.post('/cadastrarTurno', {
+            const { data } = await api.post('/cadastrarTurno', {
                 matricula_adm: user?.funcionario.matricula_funcionario,
                 matricula_funcionario,
                 inicio_turno,
@@ -74,8 +79,8 @@ export const AuthProvider = ({ children }) => {
             })
             const sucess = "Cadastro do Turno realizado com sucesso"
             return { result: data.turno, error: null, sucess: sucess }
-        }catch(error){
-             const erro = error.response?.data?.mensagem
+        } catch (error) {
+            const erro = error.response?.data?.mensagem
             console.error('Erro ao cadastrar turno', erro)
             return { result: null, error: erro, sucess: null }
         }
@@ -88,10 +93,11 @@ export const AuthProvider = ({ children }) => {
                 registration,
                 password
             })
-            if (data) {
+            if (data?.token) {
                 setAdmin(data);
+                localStorage.setItem('authToken', data.token);
                 localStorage.setItem('admin_data', JSON.stringify(data));
-                return data ;
+                return data;
             }
             return { result: data, error: null };
         } catch (error) {
@@ -100,32 +106,22 @@ export const AuthProvider = ({ children }) => {
             return { result: null, error: erro }
         }
     };
-    const addSector = async (nome_setor) => {
-        try {
-            const { data } = await api.post('/cadastrarSetor', {
-                nome_setor
-            })
-            return { result: data, error: null };
-        } catch (error) {
-            const erro = error.response?.data?.mensagem
-            console.error('Erro ao criar setor', erro)
-        }
-    };
-   
+
+
 
     //PUT
-   
+
 
     //GET
     const findTeams = async () => {
         try {
             const { data } = await api.get('/equipes');
             setTeams(data || [])
-            return {result: data, error: null}
+            return { result: data, error: null }
         } catch (error) {
             const erro = error.response?.data?.mensagem
             console.error("Erro ao buscar equipes:", erro);
-            return {result: null, error: erro}
+            return { result: null, error: erro }
         }
     };
     const findRegions = async () => {
@@ -136,11 +132,11 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             const erro = error.response?.data?.mensagem
             console.error("Erro ao buscar regiões:", erro);
-            return {result: null, error: erro}
+            return { result: null, error: erro }
         }
     };
-   
-    
+
+
     // const findTurns = async () => {
     //     try{
     //         const {data} = await api.get('/listarTurnos')
@@ -153,25 +149,8 @@ export const AuthProvider = ({ children }) => {
     //     }
     // }
 
-
-
-   
-    const findAllSectors = async () => {
-        try {
-            const { data } = await api.get('/listarSetores')
-            setAllSectors(data || [])
-            return {result: data, error: null}
-        } catch (error) {
-            const erro = error.response?.data?.mensagem
-            console.error('Erro ao buscar TODOS setores', erro)
-            return {result: null, error: erro}
-        }
-    };
-
-
-
     useEffect(() => {
-        const loadUser = async () => {    
+        const loadUser = async () => {
             const storedUser = localStorage.getItem('user_data');
             if (typeof storedUser === 'string' && storedUser.trim() !== '') {
                 try {
@@ -212,7 +191,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-         if (user?.funcionario?.matricula_funcionario) {
+        if (user?.funcionario?.matricula_funcionario) {
             (async () => {
                 await findTeams();
                 await findRegions();
@@ -220,20 +199,65 @@ export const AuthProvider = ({ children }) => {
                 setEmployees(await findEmployees(user));
                 setScales(await findScales(user));
             })();
-         }
+        }
     }, [user])
 
     useEffect(() => {
         if (admin) {
-        (async () => {
-            await findAllSectors();
-            setAllEmployees(await findAllEmployees());
-        })();
+            (async () => {
+                await findTeams();
+                await findRegions();
+                setScales(await findScales());
+                setAllSectors(await findAllSectors());
+                setAllEmployees(await findAllEmployees());
+            })();
         }
     }, [admin])
 
+
+
+    const [token, setToken] = useState(false);
+
+   function isTokenExpired(token) {
+    try {
+        const [, payload] = token.split('.');
+        const { exp } = JSON.parse(atob(payload));
+        return Date.now() >= exp * 1000;
+    } catch {
+        return true;
+    }
+}
+
+useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token && isTokenExpired(token)) {
+        setUser(null);
+        setAdmin(null);
+        setToken(true);
+        localStorage.removeItem('user_data');
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('admin_data');
+    }
+}, []);
+
+    useEffect(() => {
+        if (token) {
+            const timer = setTimeout(() => {
+                window.location.href = '/';
+            }, 2000); // 2 segundos para mostrar a mensagem
+            return () => clearTimeout(timer);
+        }
+    }, [token]);
+
+    if (token) {
+        setTimeout(() => window.location.href = '/', 2000);
+        return <p className="loading-text">Sua sessão expirou. Redirecionando para o login...</p>
+    }
+
+
+
     if (loading) {
-        return <h1 className="loading">Carregando...</h1>
+        return <p className="loading-text">Carregando...</p>
     };
 
     return (
@@ -244,6 +268,7 @@ export const AuthProvider = ({ children }) => {
             addEmployee, addScale,
             addTurn,
             updateScale,
+            addAdmin,
 
             findTeams,
             teams,
@@ -253,7 +278,7 @@ export const AuthProvider = ({ children }) => {
             employees,
             findScales,
             scales,
-           // findTurns,
+            // findTurns,
             //turns,
 
             admin,

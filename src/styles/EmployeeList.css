@@ -9,18 +9,6 @@
     overflow-y: auto;
 
 }
-.list::-webkit-scrollbar {
-    width: 8px;
-    background: transparent;
-}
-.list::-webkit-scrollbar-thumb {
-    background: var(--fix-gray);
-    border-radius: 8px;
-}
-.list::-webkit-scrollbar-track {
-    background: var(--contents);
-    height: 8px;
-}
 .list>div{
     border: none; 
     

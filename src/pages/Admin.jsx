@@ -1,49 +1,92 @@
-import SetorCard from '../components/SetorCard'
+import SectorCard from '../components/SectorCard'
 import MyChart from '../components/Graph'
-import {useAuth} from '../hook/useAuth'
+import { useAuth } from '../hook/useAuth'
+import AddAdmin from '../components/AddAdmin'
+import { useState } from 'react'
 import '../styles/Admin.css'
-import '../styles/EmployeeTable.css'
-function Admin () {
-    const {admin, allEmployees} = useAuth()
-    console.log('ADMIN: ', admin)
-    console.log('EMPLOYEES: ',allEmployees)
-    return(
-        <div className="body">
-      
+import AddSector from '../components/AddSector'
+import { useNavigate } from 'react-router-dom'
+
+function Admin() {
+
+  const { allEmployees, allSectors } = useAuth()
+  const route = useNavigate()
+
+  const [search, setSearch] = useState('')
+  const searchLowerCase = search.toLowerCase();
+  const allEmployeesList = !allEmployees ? [] :
+    allEmployees?.result?.filter((employee) =>
+      employee.nome.toLowerCase().includes(searchLowerCase)
+    );
+
+  const [isOpenModalAdmin, setIsOpenModalAdmin] = useState(false)
+  const [isOpenModalSector, setIsOpenModalSector] = useState(false)
+  return (
+    <div className="body" >
+      <AddAdmin isOpenModal={isOpenModalAdmin} setIsOpenModal={setIsOpenModalAdmin} />
+      <AddSector isOpenModal={isOpenModalSector} setIsOpenModal={setIsOpenModalSector} />
+
+      <div className="adm-container-search">
+        <div className="adm-search-list">
+          <input type="search" placeholder='Buscar Funcionarios. . .'
+            value={search} onChange={(e) => setSearch(e.target.value)} />
+          {search ?
+            <div className="adm-list">
+              {allEmployeesList?.map((employee, key) => (
+                <div className="adm-list-content" key={key}
+                  onClick={() => route(`/edit-employee/${employee.matricula_funcionario}`)}>
+                  <p className="adm-list-info">{employee.nome}</p>
+                  <p className="adm-list-info-bottom">
+                    Equipe: {allSectors.result?.setores?.find(sector => (
+                      sector.id_setor == employee.id_setor))?.nome_setor}</p>
+                </div>
+              ))}
+            </div>
+            : null
+          }
+        </div>
+        <button className="confirm-button"
+          onClick={() => setIsOpenModalAdmin(!isOpenModalAdmin)}>
+          Adicionar Funcionario
+        </button>
+        <button className="confirm-button"
+          onClick={() => setIsOpenModalSector(!isOpenModalSector)}>
+          Adicionar Setor
+        </button>
+      </div>
+
       <div className='adm-container-up'>
-        
-      <MyChart />
-
-
-      <SetorCard />
-        
+        <MyChart />
+        <SectorCard />
       </div>
 
       <div className='adm-container-down'>
-        <div className="table">
-  <div className="table-header">
-    <div>Matrícula</div>
-    <div>Nome</div>
-    <div>Email</div>
-    <div>Telefone</div>    
-    <div>Cargo</div>
-    <div>Setor</div>
-  </div>
+        <div className="adm-table">
+          <div className="adm-table-header">
+            <div>Matrícula</div>
+            <div>Nome</div>
+            <div>Email</div>
+            <div>Telefone</div>
+          </div>
 
-     {Array.isArray(allEmployees) && allEmployees?.map(employee => (  
-      <div className="table-row">
-            <div className='matricula'>{employee.matricula_funcionario}</div>
-            <div >{employee.nome}</div>
-            <div >{employee.email}</div>
-            <div >{employee.telefone}</div>
-            <div >{employee.cargo}</div>
-      </div>
-        ))}
-  </div>
+          <div className="adm-table-body">
+            {allEmployees.result?.map((employee, key) => (
+              <div className="adm-table-row" key={key}>
+                <div className='adm-matricula'>{employee.matricula_funcionario}</div>
+                <div>{employee.nome}</div>
+                <div>{employee.email}</div>
+                <div>{employee.telefone}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="adm-actions">
+        </div>
+
 
       </div>
     </div>
-    )
+  )
 }
 
 export default Admin;

@@ -97,7 +97,7 @@ function Page1({ isOpenEmployee, setIsOpenEmployee, goNextPage }) {
       <div className="form-card-position">
         <form onSubmit={handleAddEmployee} className="forms">
           <p className="form-title">Adicionar Funcionario</p>
-          <div className="form-card">
+          <div className="form-card ">
             <input type="text" className="form-input" placeholder="Nome Completo"
               value={nome} onChange={(e) => setNome(e.target.value)} />
 

@@ -13,25 +13,24 @@ height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    flex-direction: column;
+    height: 100vh;  
 }
 .forms{
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex;
     flex-direction: column;
-    width: 400px;
-    height: 500px;
     background-color: var(--contents);
-    gap: 0.5rem;
+    gap: 1rem;
     padding: 1rem;
     border: 5px solid var(--fix-dark);
     border-radius: 10px;
 }
 .form-card{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
     gap: 1rem; 
+    
 }
 .form-title{
     text-transform: uppercase;
@@ -50,7 +49,7 @@ height: 100vh;
     background: none;
     border: 2px solid var(--fix-dark);
     padding: 0.7rem;
-    width: 100%;
+
 }
 .buttons-form{
     display: flex;
@@ -62,4 +61,9 @@ height: 100vh;
 }
 .disable{
     opacity: 0.5;
+}
+.admin-setor{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
 }

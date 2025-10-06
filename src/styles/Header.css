@@ -1,11 +1,11 @@
 
 .header{
 position: relative;
-margin:0;
+margin: 0;
 display: flex;
 justify-content: space-evenly;
 gap: 10rem;
-width: 100vw;
+width: auto;
 height: 10vh;
 background-color: var(--fix-dark);
 box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
@@ -41,4 +41,16 @@ box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
 .menu{
     background: none;
     border: none;
+}
+
+@media (max-width: 1210px) {
+ .header{
+    gap: 5rem;
+ }
+ .img{
+    height: 30px;
+ }
+ .painel{
+    font-size: 1rem;
+ }
 }

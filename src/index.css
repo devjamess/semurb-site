@@ -1,36 +1,35 @@
-
 @font-face {
   font-family: 'Montserrat-Regular';
-  src: local('Montserrat-Regular'), 
-    url(./assets/fonts/Montserrat-Regular.ttf) 
-    format('truetype');
+  src: local('Montserrat-Regular'),
+    url(./assets/fonts/Montserrat-Regular.ttf) format('truetype');
 }
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Montserrat-Regular', sans-serif;
-    transition: all 0.5s ease-in-out;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat-Regular', sans-serif;
+  transition: all 0.5s ease-in-out;
 }
-.body{
-  margin:0;
+
+.body {
+  margin: 0;
   background-color: var(--bg);
-  min-width: 100vw;
-  min-height: 200vh;
-  overflow: hidden;
 }
-.confirm-button{
-    width: 100%;
-    height: 50px;
-    border-radius: 7px;
-    border: none;
-    background-color: var(--confirm);
-    font-size: large;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: var(--text);
+
+.confirm-button {
+  width: 100%;
+  height: 50px;
+  border-radius: 7px;
+  border: none;
+  background-color: var(--confirm);
+  font-size: large;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--text);
 }
-.cancel-button{
+
+.cancel-button {
   width: 100%;
   height: 50px;
   border-radius: 7px;
@@ -41,25 +40,54 @@
   text-transform: uppercase;
   color: var(--text);
 }
+
 /* Chrome, Safari, Edge */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 /* Firefox */
 input[type=number] {
-  appearance: textfield; 
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 
-input:focus{
-font-size: medium;
-outline: none;
-}button{
-  cursor:pointer;
-}input::placeholder{
+input:focus {
   font-size: medium;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+input::placeholder {
+  font-size: medium;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--fix-gray);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--contents);
+  height: 8px;
+}
+
+.loading-text {
+  color: var(--text);
+  font-size: mediume;
+  font-weight: bold;
+  text-align: center;
+  padding: 2rem;
 }
 
 :root {
@@ -67,21 +95,13 @@ outline: none;
   line-height: 1.5;
   overflow-x: hidden;
 
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: var(--bg);
 
-
-  
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
- 
-
-
-
 }
 
 @media (prefers-color-scheme: light) {
@@ -90,3 +110,8 @@ outline: none;
     background-color: #ffffff;
   }
 }
+
+
+
+
+

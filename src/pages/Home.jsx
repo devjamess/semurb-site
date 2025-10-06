@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {useNavigate} from 'react-router-dom'
 import {useAuth} from '../hook/useAuth'
 import MyChart from '../components/Graph';
 import CalendarHome from '../components/CalendarHome';
 import AddEmployeeCard from '../components/modals/AddEmployee'
-import SetorCard from '../components/SetorCard'
+import SectorCard from '../components/SectorCard'
 import '../styles/Home.css';
 import '../styles/EmployeeList.css'
 
   function Home() { 
+
   const route = useNavigate()
   const {employees, teams} = useAuth()
   const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
@@ -21,8 +22,10 @@ import '../styles/EmployeeList.css'
 
    const [search, setSearch] = useState('')
     const searchLowerCase = search.toLowerCase();
-    const employeesList = employees?.filter((employee) => 
+    const employeesList = employees?.result.filter((employee) => 
     employee.nome.toLowerCase().includes(searchLowerCase))
+
+     
 
   return (
     <div className='body'>
@@ -56,12 +59,8 @@ import '../styles/EmployeeList.css'
      
       
       <div className='container-up'>
-        
       <MyChart />
-
-
-      <SetorCard />
-        
+      <SectorCard />
       </div>
 
       <div className='container-down'>

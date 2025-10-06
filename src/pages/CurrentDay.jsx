@@ -1,9 +1,12 @@
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import {useAuth} from '../hook/useAuth'
+
 function CurrentDay() {
     const {employees, teams, user, regions, scales} = useAuth()
     const { id } = useParams();
+    const route = useNavigate();
     console.log('ID da rota:', id);
+
 
   return (
     <div>

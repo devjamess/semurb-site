@@ -34,9 +34,9 @@ export const updateScale = async(
         }
     }
 
-export const findScales = async (user) => {
+export const findScales = async () => {
         try {
-            const { data } = await api.get(`/escalasSetor/${user?.funcionario?.matricula_funcionario}`)
+            const { data } = await api.get(`/escalas`)
             return {result: data, error: null}
         } catch (error) {
             const erro = error.response?.data?.mensagem
