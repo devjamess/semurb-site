@@ -11,3 +11,18 @@ import api from '../api/api'
           return {result: null, error: erro, sucess: null}
       }
   };
+
+  export const addTurn = async (user, payload) => {
+    try {
+      const { data } = await api.post('/cadastrarTurno', {
+        matricula_adm: user?.funcionario.matricula_funcionario,
+        ...payload
+      })
+      const sucess = "Cadastro do Turno realizado com sucesso"
+      return { result: data.turno, error: null, sucess: sucess }
+    } catch (error) {
+      const erro = error.response?.data?.mensagem
+      console.error('Erro ao cadastrar turno', erro)
+      return { result: null, error: erro, sucess: null }
+    }
+  }

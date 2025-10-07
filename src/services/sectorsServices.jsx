@@ -8,7 +8,7 @@ export const findAllSectors = async () => {
         } catch (error) {
             const erro = error.response?.data?.mensagem
             console.error('Erro ao buscar TODOS setores', erro)
-            return {result: null, error: erro}
+            return {result: null, error: erro, sucess: null}
         }
     };                                                                           
 export const addSector = async (nome_setor) => {
@@ -21,5 +21,6 @@ export const addSector = async (nome_setor) => {
         } catch (error) {
             const erro = error.response?.data?.mensagem
             console.error('Erro ao criar setor', erro)
+            return {result: null, error: erro, sucess: null}
         }
     };

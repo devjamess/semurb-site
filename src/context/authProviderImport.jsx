@@ -5,10 +5,10 @@ import AuthContext from "./authContextImport";
 import { addEmployee, addEmployeeAdmin, findEmployees, findAllEmployees } from "../services/employeesServices";
 import { addScale, findScales, updateScale } from "../services/scalesServices";
 import { findAllSectors, addSector } from "../services/sectorsServices";
-import { addAdmin, deleteEmployee } from "../services/adminsServices"
+import { addAdmin, deleteEmployee, updateAdmin } from "../services/adminsServices"
 import { findTeams } from '../services/teamsServices'
 import { findRegions } from '../services/regionsServices'
-import { findTurns } from '../services/turnsServices'
+import { findTurns, addTurn } from '../services/turnsServices'
 
 export const AuthProvider = ({ children }) => {
 
@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [teams, setTeams] = useState([])
   const [regions, setRegions] = useState([])
-  const [employees, setEmployees] = useState(undefined)
+  const [employees, setEmployees] = useState([])
   const [scales, setScales] = useState([])
   const [allEmployees, setAllEmployees] = useState([])
   const [allSectors, setAllSectors] = useState([])
@@ -60,35 +60,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('admin_data')
 
   };
-
-
-  const addTurn = async (
-    matricula_funcionario,
-    inicio_turno,
-    termino_turno,
-    duracao_turno,
-    intervalo_turno,
-
-  ) => {
-    try {
-      const { data } = await api.post('/cadastrarTurno', {
-        matricula_adm: user?.funcionario.matricula_funcionario,
-        matricula_funcionario,
-        inicio_turno,
-        termino_turno,
-        duracao_turno,
-        intervalo_turno
-      })
-      const sucess = "Cadastro do Turno realizado com sucesso"
-      return { result: data.turno, error: null, sucess: sucess }
-    } catch (error) {
-      const erro = error.response?.data?.mensagem
-      console.error('Erro ao cadastrar turno', erro)
-      return { result: null, error: erro, sucess: null }
-    }
-  }
-
-
   const adminSignIn = async (registration, password) => {
     try {
       const { data } = await api.post('/loginMaster', {
@@ -114,12 +85,18 @@ export const AuthProvider = ({ children }) => {
     setAllEmployees(res);
   };
 
-  // Função para deletar funcionário e atualizar lista
+  //função para deletar funcionário e atualizar lista
   const handleDeleteEmployee = async (matricula_funcionario) => {
     const res = await deleteEmployee(matricula_funcionario);
     if (res.result) {
       await getAllEmployees();
-      // atualiza lista global
+    }
+    return res;
+  };
+  const handleUpdateAdmin = async (matricula_funcionario) => {
+    const res = await updateEmployee(matricula_funcionario);
+    if (res.result) {
+      await getAllEmployees();
     }
     return res;
   };
@@ -245,6 +222,7 @@ export const AuthProvider = ({ children }) => {
       addAdmin,
       deleteEmployee: handleDeleteEmployee,
       getAllEmployees,
+      updateAdmin: handleUpdateAdmin,
 
       findTeams,
       teams,

@@ -1,10 +1,10 @@
 import SectorCard from '../components/SectorCard'
 import MyChart from '../components/Graph'
 import { useAuth } from '../hook/useAuth'
-import AddAdmin from '../components/AddAdmin'
+import AddAdmin from '../components/modals/AddAdmin'
 import { useState } from 'react'
 import '../styles/Admin.css'
-import AddSector from '../components/AddSector'
+import AddSector from '../components/modals/AddSector'
 import { useNavigate } from 'react-router-dom'
 
 function Admin() {

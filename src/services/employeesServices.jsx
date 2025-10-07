@@ -25,7 +25,7 @@
         } catch (error) {
             const erro = error.response?.data?.mensagem
             console.error('Erro ao buscar TODOS funcionarios', erro)
-            return {result: null, error: erro}
+            return {result: null, error: erro, sucess: null}
         }
     };
 
@@ -51,6 +51,6 @@
         } catch (error) {
             const erro = error.response?.data?.mensagem
             console.error('Erro ao listar funcionarios', erro)
-            return {result: null, error: erro}
+            return {result: null, error: erro, sucess: null}
         }
     };

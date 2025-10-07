@@ -8,6 +8,6 @@ import api from '../api/api'
     } catch (error) {
       const erro = error.response?.data?.mensagem
       console.error("Erro ao buscar regiões:", erro);
-      return { result: null, error: erro }
+      return { result: null, error: erro, sucess: null }
     }
   };

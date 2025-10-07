@@ -23,3 +23,16 @@ export const deleteEmployee = async(matricula_funcionario) => {
         return { result: null, error: erro, sucess: null }
     }
 }
+export const updateAdmin = async(matricula_funcionario, payload) => {
+    try{
+        const {data} = await api.put(`/editarFuncionario/${matricula_funcionario}`,{
+            ...payload
+        })
+        const sucess = "Funcionário editado com sucesso"
+        return { result: data, error: null, sucess: sucess }
+    }catch(error){
+         const erro = error.response?.data?.mensagem
+        console.error('Erro ao editar funcionário', erro)
+        return { result: null, error: erro, sucess: null }
+    }
+}

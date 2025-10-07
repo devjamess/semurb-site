@@ -11,6 +11,7 @@ import Employees from './pages/Emplyees'
 import CurrentDay from './pages/CurrentDay'
 import Sectors from './pages/Sectors'
 import EditEmployee from './pages/EditEmployees'
+import ForgotPassword from './pages/ForgotPassword'
 
 import {AuthProvider} from './context/authProviderImport'
 import {ThemeProvider} from './theme/ThemeProviderImport'
@@ -55,14 +56,15 @@ function App() {
     return (
       <Routes location={location} key={location.pathname}>
         <Route path='/' element={ <Login /> } />
-        <Route path='/login/admin' element={ <LoginAdmin />} />
+        <Route path='/login/admin' element={ <LoginAdmin /> } />
+        <Route path='forgot-password' element={ <ForgotPassword /> } />
        
         <Route  element={<AuthApp />}>
           <Route path='/home' element={ <Home /> }/>
           <Route path='/profile' element={ <Profile /> } />
           <Route path='/teams/:id' element={ <Teams /> }/>
           <Route path='/config' element={ <Config /> } />
-          <Route path='/employees/:id' element={ <Employees />} />
+          <Route path='/employees/:id' element={ <Employees /> } />
           <Route path='/currentday/:id' element={ <CurrentDay /> } />
         </Route>
 

@@ -61,9 +61,9 @@ function Login() {
         <input className='input-login' type="password" name="senha" id="senha" 
         value={senha} onChange={(e) => setSenha(e.target.value)} />
 
-        <button className='button-login' type="submit"
+        <button type="submit" className={`button-login ${!matricula_funcionario || !senha ? 'disable' : ''}`} 
         disabled={!matricula_funcionario || !senha}>Entrar</button>
-        <a className='forgot-password' href="/">Esqueceu a senha?</a>
+        <a className='forgot-password' href="/forgot-password">Esqueceu a senha?</a>
         <a className='forgot-password' href="/login/admin">Admin</a>
         </div> 
         </form>

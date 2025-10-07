@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useAuth } from '../hook/useAuth'
-import Alert from './modals/Alert';
+import { useAuth } from '../../hook/useAuth'
+import Alert from './Alert';
 
 export default function AddSector({isOpenModal, setIsOpenModal}) {
 
