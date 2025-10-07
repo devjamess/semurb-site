@@ -22,7 +22,7 @@ import '../styles/EmployeeList.css'
 
    const [search, setSearch] = useState('')
     const searchLowerCase = search.toLowerCase();
-    const employeesList = employees?.result.filter((employee) => 
+    const employeesList = employees?.result?.filter((employee) => 
     employee.nome.toLowerCase().includes(searchLowerCase))
 
      

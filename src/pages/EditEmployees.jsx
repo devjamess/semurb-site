@@ -5,6 +5,7 @@ import { useState } from 'react'
 import CalendarProfile from '../components/CalendarProfile'
 import UpdateScale from '../components/modals/UpdateScale'
 import AddEmployeeCard from '../components/modals/AddEmployee'
+import UpdateAdmin from '../components/modals/UpdateAdmin'
 import Alert from '../components/modals/Alert'
 
 function EditEmployee() {
@@ -15,6 +16,7 @@ function EditEmployee() {
 
   const [isOpenEmployeeUpdate, setIsOpenEmployeeUpdate] = useState(false)
   const [isOpenEmployeeAdd, setIsOpenEmployeeAdd] = useState(false)
+  const [isOpenAdminUpdate, setIsOpenAdminUpdate] = useState(false)
   const [page, setPage] = useState(2)
 
   const [erroMessage, setErroMessage] = useState('')
@@ -87,6 +89,11 @@ function EditEmployee() {
         setPage={page}
         employee={currentEmployee}
       />
+      <UpdateAdmin 
+      isOpen={isOpenAdminUpdate}
+      setIsOpen={setIsOpenAdminUpdate}
+      employee={currentEmployee}
+      />
       <div className="container-profile-page">
         <div key={currentEmployee?.matricula_funcionario} className="profile-container">
           <div className="profile-card-up">
@@ -105,7 +112,7 @@ function EditEmployee() {
             <p className="profile-info">Escala: <span className="info-auth">{scale}</span></p>
             <p className="profile-info">Turno: <span className="info-auth">{turn}</span></p>
           </div>
-          <button className="confirm-button">Editar</button>
+          <button className="confirm-button" onClick={() => setIsOpenAdminUpdate(!isOpenAdminUpdate)}>Editar</button>
           <button className="cancel-button" onClick={handleDelete}>Deletar</button>
         </div>
 

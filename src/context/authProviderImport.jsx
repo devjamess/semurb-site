@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }) => {
     return res;
   };
   const handleUpdateAdmin = async (matricula_funcionario) => {
-    const res = await updateEmployee(matricula_funcionario);
+    const res = await updateAdmin(matricula_funcionario);
     if (res.result) {
       await getAllEmployees();
     }

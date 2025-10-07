@@ -1,22 +1,30 @@
 import { useAuth } from '../../hook/useAuth'
-import { useState} from 'react'
+import { useState, useEffect} from 'react'
 import Alert from './Alert'
 
 
 function UpdateAdmin({ isOpen, setIsOpen, employee }) {
-  const { updateEmployee, allSectors } = useAuth()
+  const { updateAdmin, allSectors } = useAuth()
   const [erroMessage, setErroMessage] = useState()
   const [response, setResponse] = useState('Erro')
   const [save, setSave] = useState()
 
-  const [form, setForm] = useState({
-    matricula_funcionario: employee.matricula_funcionario,
-    email: '',
-    telefone: '',
-    cargo: '',
-    setor: '',
-    status_permissao: '',
-  })
+  const [form, setForm] = useState({ })
+ 
+  const sector = allSectors.result?.setores?.find(sector => (
+  employee?.id_setor == sector.id_setor))?.nome_setor
+
+  useEffect(()=>{
+    if(isOpen && employee)
+    setForm({
+    email: employee.email,
+    telefone: employee.telefone,
+    cargo: employee.cargo,
+    setor: sector,
+    status_permissao: employee.status_permissao,
+    })
+  },[isOpen, employee])
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({
@@ -27,9 +35,9 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
 
   async function handleAddEmployee(e) {
     e.preventDefault()
-    const EditEmployee = await updateEmployee(form.matricula_funcionario, form)
+    const EditEmployee = await updateAdmin(employee.matricula_funcionario, form)
 
-    if (EditEmployee.result) {
+    if (EditEmployee.sucess) {
       setResponse('Sucesso')
       setErroMessage(EditEmployee.sucess)
       setSave(EditEmployee.result)
@@ -40,7 +48,7 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
   }
 
  if(isOpen) return (
-    <div>
+    <div className='form-container'>
       {erroMessage && (
         <Alert
           response={response}
@@ -48,9 +56,7 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
           error={erroMessage}
           onClose={() => {
             setErroMessage("")
-            if (response === 'Sucesso' && save) {
-              goNextPage(save)
-            }
+            setIsOpen(!isOpen)
           }}
         />
       )}
@@ -59,9 +65,6 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
         <form onSubmit={handleAddEmployee} className="forms">
           <p className="form-title">Atualizar Funcionario</p>
           <div className="form-card ">
-
-            <input name='matricula_funcionario' type="number" className="form-input" placeholder="Matricula"
-              value={form.matricula_funcionario} />
 
             <input name='email' type="text" className="form-input" placeholder="Email"
               value={form.email} onChange={handleChange} />
@@ -79,6 +82,14 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
                 <option key={key} value={sector.nome_setor} />
               ))}
             </datalist>
+
+            <input name="status_permissao" type="text" className="form-input" placeholder="Administrador (Sim/Não)"
+              value={form.status_permissao} onChange={handleChange} id='permissao-input' list="permissao-list" />
+            <datalist id="permissao-list">
+              <option value="Sim" className=""></option>
+              <option value="Não" className=""></option>
+            </datalist>
+           
 
           </div>
 
