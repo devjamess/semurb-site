@@ -12,6 +12,7 @@ function Employee() {
   const { id } = useParams()
   
   const CurrentEmployee = employees?.result?.find(employee => String(employee.matricula_funcionario) === id)
+  const scale = scales?.result?.find(scale => (scale.escala.id_escala == CurrentEmployee.id_escala))?.escala
 
   const [isOpenEmployeeUpdate, setIsOpenEmployeeUpdate] = useState(false)
   const [isOpenEmployeeAdd, setIsOpenEmployeeAdd] = useState(false)
@@ -52,7 +53,7 @@ function Employee() {
               <p className="profile-info">Matricula: <span className="info-auth">{CurrentEmployee?.matricula_funcionario}</span> </p>
               <p className="profile-info">Telefone: <span className="info-auth">{CurrentEmployee?.telefone}</span></p>
               <p className="profile-info">Email: <span className="info-auth">{CurrentEmployee?.email}</span></p>
-              <p className="profile-info">Escala: <span className="info-auth">{scales?.result?.id_escala == CurrentEmployee?.id_escala ? scales?.result?.tipo_escala : 'Desconhecido'}</span></p>
+              <p className="profile-info">Escala: <span className="info-auth">{scale?.tipo_escala}</span></p>
               <p className="profile-info">Equipe: <span className="info-auth">{teams?.result?.find(team => (team.id_equipe == CurrentEmployee?.id_equipe))?.nome_equipe}</span></p>
               <p className="profile-info">Regiao: <span className="info-auth">{regions?.result?.find(region => (region.id_regiao == CurrentEmployee?.id_regiao))?.nome_regiao}</span></p>
               <p className="profile-info">Setor: <span className="info-auth">{user?.setor?.nome_setor}</span></p>
@@ -64,7 +65,7 @@ function Employee() {
           <CalendarProfile
             value={selectedDate}
             onDateChange={handleDateSelect}
-            escala={scales?.result?.id_escala == CurrentEmployee?.id_escala ? scales?.result?.tipo_escala : 'Desconhecido'}
+            escala={scale?.id_escala == CurrentEmployee?.id_escala ? scale : 'Desconhecido'}
           />
           <div className="profile-escale-details">
             <div className="details">Folgas</div>

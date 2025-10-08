@@ -9,7 +9,7 @@ export const addScale = async (
       ...payload
     })
     const sucess = "Cadastro da escala realizado com sucesso"
-    return { result: data.escala, error: null, sucess: sucess }
+    return { result: data, error: null, sucess: sucess }
   } catch (error) {
     const erro = error.response?.data?.mensagem
     console.error('Erro ao cadastrar escala', erro)
@@ -26,7 +26,7 @@ export const updateScale = async (
       ...payload
     })
     const sucess = "Escala atualizada com sucesso"
-    return { result: data.escala, error: null, sucess: sucess }
+    return { result: data, error: null, sucess: sucess }
   } catch (error) {
     const erro = error?.response?.data?.mensagem ||
       error.response?.data?.erro ||
@@ -40,7 +40,7 @@ export const findScales = async (user) => {
   try {
     const { data } = await api.get(`/escalasSetor/${user?.funcionario?.matricula_funcionario}`)
     const sucess = "Escalas listadas com sucesso"
-    return { result: data.escala, error: null, sucess: sucess }
+    return { result: data, error: null, sucess: sucess }
   } catch (error) {
     const erro = error.response?.data?.mensagem
     console.error('Erro ao listar escalas', erro)

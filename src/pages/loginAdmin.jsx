@@ -14,7 +14,7 @@ function LoginAdmin() {
 
     const adminData = await adminSignIn(registration, password);
     if(adminData){
-      route('/admin');
+      route('/admin', {replace: true});
     } else {
      alert('Falha no login, verifique suas credenciais') 
      logout()  

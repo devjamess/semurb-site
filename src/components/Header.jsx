@@ -40,6 +40,7 @@ function Header() {
     
     if(admin) return ( <header className='header'>
         <div className='header-part-left'> 
+        <IoMdArrowBack cursor='pointer' size={30} color='#F4D03F' onClick={()=>route(-1)}/>
             <IoIosHome cursor='pointer' size={30} color='#F4D03F' onClick={()=> route('/admin')}/>
             <p className='painel'>Secretaria Da Mobilidade Urbana</p>  
         </div>

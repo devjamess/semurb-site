@@ -18,7 +18,7 @@ function Login() {
 
     const userData = await signIn(matricula_funcionario, senha);
     if(userData.result){
-      route('/home');
+      route('/home', {replace: true});
     } else {
      setResponse(response)
      setErroMessage(userData.error)   
