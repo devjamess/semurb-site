@@ -46,7 +46,7 @@ function Page1({ isOpenEmployee, setIsOpenEmployee, goNextPage }) {
   const [save, setSave] = useState()
 
   const [form, setForm] = useState({
-    matricula_funcionario: '', 
+    matricula_funcionario: '',
     nome: '',
     telefone: '',
     email: '',
@@ -55,13 +55,13 @@ function Page1({ isOpenEmployee, setIsOpenEmployee, goNextPage }) {
     nome_regiao: '',
   })
   const handleChange = (e) => {
-      const { name, value } = e.target;
-        setForm((prev) => ({
+    const { name, value } = e.target;
+    setForm((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
- 
+
 
   useEffect(() => {
     if (isOpenEmployee) {
@@ -103,22 +103,22 @@ function Page1({ isOpenEmployee, setIsOpenEmployee, goNextPage }) {
       <div className="form-card-position">
         <form onSubmit={handleAddEmployee} className="forms">
           <p className="form-title">Adicionar Funcionario</p>
-          <div className="form-card "> 
-            
+          <div className="form-card ">
+
             <input name='matricula_funcionario' type="number" className="form-input" placeholder="Matricula"
-              value={form.matricula_funcionario} onChange={handleChange}  />
+              value={form.matricula_funcionario} onChange={handleChange} />
 
             <input name='nome' type="text" className="form-input" placeholder="Nome Completo"
-              value={form.nome} onChange={handleChange}  />
-           
+              value={form.nome} onChange={handleChange} />
+
             <input name='telefone' type="tel" className="form-input" placeholder="Telefone"
-              value={form.telefone} onChange={handleChange}  />
+              value={form.telefone} onChange={handleChange} />
 
             <input name='email' type="email" className="form-input" placeholder="Email"
               value={form.email} onChange={handleChange} />
 
             <input name='cargo' type="text" className="form-input" placeholder="Cargo"
-              value={form.cargo} onChange={handleChange}  />
+              value={form.cargo} onChange={handleChange} />
 
             <input name='nome_equipe' id="equipe-input" list="equipes-list" className="form-input"
               placeholder="Equipe" value={form.nome_equipe} onChange={handleChange} />
@@ -138,8 +138,7 @@ function Page1({ isOpenEmployee, setIsOpenEmployee, goNextPage }) {
           </div>
 
           <div className="buttons-form">
-            <button type="submit" className={`confirm-button ${
-              Object.values(form).some(values => values === '') ? 'disable' : ''}`}
+            <button type="submit" className={`confirm-button ${Object.values(form).some(values => values === '') ? 'disable' : ''}`}
               disabled={Object.values(form).some(values => values === '')}>
               Continuar
             </button>
@@ -157,19 +156,30 @@ function Page2({ employee, setIsOpenEmployee, goNextPage }) {
   const [response, setResponse] = useState('Erro')
   const [save, setSave] = useState()
 
- const [form, serForm] = useState({
-      matricula_funcionario: employee.matricula_funcionario,
-      data_inicio: '',
-      tipo_escala: '',
-      dias_trabalhados: '',
-      dias_n_trabalhados: '',
-    })
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-        serForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const [form, setForm] = useState({
+    matricula_funcionario: employee.matricula_funcionario,
+    data_inicio: '',
+    tipo_escala: '',
+    usa_dias_especificos: false,
+    dias_n_trabalhados_escala_semanal: [],
+  })
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (type === 'checkbox' && name === 'usa_dias_especificos') {
+      setForm((prev) => ({ ...prev, [name]: checked }));
+    } else {
+      setForm((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+  const handleDiasChange = (dia) => {
+    setForm((prev) => {
+      const dias = prev.dias_n_trabalhados_escala_semanal;
+      const updatedDias = dias.includes(dia)
+        ? dias.filter(d => d !== dia)
+        : [...dias, dia];
+      return { ...prev, dias_n_trabalhados_escala_semanal: updatedDias };
+    });
   };
   async function handleAddScale(e) {
     e.preventDefault()
@@ -183,6 +193,13 @@ function Page2({ employee, setIsOpenEmployee, goNextPage }) {
       setErroMessage(scale.error)
     }
   }
+
+  const camposObrigatorios = ['matricula_funcionario', 'data_inicio', 'tipo_escala']
+const camposPreenchidos = camposObrigatorios.every(key => form[key] !== '')
+
+const isDisabled = !camposPreenchidos || 
+  (form.usa_dias_especificos && form.dias_n_trabalhados_escala_semanal.length === 0)
+
 
   return (
     <div>
@@ -210,12 +227,6 @@ function Page2({ employee, setIsOpenEmployee, goNextPage }) {
             <input name='data_inicio' type="date" className="form-input"
               value={form.data_inicio} onChange={handleChange} />
 
-            <input name='dias_trabalhados' type="number" className="form-input" placeholder="Dias trabalhados"
-              value={form.dias_trabalhados} onChange={handleChange} />
-
-            <input name='dias_n_trabalhados' type="number" className="form-input" placeholder="Dias de folga"
-              value={form.dias_n_trabalhados} onChange={handleChange} />
-
             <input name='tipo_escala'
               id="escala-input"
               list="escalas-list"
@@ -223,19 +234,44 @@ function Page2({ employee, setIsOpenEmployee, goNextPage }) {
               placeholder="Escala"
               value={form.tipo_escala}
               onChange={handleChange}
-
             />
             <datalist id="escalas-list">
-              {scales?.result?.map(scalel => (
+              {scales?.map(scalel => (
                 <option key={scalel.id_escala} value={scalel.tipo_escala} />
               ))}
             </datalist>
+
+            <label>
+              <input
+                type="checkbox"
+                name="usa_dias_especificos"
+                checked={form.usa_dias_especificos}
+                onChange={handleChange}
+              />
+              Usar dias específicos de folga
+            </label>
+
+            {form.usa_dias_especificos && (
+              <div className="dias-semana-checkboxes">
+                {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'].map(dia => (
+                  <label key={dia}>
+                    <input
+                      type="checkbox"
+                      checked={form.dias_n_trabalhados_escala_semanal.includes(dia)}
+                      onChange={() => handleDiasChange(dia)}
+                    />
+                    {dia}
+                  </label>
+                ))}
+              </div>
+            )}
+
           </div>
 
           <div className="buttons-form">
             <button type="submit" className={`confirm-button 
-            ${Object.values(form).some(value => value === '') ? 'disable' : '' }`}
-            disabled={Object.values(form).some(value => value === '')}>
+            ${isDisabled ? 'disabel' : ''}`}
+              disabled={isDisabled}>
               Concluir
             </button>
             <button type="button" className="cancel-button" onClick={() => setIsOpenEmployee(false)}>Fechar</button>
@@ -261,8 +297,8 @@ function Page3({ employee, setIsOpenEmployee }) {
   async function handleAddTurn(e) {
     e.preventDefault()
     const turn = await addTurn(
-      matricula_funcionario, 
-      inicio_turno, termino_turno, 
+      matricula_funcionario,
+      inicio_turno, termino_turno,
       duracao_turno, intervalo_turno
     )
     if (turn.result) {
