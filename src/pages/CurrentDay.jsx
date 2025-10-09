@@ -3,9 +3,8 @@ import {useAuth} from '../hook/useAuth'
 
 function CurrentDay() {
     const {employees, teams, user, regions, scales} = useAuth()
-    const { id } = useParams();
+    const { date } = useParams();
     const route = useNavigate();
-    console.log('ID da rota:', id);
 
 
   return (

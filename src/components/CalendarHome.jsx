@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import '../styles/CalendarHome.css';
 import { useNavigate } from "react-router-dom";
-import { useAuth } from '../hook/useAuth'
-export default function CalendarHome({ value, onDateChange }) {
+
+export default function CalendarHome({ value }) {
     const [currentDate, setCurrentDate] = useState(value || new Date());
     const route = useNavigate();
     // const today = new Date();
@@ -88,20 +88,14 @@ export default function CalendarHome({ value, onDateChange }) {
     const year = currentDate.getFullYear();
     const days = generateDays();
 
-    const {user, actives} = useAuth();
     const handleDayClick = async (day) => {
     if (!day) return;
-    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-    setCurrentDate(date);
-        const active = await actives(user, date);
-            if (active.result) {
-                setListActive(active.result);
-                route(`/currentDay/${date}`)
-            } else {
-                console.log(active.error)
-                setListActive([])
-                return;
-            }
+    const date = new Date(
+        currentDate.getFullYear(), 
+        currentDate.getMonth(), 
+        day);
+        const formateDate = date.toISOString().split('T')[0]
+        route(`/currentDay?data=${formateDate}`)
     };
 
 
