@@ -11,4 +11,17 @@ import api from '../api/api'
       return { result: null, error: erro, sucess: null }
     }
   };
+  export const addTeam = async (nome_equipe) => {
+          try {
+              const { data } = await api.post('/cadastrarEquipe', {
+                  nome_equipe
+              })
+               const sucess = "Equipe cadastrado com sucesso"
+          return { result: data, error: null, sucess: sucess }
+          } catch (error) {
+              const erro = error.response?.data?.mensagem
+              console.error('Erro ao criar equipe', erro)
+              return {result: null, error: erro, sucess: null}
+          }
+      };
  

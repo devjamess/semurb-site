@@ -5,6 +5,7 @@ import MyChart from '../components/Graph';
 import CalendarHome from '../components/CalendarHome';
 import AddEmployeeCard from '../components/modals/AddEmployee'
 import SectorCard from '../components/SectorCard'
+import AddTeam from '../components/modals/AddTeam'
 import '../styles/Home.css';
 import '../styles/EmployeeList.css'
 
@@ -12,8 +13,10 @@ import '../styles/EmployeeList.css'
 
   const route = useNavigate()
   const {employees, teams} = useAuth()
+  
   const [isOpenEmployeeModal, setIsOpenEmployeeModal] = useState(false)
- 
+  const [isOpenTeam, setIsOpenTeam] = useState(false)
+
   const [selectedDate, setSelectedDate] = useState(null);
   const handleDateSelect = (date) => {
     setSelectedDate(date);
@@ -31,7 +34,11 @@ import '../styles/EmployeeList.css'
     <div className='body'>
       <AddEmployeeCard 
       isOpenEmployee={isOpenEmployeeModal} 
-      setIsOpenEmployee={() => setIsOpenEmployeeModal(!isOpenEmployeeModal)}
+      setIsOpenEmployee={setIsOpenEmployeeModal}
+      />
+      <AddTeam
+      isOpen={isOpenTeam}
+      setIsOpen={setIsOpenTeam}
       />
        
       
@@ -54,6 +61,7 @@ import '../styles/EmployeeList.css'
       }
         </div>
         <button className="confirm-button" onClick={setIsOpenEmployeeModal}>Adicionar Funcionario</button>
+        <button className="confirm-button" onClick={setIsOpenTeam}>Adicionar Equipe</button>
       </div>
       
      

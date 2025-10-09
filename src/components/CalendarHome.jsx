@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import '../styles/CalendarHome.css';
 import { useNavigate } from "react-router-dom";
-
-export default function CalendarHome ({value, onDateChange}) {
-    const [currentDate, setCurrentDate] = useState(value ||new Date());
+import { useAuth } from '../hook/useAuth'
+export default function CalendarHome({ value, onDateChange }) {
+    const [currentDate, setCurrentDate] = useState(value || new Date());
     const route = useNavigate();
     // const today = new Date();
     /* new Date(year, month, day) pega data atual
@@ -23,13 +23,13 @@ export default function CalendarHome ({value, onDateChange}) {
         const firstDayOfMonth = new Date(year, month, 1).getDay()
         const daysInMonth = new Date(year, month + 1, 0).getDate()
 
-        const days= [];
+        const days = [];
 
-        for(let daysNull = 0; daysNull < firstDayOfMonth; daysNull++){
+        for (let daysNull = 0; daysNull < firstDayOfMonth; daysNull++) {
             days.push(null)
             //preencher os dias vazios na primeira semana do mes
         }
-        for(let day = 1; day <= daysInMonth; day++){
+        for (let day = 1; day <= daysInMonth; day++) {
             days.push(day)
             //adiciona os dias do mes
         }
@@ -38,12 +38,12 @@ export default function CalendarHome ({value, onDateChange}) {
 
     const BackMonth = () => {
         setCurrentDate(
-            new Date( 
-            currentDate.getFullYear(), 
-            currentDate.getMonth() - 1, 
-            1 // primeiro dia do mes
-                    )
-                      )
+            new Date(
+                currentDate.getFullYear(),
+                currentDate.getMonth() - 1,
+                1 // primeiro dia do mes
+            )
+        )
     }
 
     const NextMonth = () => {
@@ -51,7 +51,7 @@ export default function CalendarHome ({value, onDateChange}) {
             new Date(
                 currentDate.getFullYear(),
                 currentDate.getMonth() + 1,
-                1 
+                1
             )
         )
     }
@@ -70,25 +70,42 @@ export default function CalendarHome ({value, onDateChange}) {
         em texto
         
     }*/
-   /*
-    const isToday = (day) => {
-    if (!day) return false;
-    const dateToCheck = new Date(
-        currentDate.getFullYear(), 
-        currentDate.getMonth(), 
-        day
-    );
-    return dateToCheck.toDateString() === today.toDateString();
-}
-  */
+    /*
+     const isToday = (day) => {
+     if (!day) return false;
+     const dateToCheck = new Date(
+         currentDate.getFullYear(), 
+         currentDate.getMonth(), 
+         day
+     );
+     return dateToCheck.toDateString() === today.toDateString();
+ }
+   */
 
     const DaysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
-    const MonthNames = currentDate.toLocaleString('pt-BR', {month: 'long'});
+    const MonthNames = currentDate.toLocaleString('pt-BR', { month: 'long' });
     //transforma a data em pt-BR e retorna o nome do mes completo
     const year = currentDate.getFullYear();
     const days = generateDays();
 
-    return(
+    const {user, actives} = useAuth();
+    const handleDayClick = async (day) => {
+    if (!day) return;
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    setCurrentDate(date);
+        const active = await actives(user, date);
+            if (active.result) {
+                setListActive(active.result);
+                route(`/currentDay/${date}`)
+            } else {
+                console.log(active.error)
+                setListActive([])
+                return;
+            }
+    };
+
+
+    return (
         <div className="calendar-container">
             <div className="calendar-header">
                 <button className="nav-button" onClick={BackMonth}> Voltar </button>
@@ -100,25 +117,20 @@ export default function CalendarHome ({value, onDateChange}) {
                 {DaysOfWeek.map((day, index) => (
                     <div className="days-of-week" key={index}>
                         {day}
-                    </div> 
-                ) 
+                    </div>
+                )
                 )}
 
-                {days.map((day, index) =>(                    
-                    <div 
-                    //${isToday(day) ? 'today' : ''} destacar o dia atual
-                    //${daySelected(day) ? 'selected' : ''} destacar o dia selecionado
-                    className={`calendar-day  `}
-                    key={index}
-                    onClick={() => day && onDateChange(new Date(
-                        currentDate.getFullYear(),
-                        currentDate.getMonth(),
-                        day,
-                        route(`/currentday/${day}`)
-                    ))
-                    }>
+                {days.map((day, index) => (
+                    <div
+                        //${isToday(day) ? 'today' : ''} destacar o dia atual
+                        //${daySelected(day) ? 'selected' : ''} destacar o dia selecionado
+                        className={`calendar-day  `}
+                        key={index}
+                        onClick={() => day && handleDayClick(day)
+                        }>
                         {day}
-                </div>
+                    </div>
                 ))}
 
             </div>

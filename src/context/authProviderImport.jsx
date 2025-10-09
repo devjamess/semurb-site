@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import api from '../api/api';
 import AuthContext from "./authContextImport";
 
-import { addEmployee, addEmployeeAdmin, findEmployees, findAllEmployees } from "../services/employeesServices";
+import { addEmployee, findEmployees, findAllEmployees, findActives } from "../services/employeesServices";
 import { addScale, findScales, updateScale } from "../services/scalesServices";
 import { findAllSectors, addSector } from "../services/sectorsServices";
-import { addAdmin, deleteEmployee, updateAdmin } from "../services/adminsServices"
-import { findTeams } from '../services/teamsServices'
+import { addAdmin, deleteEmployee, updateAdmin, addEmployeeAdmin } from "../services/adminsServices"
+import { findTeams, addTeam } from '../services/teamsServices'
 import { findRegions } from '../services/regionsServices'
 import { findTurns, addTurn } from '../services/turnsServices'
 
@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
   const [allEmployees, setAllEmployees] = useState([])
   const [allSectors, setAllSectors] = useState([])
   const [turns, setTurns] = useState([])
+  const [actives, setActives] = useState([])
 
   const signIn = async (matricula_funcionario, senha) => {
     try {
@@ -140,6 +141,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (user?.funcionario?.matricula_funcionario) {
       (async () => {
+        setActives(await findActives(user));
         setTeams(await findTeams(user));
         setRegions(await findRegions(user));
         setTurns(await findTurns(user));
@@ -217,6 +219,7 @@ export const AuthProvider = ({ children }) => {
       deleteEmployee: handleDeleteEmployee,
       getAllEmployees,
       updateAdmin,
+      addTeam,
 
       findTeams,
       teams,
@@ -228,6 +231,8 @@ export const AuthProvider = ({ children }) => {
       scales,
       findTurns,
       turns,
+      findActives,
+      actives,
 
       admin,
       inAdmin: !!admin,

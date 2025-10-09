@@ -95,7 +95,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
-    color: var(--on-text);
+    color: var(--fix-white);
     letter-spacing: 0.5rem;
     text-transform: uppercase;
 }
