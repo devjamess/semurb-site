@@ -1,10 +1,25 @@
 import {useParams, useNavigate} from 'react-router-dom';
 import {useAuth} from '../hook/useAuth'
+import { useEffect, useState } from 'react';
 
 function CurrentDay() {
-    const {employees, teams, user, regions, scales} = useAuth()
-    const { date } = useParams();
+    const {actives, user, teams, scales, regions} = useAuth()
     const route = useNavigate();
+    const {date} = useParams();
+    const [list, setList] = useState()  
+
+    useEffect(()=>{
+      const activesList = async() => {
+        await actives(user, date)
+      if(activesList.result){
+        console.log(activesList.sucess)
+        setList(activesList.result)
+      } else {
+        console.log(activesList.error)
+        setList([])
+      }
+      }
+    },[user, date])
 
 
   return (
@@ -22,8 +37,9 @@ function CurrentDay() {
   </div>
 
 
-     {employees.filter(employee => employee.id_equipe == id).map((employee) => (  
-      <div className="table-row" key={employee.matricula_funcionario} onClick={() => route(`/employees/${employee.matricula_funcionario}`)}>
+     {list && list?.map((employee) => (  
+      <div className="table-row" key={employee.matricula_funcionario} 
+      onClick={() => route(`/employees/${employee.matricula_funcionario}`)}>
             <div className='matricula'>{employee.matricula_funcionario}</div>
             <div >{employee.nome}</div>
             <div >{employee.email}</div>

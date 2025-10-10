@@ -95,7 +95,7 @@ export default function CalendarHome({ value }) {
         currentDate.getMonth(), 
         day);
         const formateDate = date.toISOString().split('T')[0]
-        route(`/currentDay?data=${formateDate}`)
+        route(`/currentday/${formateDate}`)
     };
 
 

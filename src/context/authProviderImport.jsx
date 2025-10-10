@@ -141,7 +141,8 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (user?.funcionario?.matricula_funcionario) {
       (async () => {
-        setActives(await findActives(user));
+        const today = new Date().toISOString().split('T')[0]
+        setActives(await findActives(user, today));
         setTeams(await findTeams(user));
         setRegions(await findRegions(user));
         setTurns(await findTurns(user));

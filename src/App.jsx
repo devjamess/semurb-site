@@ -65,7 +65,7 @@ function App() {
           <Route path='/teams/:id' element={ <Teams /> }/>
           <Route path='/config' element={ <Config /> } />
           <Route path='/employees/:id' element={ <Employees /> } />
-          <Route path='/currentday/:id' element={ <CurrentDay /> } />
+          <Route path='/currentday/:date' element={ <CurrentDay /> } />
         </Route>
 
       <Route element={<AdminAuth />}>

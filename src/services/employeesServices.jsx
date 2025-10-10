@@ -43,15 +43,14 @@ export const findEmployees = async (user) => {
 
 export const findActives = async (user, date) => {
     try {
-        const setDate = date.toISOString().split('T')[0]
-        const { data } = await api.get(`funcionariosAtivos/${user?.funcionario?.matricula_funcionario}`,{
-            params: {data: setDate}
+        const { data } = await api.get(`funcionariosAtivosSetor/${user?.funcionario?.matricula_funcionario}`,{
+            params: {data: date}
         })
         const sucess = 'funcionarios do dia listados com sucesso'
         return { result: data, error: null, sucess: sucess }
     } catch (error) {
-        const erro = error.response?.data?.mensagem
-        console.error('Erro ao listar funcionarios do dia', erro)
+        const erro = error?.response?.data?.mensagem
+        console.error('Erro ao listar funcionarios do dia', error?.message)
         return { result: null, error: erro, sucess: null }
     }
 };
