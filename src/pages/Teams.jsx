@@ -12,8 +12,6 @@ function Teams() {
     const {teams, employees, user, regions, scales} = useAuth()
     const {id} = useParams()
 
-
-
     const [search, setSearch] = useState('')
     const searchLowerCase = search.toLowerCase();
     const employeesList = !employees ? [] : employees?.result?.filter((employee) => 

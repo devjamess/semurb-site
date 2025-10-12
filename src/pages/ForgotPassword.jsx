@@ -23,8 +23,6 @@ function ForgotPassword(){
      //setErroMessage(userData.error)   
      //logout()
    // }
-
-
   }
   return (
     <div>

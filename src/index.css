@@ -70,16 +70,19 @@ input::placeholder {
 ::-webkit-scrollbar {
   width: 8px;
   background: transparent;
+  opacity: 0.5;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--fix-gray);
   border-radius: 8px;
+  opacity: 0.5;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--contents);
   height: 8px;
+  opacity: 0.5;
 }
 
 .loading-text {

@@ -3,24 +3,24 @@ import {useAuth} from '../hook/useAuth'
 import { useEffect, useState } from 'react';
 
 function CurrentDay() {
-    const {actives, user, teams, scales, regions} = useAuth()
+    const { user, teams, scales, regions, findActives} = useAuth()
     const route = useNavigate();
     const {date} = useParams();
     const [list, setList] = useState()  
-
+ 
     useEffect(()=>{
-      const activesList = async() => {
-        await actives(user, date)
-      if(activesList.result){
-        console.log(activesList.sucess)
-        setList(activesList.result)
-      } else {
-        console.log(activesList.error)
-        setList([])
-      }
-      }
-    },[user, date])
-
+       async function handleActive() {
+    const activesList = await findActives(user, date)
+    if (activesList.result) {
+      console.log( activesList.sucess)
+      setList(activesList.result)
+    } else {
+      console.log(activesList.error)
+      setList([])
+    }
+  }
+  handleActive();
+}, [user, date, findActives])
 
   return (
     <div>
@@ -45,9 +45,9 @@ function CurrentDay() {
             <div >{employee.email}</div>
             <div >{employee.telefone}</div>
             <div >{user?.setor.nome_setor}</div>
-            <div >{teams.find(team => (team.id_equipe == employee.id_equipe))?.nome_equipe}</div>
-            <div >{regions.find(region =>(region.id_regiao == employee.id_regiao))?.nome_regiao}</div>
-            <div >{scales.find(scale => (scale.escala.id_escala == employee.id_escala))?.escala.tipo_escala}</div>
+            <div >{teams?.result?.find(team => (team.id_equipe == employee.id_equipe))?.nome_equipe}</div>
+            <div >{regions?.result?.find(region =>(region.id_regiao == employee.id_regiao))?.nome_regiao}</div>
+            <div >{scales?.result?.find(scale => (scale.escala.id_escala == employee.id_escala))?.escala.tipo_escala}</div>
       </div>
         ))}
   </div>
