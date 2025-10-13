@@ -61,8 +61,8 @@ import '../styles/EmployeeList.css'
        : null
       }
         </div>
-        <button className="confirm-button" onClick={setIsOpenEmployeeModal}>
-          <IoMdPersonAdd  size={20}  />Adicionar Funcionario</button>
+        <button className="confirm-button add-empl" onClick={setIsOpenEmployeeModal}>
+          <IoMdPersonAdd  size={20}  />Adicionar Funcionário</button>
         <button className="confirm-button" onClick={setIsOpenTeam}>
           <IoIosPeople size={30} /> Adicionar Equipe</button>
       </div>

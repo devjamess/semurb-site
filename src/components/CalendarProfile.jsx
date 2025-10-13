@@ -63,7 +63,7 @@ export default function CalendarProfile ({ value, onDateChange, escala }) {
     }
   }
 
-  // Caso 1: Escalas baseadas em dias (NxM)
+  
   else if (escala.dias_trabalhados && escala.dias_n_trabalhados) {
     const cycleLength = escala.dias_trabalhados + escala.dias_n_trabalhados;
 
@@ -82,25 +82,6 @@ export default function CalendarProfile ({ value, onDateChange, escala }) {
     }
   }
 
-  // Caso 2: Escalas em horas (12x36, 24x48)
-  else if (escala.tipo_escala === "24x48" || escala.tipo_escala === "12x36") {
-    let cycleLength = escala.tipo_escala === "24x48" ? 72 : 48; // em horas
-    let workHours = escala.tipo_escala === "24x48" ? 24 : 12;
-
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month, day);
-      const diffHours = Math.floor((date - startDate) / (1000 * 60 * 60));
-
-      if (diffHours >= 0) {
-        const cycleHour = diffHours % cycleLength;
-        if (cycleHour < workHours) {
-          workMap[day] = "work";
-        } else {
-          workMap[day] = "rest";
-        }
-      }
-    }
-  }
 
   return workMap;
 };

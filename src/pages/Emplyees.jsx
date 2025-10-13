@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useAuth } from '../hook/useAuth'
 import { IoIosContact } from 'react-icons/io'
 import CalendarProfile from '../components/CalendarProfile'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import UpdateScale from "../components/modals/UpdateScale"
 import AddEmployeeCard from '../components/modals/AddEmployee'
 
@@ -10,10 +10,17 @@ function Employee() {
 
   const { employees, user, teams, scales, regions, turns } = useAuth()
   const { id } = useParams()
-  
+
+
+  if(!employees || !employees?.result)
+  return <p className="loading-text">Carregando funcionário...</p>
+
   const CurrentEmployee = employees?.result?.find(employee => String(employee.matricula_funcionario) === id)
   const scale = scales?.result?.find(scale => (scale.escala.id_escala == CurrentEmployee.id_escala))?.escala
   const turn = turns?.result?.find(turn => (turn.id_turno == CurrentEmployee?.id_turno))
+  
+  if(!CurrentEmployee)
+  return <p className="loading-text">Não foi possível carregar o funcionário..</p>
 
   const [isOpenEmployeeUpdate, setIsOpenEmployeeUpdate] = useState(false)
   const [isOpenEmployeeAdd, setIsOpenEmployeeAdd] = useState(false)
@@ -24,6 +31,7 @@ function Employee() {
     setSelectedDate(date);
     console.log('Data selecionada:', date.toLocaleDateString('pt-BR'));
   };
+
 
   return (
     <div className="body">

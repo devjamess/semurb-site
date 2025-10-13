@@ -13,7 +13,7 @@
 }
 
 .body {
-  margin: 0;
+  min-height: 100vh;
   background-color: var(--bg);
 }
 
@@ -73,6 +73,18 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.4);
 }
 
+@media(max-width: 1535px){
+  .confirm-button, .alert-button, .cancel-button{
+    font-size: small;
+  }
+}
+@media(max-width: 1110px){
+  .confirm-button, .alert-button, .cancel-button{
+    flex-direction: column;
+    gap: 1px;
+  }
+}
+
 /* Chrome, Safari, Edge */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -119,8 +131,8 @@ input::placeholder {
 }
 
 .loading-text {
-  color: var(--text);
-  font-size: mediume;
+  color: var(--on-text);
+  font-size: medium;
   font-weight: bold;
   text-align: center;
   padding: 2rem;

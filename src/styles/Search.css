@@ -4,7 +4,8 @@
     border: none;
 }
 .container-search{
-    margin: 3rem 10vw 3rem;
+    margin: 0 10vw 3rem;
+    padding: 3rem 0 0;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     gap: 3rem;
@@ -28,4 +29,10 @@
 }
 .grid-1{
   grid-template-columns: 1fr;
+}
+
+@media(max-width: 1520px){
+    .container-search{
+        gap: 1rem;
+    }
 }

@@ -32,8 +32,8 @@ function Teams() {
         <button className='alert-button'> 
           <IoIosNotifications size={25} /> Notificar Pendência</button>
         <input type="search" placeholder='Buscar funcionários...' value={search} onChange={(e)=> setSearch(e.target.value)} />
-        <button className="confirm-button" onClick={() => setIsOpenEmployeeModal(!isOpenEmployeeModal)}>
-          <IoMdPersonAdd  size={20}  />Adicionar </button>
+        <button className="confirm-button add-empl" onClick={() => setIsOpenEmployeeModal(!isOpenEmployeeModal)}>
+          <IoMdPersonAdd  size={20}  />Adicionar Funcionário </button>
       </div>
 
       <div className="type-table">

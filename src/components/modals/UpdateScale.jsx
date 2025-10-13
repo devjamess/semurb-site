@@ -60,13 +60,13 @@ export default function UpdateScale({ employee, setIsOpenEmployee, isOpenEmploye
   async function handleAddScale(e) {
     e.preventDefault();
     const newScale = await updateScale(user, form)
-    if (newScale.result) {
+    if (newScale?.result) {
       setResponse('Sucesso')
-      setErroMessage(newScale.sucess)
+      setErroMessage(newScale?.sucess)
       setSave(newScale)// fecha modal depois de cadastrar
     } else {
       setResponse(response)
-      setErroMessage(newScale.error)
+      setErroMessage(newScale?.error)
     }
   }
 
@@ -102,12 +102,12 @@ export default function UpdateScale({ employee, setIsOpenEmployee, isOpenEmploye
                 list="escalas-list"
                 className="form-input"
                 placeholder="Escala"
-                value={form.tipo_escala}
+                value={form?.tipo_escala}
                 onChange={handleChange}
               />
               <datalist id="escalas-list">
                 {scales?.result?.map((scale, key) => (
-                  <option key={key} value={scale.tipo_escala} />
+                  <option key={key} value={scale.escala.tipo_escala} />
                 ))}
               </datalist>
 
