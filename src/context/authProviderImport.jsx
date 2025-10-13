@@ -4,7 +4,7 @@ import AuthContext from "./authContextImport";
 
 import { addEmployee, findEmployees, findAllEmployees, findActives } from "../services/employeesServices";
 import { addScale, findScales, updateScale } from "../services/scalesServices";
-import { findAllSectors, addSector } from "../services/sectorsServices";
+import { findAllSectors, addSector, deleteSector, updateSector } from "../services/sectorsServices";
 import { addAdmin, deleteEmployee, updateAdmin, addEmployeeAdmin } from "../services/adminsServices"
 import { findTeams, addTeam } from '../services/teamsServices'
 import { findRegions } from '../services/regionsServices'
@@ -85,15 +85,26 @@ export const AuthProvider = ({ children }) => {
     const res = await findAllEmployees();
     setAllEmployees(res);
   };
+  const getAllSectors = async() => {
+    const res = await findAllSectors();
+    setAllSectors(res)
+  }
 
-  //função para deletar funcionário e atualizar lista
-  const handleDeleteEmployee = async (matricula_funcionario) => {
+  const handleDelEmployee = async (matricula_funcionario) => {
     const res = await deleteEmployee(matricula_funcionario);
     if (res.result) {
       await getAllEmployees();
     }
     return res;
   };
+  const handleDelSector = async(id_setor) => {
+    const res = await deleteSector(id_setor);
+    if(res.result) {
+      await getAllSectors();
+      await getAllEmployees();
+    }
+    return res
+  }
   
 
 
@@ -217,10 +228,12 @@ export const AuthProvider = ({ children }) => {
       addTurn,
       updateScale,
       addAdmin,
-      deleteEmployee: handleDeleteEmployee,
+      deleteEmployee: handleDelEmployee,
       getAllEmployees,
       updateAdmin,
       addTeam,
+      deleteSector: handleDelSector,
+      updateSector,
 
       findTeams,
       teams,

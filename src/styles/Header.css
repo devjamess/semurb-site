@@ -34,7 +34,7 @@ box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
 .painel{
     color: var(--fix-titles);
     margin:0;
-    font-size: 1.5rem;
+    font-size: large;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -51,6 +51,6 @@ box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
     height: 30px;
  }
  .painel{
-    font-size: 1rem;
+    font-size: medium;
  }
 }

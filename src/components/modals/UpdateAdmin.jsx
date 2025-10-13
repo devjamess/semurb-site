@@ -4,15 +4,19 @@ import Alert from './Alert'
 
 
 function UpdateAdmin({ isOpen, setIsOpen, employee }) {
-  const { updateAdmin, allSectors } = useAuth()
+  const { updateAdmin, allSectors, teams, regions } = useAuth()
   const [erroMessage, setErroMessage] = useState()
   const [response, setResponse] = useState('Erro')
-  const [save, setSave] = useState()
+
 
   const [form, setForm] = useState({ })
  
-  const sector = allSectors.result?.setores?.find(sector => (
-  employee?.id_setor == sector.id_setor))?.nome_setor
+  const sector = allSectors?.result?.setores?.find(sector => (
+  employee.id_setor == sector.id_setor))?.nome_setor
+  const team = teams?.result?.find(team => 
+  employee.id_equipe == team.id_equipe)?.nome_equipe
+  const region = regions?.result?.find(region => 
+  employee.id_regiao == region.id_regiao)?.nome_regiao
 
   useEffect(()=>{
     if(isOpen && employee)
@@ -22,6 +26,8 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
     cargo: employee.cargo,
     setor: sector,
     status_permissao: employee.status_permissao,
+    equipe: team,
+    regiao: region,
     })
   },[isOpen, employee])
 
@@ -40,7 +46,6 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
     if (EditEmployee.sucess) {
       setResponse('Sucesso')
       setErroMessage(EditEmployee.sucess)
-      setSave(EditEmployee.result)
     } else {
       setResponse('Erro')
       setErroMessage(EditEmployee.error)
@@ -88,6 +93,22 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
             <datalist id="permissao-list">
               <option value="Sim" className=""></option>
               <option value="Não" className=""></option>
+            </datalist>
+
+            <input name="equipe" id="equipe-input" list="equipes-list" className="form-input"
+              placeholder="Equipe" value={form.equipe} onChange={handleChange} />
+            <datalist id="equipes-list">
+              {teams?.result?.map((team, key) => (
+                <option key={key} value={team.nome_equipe} />
+              ))}
+            </datalist>
+
+            <input name="regiao" id="regiao-input" list="regioes-list" className="form-input"
+              placeholder="Regiao" value={form.regiao} onChange={handleChange} />
+            <datalist id="regioes-list">
+              {regions?.result?.map((region, key) => (
+                <option key={key} value={region.nome_regiao} />
+              ))}
             </datalist>
            
 

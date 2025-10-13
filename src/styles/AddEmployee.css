@@ -69,3 +69,67 @@ height: 100vh;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
 }
+
+/* Label principal */
+.form-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: medium;
+  font-weight: 500;
+  color: var(--text);
+  grid-column: span 2;
+  margin-top: 0.4rem;
+}
+
+/* Container dos dias da semana */
+.dias-semana-checkboxes {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.6rem;
+  padding: 0.8rem;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+/* Cada dia (label) */
+.dias-semana-checkboxes label {
+  background-color: var(--contents);
+  color: var(--text);
+  text-align: center;
+  border-radius: 6px;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  border: 1.5px solid var(--fix-dark);
+}
+
+/* Checkbox ativo */
+.dias-semana-checkboxes label:has(input[type="checkbox"]:checked) {
+  background-color: var(--fix-yellow);
+  font-weight: 700;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Esconde o input padrão */
+.dias-semana-checkboxes input[type="checkbox"] {
+  display: none;
+}
+
+/* Hover */
+.dias-semana-checkboxes label:hover {
+  background-color: var(--hover-contents);
+  transform: scale(1.02);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .dias-semana-checkboxes {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem;
+  }
+}

@@ -29,7 +29,7 @@
   font-size: large;
 }
 .table-row:hover > div{
-  background-color: var(--hover-contents);
+  background-color: var(--hovers);
   cursor: pointer;
 }
 .matricula {
@@ -42,7 +42,32 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr); 
 }
+.currentday-table{
+  grid-template-columns: repeat(3, 1fr);
+}
 
+.type-table{
+  display: flex;
+  flex-direction: column;
+  margin: 0 10vw 1rem;
+}
+.type-title{
+  font-size: xx-large;
+  color: var(--text);
+  font-weight: bold;
+}
+.type-subtitle{
+  font-size: x-large;
+  color: var(--fix-titles);
+  font-weight: bold;
+}
+.adm-type-table{
+  margin: 0;
+}
+.type-icon{
+  display: flex;
+  gap: 1rem;
+}
 
 @media (max-width: 1024px) {
 .table-header {

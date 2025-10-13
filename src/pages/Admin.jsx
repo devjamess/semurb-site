@@ -6,11 +6,13 @@ import { useState } from 'react'
 import '../styles/Admin.css'
 import AddSector from '../components/modals/AddSector'
 import { useNavigate } from 'react-router-dom'
+import { IoMdPersonAdd, IoIosListBox } from "react-icons/io";
 
 function Admin() {
 
   const { allEmployees, allSectors } = useAuth()
   const route = useNavigate()
+
   const [isOpenModalAdmin, setIsOpenModalAdmin] = useState(false)
   const [isOpenModalSector, setIsOpenModalSector] = useState(false)
 
@@ -53,11 +55,11 @@ function Admin() {
         </div>
         <button className="confirm-button"
           onClick={() => setIsOpenModalAdmin(!isOpenModalAdmin)}>
-          Adicionar Funcionario
+          <IoMdPersonAdd  size={20}  /> Adicionar Funcionario
         </button>
         <button className="confirm-button"
           onClick={() => setIsOpenModalSector(!isOpenModalSector)}>
-          Adicionar Setor
+          <IoIosListBox size={25}/>Adicionar Setor
         </button>
       </div>
 
@@ -66,7 +68,14 @@ function Admin() {
         <SectorCard />
       </div>
 
+
       <div className='adm-container-down'>
+
+      <div className="type-table adm-type-table">
+        <p className="type-title">Funcionáios Cadastrados</p>
+        <p className="type-subtitle">Todos os setores</p>
+      </div>
+
         <div className="adm-table">
           <div className="adm-table-header">
             <div>Matrícula</div>
@@ -76,8 +85,9 @@ function Admin() {
           </div>
 
           <div className="adm-table-body">
-            {allEmployees.result?.map((employee, key) => (
-              <div className="adm-table-row" key={key}>
+            {allEmployees?.result?.map((employee, key) => (
+              <div className="adm-table-row" key={key} 
+              onClick={() => route(`/edit-employee/${employee.matricula_funcionario}`)}>
                 <div className='adm-matricula'>{employee.matricula_funcionario}</div>
                 <div>{employee.nome}</div>
                 <div>{employee.email}</div>

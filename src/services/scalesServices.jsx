@@ -22,7 +22,7 @@ export const updateScale = async (
 ) => {
   try {
     const { data } = await api.put('alterarEscala', {
-      matricula_adm: user?.funcionario.matricula_funcionario,
+      matricula_adm: user?.funcionario?.matricula_funcionario,
       ...payload
     })
     const sucess = "Escala atualizada com sucesso"

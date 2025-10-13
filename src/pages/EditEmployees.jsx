@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useAuth } from '../hook/useAuth'
 import { IoIosContact } from 'react-icons/io'
 import { useState } from 'react'
@@ -6,21 +6,19 @@ import CalendarProfile from '../components/CalendarProfile'
 import UpdateScale from '../components/modals/UpdateScale'
 import AddEmployeeCard from '../components/modals/AddEmployee'
 import UpdateAdmin from '../components/modals/UpdateAdmin'
-import Alert from '../components/modals/Alert'
+import Confirmation from '../components/modals/ConfirmDelEmployee'
 
 function EditEmployee() {
 
-  const { allEmployees, allSectors, teams, regions, turns, scales, deleteEmployee } = useAuth()
+  const { allEmployees, allSectors, teams, regions, turns, scales } = useAuth()
   const { id } = useParams()
-  const route = useNavigate()
+
 
   const [isOpenEmployeeUpdate, setIsOpenEmployeeUpdate] = useState(false)
   const [isOpenEmployeeAdd, setIsOpenEmployeeAdd] = useState(false)
   const [isOpenAdminUpdate, setIsOpenAdminUpdate] = useState(false)
+  const [isOpenDelete, setIsOpenDelete] = useState(false)
   const [page, setPage] = useState(2)
-
-  const [erroMessage, setErroMessage] = useState('')
-  const [response, setResponse] = useState('Erro')
 
   const [selectedDate, setSelectedDate] = useState(null);
   const handleDateSelect = (date) => {
@@ -32,7 +30,7 @@ function EditEmployee() {
     return <p className='loading-text'>Carregando funcionário...</p>;
   }
 
-  const currentEmployee = allEmployees.result.find(
+  const currentEmployee = allEmployees?.result?.find(
     employee => String(employee.matricula_funcionario) === id
   );
 
@@ -48,33 +46,15 @@ function EditEmployee() {
   const scale = scales?.result?.find(scale => (
     currentEmployee?.id_escala == scale.id_escala
   ))?.tipo_escala
-  const turn = turns?.find(turn => (
+  const turn = turns?.result?.find(turn => (
     currentEmployee?.id_turno == turn.id_turno
-  ))?.duracao_turno
+  ))
 
-  async function handleDelete() {
-    const del = await deleteEmployee(currentEmployee?.matricula_funcionario)
-    if (del?.sucess) {
-      setResponse('Não')
-      setErroMessage('Funcionario foi deletado')
-    } else {
-      setResponse('Não')
-      setErroMessage('Erro ao Buscar Funcionario')
-    }
-  }
-  if (!currentEmployee) {
-    return <div className="form-container">
-      {<Alert
-        response={response}
-        text="foi possivel encontrar o funcionário"
-        error={erroMessage}
-        onClose={() => {
-          setErroMessage("")
-          route(-1)
-        }}
-      />}
-    </div>
-  }
+  
+  if (!currentEmployee) 
+  return <p className="loading-text">Não foi possível encontrar o funcionário</p>;
+  
+
   return (
     <div className="body">
 
@@ -94,6 +74,11 @@ function EditEmployee() {
       setIsOpen={setIsOpenAdminUpdate}
       employee={currentEmployee}
       />
+      <Confirmation 
+      isOpen={isOpenDelete}
+      setIsOpen={setIsOpenDelete}
+      currentEmployee={currentEmployee}
+      />
       <div className="container-profile-page">
         <div key={currentEmployee?.matricula_funcionario} className="profile-container">
           <div className="profile-card-up">
@@ -110,10 +95,9 @@ function EditEmployee() {
             <p className="profile-info">Região: <span className="info-auth">{region}</span></p>
             <p className="profile-info">Setor: <span className="info-auth">{sector}</span></p>
             <p className="profile-info">Escala: <span className="info-auth">{scale}</span></p>
-            <p className="profile-info">Turno: <span className="info-auth">{turn}</span></p>
           </div>
           <button className="confirm-button" onClick={() => setIsOpenAdminUpdate(!isOpenAdminUpdate)}>Editar</button>
-          <button className="cancel-button" onClick={handleDelete}>Deletar</button>
+          <button className="cancel-button" onClick={() => setIsOpenDelete(!isOpenDelete)}>Deletar</button>
         </div>
 
         <div className="profile-escale">
@@ -125,7 +109,7 @@ function EditEmployee() {
           <div className="profile-escale-details">
             <div className="details">Folgas</div>
             <div className="details">Feriados</div>
-            <div className="details">Trabalho</div>
+            <div className="details">{`Horario: ${turn?.inicio_turno} - ${turn?.termino_turno} / Intervalo: ${turn?.intervalo_turno}`}</div>
           </div>
           <button className="confirm-button"
             onClick={() => {

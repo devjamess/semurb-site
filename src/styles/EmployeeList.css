@@ -20,7 +20,7 @@
     cursor: pointer;
 }
 .list-content:hover{
-    background-color: var(--hover-contents);
+    background-color: var(--hovers);
 }
 .list-info{
     color: var(--text);

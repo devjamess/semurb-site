@@ -6,6 +6,7 @@ import CalendarHome from '../components/CalendarHome';
 import AddEmployeeCard from '../components/modals/AddEmployee'
 import SectorCard from '../components/SectorCard'
 import AddTeam from '../components/modals/AddTeam'
+import { IoMdPersonAdd, IoIosPeople  } from "react-icons/io";
 import '../styles/Home.css';
 import '../styles/EmployeeList.css'
 
@@ -60,8 +61,10 @@ import '../styles/EmployeeList.css'
        : null
       }
         </div>
-        <button className="confirm-button" onClick={setIsOpenEmployeeModal}>Adicionar Funcionario</button>
-        <button className="confirm-button" onClick={setIsOpenTeam}>Adicionar Equipe</button>
+        <button className="confirm-button" onClick={setIsOpenEmployeeModal}>
+          <IoMdPersonAdd  size={20}  />Adicionar Funcionario</button>
+        <button className="confirm-button" onClick={setIsOpenTeam}>
+          <IoIosPeople size={30} /> Adicionar Equipe</button>
       </div>
       
      

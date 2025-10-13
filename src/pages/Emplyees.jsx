@@ -8,11 +8,12 @@ import AddEmployeeCard from '../components/modals/AddEmployee'
 
 function Employee() {
 
-  const { employees, user, teams, scales, regions } = useAuth()
+  const { employees, user, teams, scales, regions, turns } = useAuth()
   const { id } = useParams()
   
   const CurrentEmployee = employees?.result?.find(employee => String(employee.matricula_funcionario) === id)
   const scale = scales?.result?.find(scale => (scale.escala.id_escala == CurrentEmployee.id_escala))?.escala
+  const turn = turns?.result?.find(turn => (turn.id_turno == CurrentEmployee?.id_turno))
 
   const [isOpenEmployeeUpdate, setIsOpenEmployeeUpdate] = useState(false)
   const [isOpenEmployeeAdd, setIsOpenEmployeeAdd] = useState(false)
@@ -27,7 +28,7 @@ function Employee() {
   return (
     <div className="body">
       <UpdateScale
-        employee={CurrentEmployee?.matricula_funcionario}
+        employee={CurrentEmployee}
         setIsOpenEmployee={setIsOpenEmployeeUpdate}
         isOpenEmployee={isOpenEmployeeUpdate}
       />
@@ -44,8 +45,6 @@ function Employee() {
           <div key={CurrentEmployee?.matricula_funcionario} className="profile-container">
             <div className="profile-card-up">
               <IoIosContact size={200} color={'#6B7280'} />
-
-
 
               <h2 className="profile-name">{CurrentEmployee?.nome}</h2>
             </div>
@@ -68,9 +67,9 @@ function Employee() {
             escala={scale?.id_escala == CurrentEmployee?.id_escala ? scale : 'Desconhecido'}
           />
           <div className="profile-escale-details">
-            <div className="details">Folgas</div>
+            <div className="details">{`Folgas: ${scale?.dias_n_trabalhados_escala_semanal}`}</div>
             <div className="details">Feriados</div>
-            <div className="details">Trabalho</div>
+            <div className="details">{`Horario: ${turn?.inicio_turno} - ${turn?.termino_turno} / Intervalo: ${turn?.intervalo_turno}`}</div>
           </div>
           <button className="confirm-button" onClick={() => {
             if(CurrentEmployee?.id_escala){

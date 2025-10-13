@@ -9,10 +9,10 @@ export default {
     "--contents": "#ffffff",
     "--fix-white": "#ffffff",
     "--confirm": "#229954",
-    "--hovers": "#f4d03faf",
+    "--hovers": "#f4d03f79",
     "--cancel":"#E74C3C",
     "--id": "#2E86C1",
-    "--hover-contents": "#ddddddff",
     "--fix-gray": "#8e99aeff",
     "--on-gray": "#b1bdceff",
+    "--fix-alert": "#f4b23fff"
 };

@@ -16,7 +16,7 @@
 }
 
 .header-content-profile{
-  font-size: 1.2rem;
+  font-size: large;
   font-weight: bold;
   text-transform: capitalize;
   color: var(--fix-titles);
@@ -28,7 +28,7 @@
 .nav-button-profile {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: large;
   cursor: pointer;
   color: var(--fix-yellow);
   padding: 5px 10px;
@@ -49,7 +49,7 @@
 .days-of-week-profile {
   text-align: center;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: medium;
   color: var(--fix-gray);
   padding: 5px 0;
   border-bottom: 1px solid var(--fix-gray);
@@ -102,14 +102,14 @@
 
 @media (max-width: 1320px) {
   .nav-button-profile {
-    font-size: 1rem;
+    font-size: medium;
   }
 
   .consultarDatas-profile {
-    font-size: 1rem;
+    font-size: medium;
   }
 
   .header-content-profile {
-    font-size: 1rem;
+    font-size: medium;
   }
 }

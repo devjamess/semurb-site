@@ -1,5 +1,5 @@
 .adm-container-up{
-    margin: 0 10vw 0;
+    margin: 0 10vw 1rem;
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
@@ -58,7 +58,7 @@
 }
 
 .adm-table-row:hover > div {
-  background-color: var(--hover-contents);
+  background-color: var(--hovers);
   cursor: pointer;
 }
 
@@ -77,7 +77,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     margin: 2rem 10vw 2rem;
-    gap: 1rem;
+    gap: 2rem;
     
 }.adm-container-search input{
     border-radius: 5px;
@@ -113,7 +113,7 @@
     cursor: pointer;
 }
 .list-content:hover{
-    background-color: var(--hover-contents);
+    background-color: var(--hovers);
 }
 .adm-list-info{
     color: var(--text);
