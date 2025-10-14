@@ -1,8 +1,8 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import '../styles/CalendarProfile.css'
 
-export default function CalendarProfile ({ value, onDateChange, escala }) {
-   const [currentDate, setCurrentDate] = useState(value || new Date());
+export default function CalendarProfile({ value, onDateChange, escala }) {
+  const [currentDate, setCurrentDate] = useState(value || new Date());
 
   const generateDays = () => {
     const year = currentDate.getFullYear();
@@ -30,61 +30,61 @@ export default function CalendarProfile ({ value, onDateChange, escala }) {
   };
 
   const getWorkDaysMap = () => {
-  if (!escala) return {};
+    if (!escala) return {};
 
-  const workMap = {};
-  const startDate = new Date(escala.data_inicio);
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const workMap = {};
+    const startDate = new Date(escala.data_inicio);
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-  const diasMapeados = {
-    'Dom': 0,
-    'Seg': 1,
-    'Ter': 2,
-    'Qua': 3,
-    'Qui': 4,
-    'Sex': 5,
-    'Sab': 6,
-  };
+    const diasMapeados = {
+      'Dom': 0,
+      'Seg': 1,
+      'Ter': 2,
+      'Qua': 3,
+      'Qui': 4,
+      'Sex': 5,
+      'Sab': 6,
+    };
 
-  if (escala.usa_dias_especificos && Array.isArray(escala.dias_n_trabalhados_escala_semanal)) {
-    const diasFolga = escala.dias_n_trabalhados_escala_semanal.map(dia => diasMapeados[dia]);
+    const usaDiasEspecificos =
+      escala.usa_dias_especificos === true || escala.usa_dias_especificos === 'true';
 
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month, day);
-      const dayOfWeek = date.getDay(); // 0-6 (Dom-Sab)
+    if (usaDiasEspecificos && Array.isArray(escala.dias_n_trabalhados_escala_semanal)) {
+      console.log('✅ Usando dias da semana específicos');
 
-      if (diasFolga.includes(dayOfWeek)) {
-        workMap[day] = "rest";
-      } else {
-        workMap[day] = "work";
+      const diasFolga = escala.dias_n_trabalhados_escala_semanal.map(dia => diasMapeados[dia]);
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year, month, day);
+        const dateKey = date.toISOString().split('T')[0]; // yyyy-mm-dd
+        const dayOfWeek = date.getDay();
+
+        workMap[dateKey] = diasFolga.includes(dayOfWeek) ? 'rest' : 'work';
       }
-    }
-  }
 
-  
-  else if (escala.dias_trabalhados && escala.dias_n_trabalhados) {
+      return workMap;
+    }
+
+    // Lógica automática (NxM)
+    console.log('📅 Usando ciclo automático (NxM)');
     const cycleLength = escala.dias_trabalhados + escala.dias_n_trabalhados;
 
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(year, month, day);
       const diff = Math.floor((date - startDate) / (1000 * 60 * 60 * 24));
+      const dateKey = date.toISOString().split('T')[0];
 
       if (diff >= 0) {
         const cycleDay = diff % cycleLength;
-        if (cycleDay < escala.dias_trabalhados) {
-          workMap[day] = "work";
-        } else {
-          workMap[day] = "rest";
-        }
+        workMap[dateKey] = cycleDay < escala.dias_trabalhados ? 'work' : 'rest';
       }
     }
-  }
 
+    return workMap;
+  };
 
-  return workMap;
-};
 
 
   const DaysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
@@ -114,22 +114,28 @@ export default function CalendarProfile ({ value, onDateChange, escala }) {
           </div>
         ))}
 
-        {days.map((day, index) => (
-          <div
-            key={index}
-            className={`calendar-day-profile 
-              ${workDaysMap[day] === "work" ? "work-day" : ""} 
-              ${workDaysMap[day] === "rest" ? "rest-day" : ""}`}
-            onClick={() =>
-              day &&
-              onDateChange(
-                new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
-              )
-            }
-          >
-            {day}
-          </div>
-        ))}
+        {days.map((day, index) => {
+          const date =
+            day != null ? new Date(currentDate.getFullYear(), currentDate.getMonth(), day) : null;
+          const dateKey = date ? date.toISOString().split('T')[0] : null;
+          const status = dateKey ? workDaysMap[dateKey] : null;
+
+          return (
+            <div
+              key={index}
+              className={`calendar-day-profile 
+        ${status === 'work' ? 'work-day' : ''} 
+        ${status === 'rest' ? 'rest-day' : ''}`}
+              onClick={() =>
+                day &&
+                onDateChange(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))
+              }
+            >
+              {day}
+            </div>
+          );
+        })}
+
       </div>
     </div>
   );
