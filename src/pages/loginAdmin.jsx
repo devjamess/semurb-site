@@ -3,14 +3,17 @@ import { useNavigate } from "react-router-dom";
 import '../styles/login.css'
 import logo from '../assets/images/semurb-logo-login.png'
 import {useAuth} from '../hook/useAuth'
+import {BeatLoader} from 'react-spinners'
 function LoginAdmin() {
   const route = useNavigate();
   const {adminSignIn, logout} = useAuth();
   const [registration, setMatricula] = useState()
   const [password, setPassword] = useState()
+  const [loading, setLoad] = useState(false)
 
   const handleSignIn = async (e) => {
     e.preventDefault();
+    setLoad(true)
 
     const adminData = await adminSignIn(registration, password);
     if(adminData){
@@ -20,7 +23,7 @@ function LoginAdmin() {
      logout()  
     }
 
-
+    setLoad(false)
   }
   return (
     <div className="background-login">
@@ -47,7 +50,9 @@ function LoginAdmin() {
         <input className='input-login' type="password" name="password" id="password" 
         value={password} onChange={(e) => setPassword(e.target.value)} />
 
-        <button className='button-login' type="submit">Entrar</button>
+        <button className='button-login' type="submit">
+           {loading ? ( <BeatLoader size={15} color='#F4D03F' /> ) : ('Entrar') }
+        </button>
        
         </div> 
         </form>

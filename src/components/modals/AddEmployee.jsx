@@ -160,27 +160,23 @@ function Page2({ employee, setIsOpenEmployee, goNextPage }) {
     matricula_funcionario: employee.matricula_funcionario,
     data_inicio: '',
     tipo_escala: '',
-    usa_dias_especificos: false,
+    usa_dias_especificos: 'NAO',
     dias_n_trabalhados_escala_semanal: [],
   })
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
 
-    if (type === 'checkbox' && name === 'usa_dias_especificos') {
-      setForm((prev) => ({ ...prev, [name]: checked }));
-    } else {
-      setForm((prev) => ({ ...prev, [name]: value }));
-    }
-  };
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setForm(prev => ({ ...prev, [name]: value }))
+  }
+
   const handleDiasChange = (dia) => {
-    setForm((prev) => {
-      const dias = prev.dias_n_trabalhados_escala_semanal;
-      const updatedDias = dias.includes(dia)
-        ? dias.filter(d => d !== dia)
-        : [...dias, dia];
-      return { ...prev, dias_n_trabalhados_escala_semanal: updatedDias };
-    });
-  };
+    setForm(prev => {
+      const dias = prev.dias_n_trabalhados_escala_semanal
+      const updatedDias = dias.includes(dia) ? dias.filter(d => d !== dia) : [...dias, dia]
+      return { ...prev, dias_n_trabalhados_escala_semanal: updatedDias }
+    })
+  }
+
   async function handleAddScale(e) {
     e.preventDefault()
     const scale = await addScale(user, form)
@@ -195,11 +191,8 @@ function Page2({ employee, setIsOpenEmployee, goNextPage }) {
   }
 
   const camposObrigatorios = ['matricula_funcionario', 'data_inicio', 'tipo_escala']
-const camposPreenchidos = camposObrigatorios.every(key => form[key] !== '')
-
-const isDisabled = !camposPreenchidos || 
-  (form.usa_dias_especificos && form.dias_n_trabalhados_escala_semanal.length === 0)
-
+  const camposPreenchidos = camposObrigatorios.every(key => form[key] !== '')
+  const isDisabled = !camposPreenchidos || (form.usa_dias_especificos === 'SIM' && form.dias_n_trabalhados_escala_semanal.length === 0)
 
   return (
     <div>
@@ -210,9 +203,7 @@ const isDisabled = !camposPreenchidos ||
           error={erroMessage}
           onClose={() => {
             setErroMessage("")
-            if (response === 'Sucesso' && save) {
-              goNextPage(save)
-            }
+            if (response === 'Sucesso' && save) goNextPage(save)
           }}
         />
       )}
@@ -223,40 +214,24 @@ const isDisabled = !camposPreenchidos ||
           <div className="form-card">
             <input name='matricula_funcionario' type="number" className="form-input" placeholder="Matricula"
               value={form.matricula_funcionario} onChange={handleChange} />
-
-            <input name='data_inicio' type="date" className="form-input"
-              value={form.data_inicio} onChange={handleChange} />
-
-            <input name='tipo_escala'
-              id="escala-input"
-              list="escalas-list"
-              className="form-input"
-              placeholder="Escala"
-              value={form.tipo_escala}
-              onChange={handleChange}
-            />
+            <input name='data_inicio' type="date" className="form-input" value={form.data_inicio} onChange={handleChange} />
+            <input name='tipo_escala' id="escala-input" list="escalas-list" className="form-input"
+              placeholder="Escala" value={form.tipo_escala} onChange={handleChange} />
             <datalist id="escalas-list">
-              {scales?.map(scalel => (
-                <option key={scalel.id_escala} value={scalel.tipo_escala} />
-              ))}
+              {scales?.map(s => <option key={s.id_escala} value={s.tipo_escala} />)}
             </datalist>
 
-            <label>
-              <input
-                type="checkbox"
-                name="usa_dias_especificos"
-                checked={form.usa_dias_especificos}
-                onChange={handleChange}
-              />
-              Usar dias específicos de folga
-            </label>
+            <label>Usar dias específicos de folga:</label>
+            <select name="usa_dias_especificos" value={form.usa_dias_especificos} onChange={handleChange}>
+              <option value="SIM">SIM</option>
+              <option value="NAO">NAO</option>
+            </select>
 
-            {form.usa_dias_especificos && (
+            {form.usa_dias_especificos === 'SIM' && (
               <div className="dias-semana-checkboxes">
                 {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'].map(dia => (
                   <label key={dia}>
-                    <input
-                      type="checkbox"
+                    <input type="checkbox"
                       checked={form.dias_n_trabalhados_escala_semanal.includes(dia)}
                       onChange={() => handleDiasChange(dia)}
                     />
@@ -265,15 +240,10 @@ const isDisabled = !camposPreenchidos ||
                 ))}
               </div>
             )}
-
           </div>
 
           <div className="buttons-form">
-            <button type="submit" className={`confirm-button 
-            ${isDisabled ? 'disabel' : ''}`}
-              disabled={isDisabled}>
-              Concluir
-            </button>
+            <button type="submit" className={`confirm-button ${isDisabled ? 'disabel' : ''}`} disabled={isDisabled}>Concluir</button>
             <button type="button" className="cancel-button" onClick={() => setIsOpenEmployee(false)}>Fechar</button>
           </div>
         </form>
