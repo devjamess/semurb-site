@@ -12,7 +12,8 @@ import CurrentDay from './pages/CurrentDay'
 import Sectors from './pages/Sectors'
 import EditEmployee from './pages/EditEmployees'
 import ForgotPassword from './pages/ForgotPassword'
-
+import CodeVerify from './pages/codeVerify'
+import ResetPassword from './pages/ResetPassword'
 import {AuthProvider} from './context/authProviderImport'
 import {ThemeProvider} from './theme/ThemeProviderImport'
 import {useAuth} from './hook/useAuth'
@@ -57,7 +58,9 @@ function App() {
       <Routes location={location} key={location.pathname}>
         <Route path='/' element={ <Login /> } />
         <Route path='/login/admin' element={ <LoginAdmin /> } />
-        <Route path='forgot-password' element={ <ForgotPassword /> } />
+        <Route path='/forgot-password' element={ <ForgotPassword /> } />
+        <Route path='/code-verify' element={ <CodeVerify /> } />
+        <Route path='/reset-password' element={ <ResetPassword /> } />
        
         <Route  element={<AuthApp />}>
           <Route path='/home' element={ <Home /> }/>

@@ -5,33 +5,33 @@ import logo from '../assets/images/semurb-logo-login.png'
 import {useAuth} from '../hook/useAuth'
 import Alert from '../components/modals/Alert'
 
-function ForgotPassword(){
+function CodeVerify(){
 
   const route = useNavigate();
-  const [email, setEmail] = useState()
+  const [code, setCode] = useState()
   const [erroMessage, setErroMessage] = useState('')
   const [response, setResponse] = useState('Erro')
-  const {forgotPassword} = useAuth()
+  const {codeVerify} = useAuth()
 
   const handleSignIn = async (e) => {
     e.preventDefault();
 
-   const sendCode = await forgotPassword(email)
-   if(sendCode?.result){
+   const receiveCode = await codeVerify(code)
+   if(receiveCode?.result){
       setResponse('Sucesso')
-      setErroMessage(sendCode.sucess)
+      setErroMessage(receiveCode.sucess)
    } else {
     setResponse(response)
-    setErroMessage(sendCode.error)   
+    setErroMessage(receiveCode.error)   
    }
   }
   return (
     <div>
       { erroMessage && 
       <Alert response={response}
-      text='ao Enviar Código'
+      text='ao Verificar Código'
       error={erroMessage}
-      onClose={() => {setErroMessage(""); route('/code-verify')}}
+      onClose={() => {setErroMessage(""); route('/reset-password')}}
       />
       }
     <div className="background-login">
@@ -49,14 +49,14 @@ function ForgotPassword(){
           </div>
 
         <div className="content-login">
-        <label className='label-login'> Email: </label>
-        <input className='input-login' type="email" name="email" 
-        id="email" 
-        value={email}
-        onChange={(e) => setEmail(e.target.value)} />
+        <label className='label-login'> Código: </label>
+        <input className='input-login' type="number" name="code" 
+        id="code" 
+        value={code}
+        onChange={(e) => setCode(e.target.value)} />
 
-        <button type="submit" className={`button-login ${!email ? 'disable' : ''}`} 
-        disabled={!email}>Entrar</button>
+        <button type="submit" className={`button-login ${!code ? 'disable' : ''}`} 
+        disabled={!code}>Entrar</button>
       
         <a className='forgot-password' href="/">Voltar ao login</a>
         </div> 
@@ -66,4 +66,4 @@ function ForgotPassword(){
     </div>
     </div>
   )
-}export default ForgotPassword;
+}export default CodeVerify;

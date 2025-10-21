@@ -131,7 +131,7 @@ input::placeholder {
 }
 
 .loading-text {
-  color: var(--on-text);
+  color: var(--text);
   font-size: medium;
   font-weight: bold;
   text-align: center;

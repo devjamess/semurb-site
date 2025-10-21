@@ -5,33 +5,33 @@ import logo from '../assets/images/semurb-logo-login.png'
 import {useAuth} from '../hook/useAuth'
 import Alert from '../components/modals/Alert'
 
-function ForgotPassword(){
+function ResetPassword(){
 
   const route = useNavigate();
-  const [email, setEmail] = useState()
+  const [senha, setSenha] = useState()
   const [erroMessage, setErroMessage] = useState('')
   const [response, setResponse] = useState('Erro')
-  const {forgotPassword} = useAuth()
+  const {resetPassword} = useAuth()
 
   const handleSignIn = async (e) => {
     e.preventDefault();
 
-   const sendCode = await forgotPassword(email)
-   if(sendCode?.result){
+   const newPassword = await resetPassword(senha)
+   if(newPassword?.result){
       setResponse('Sucesso')
-      setErroMessage(sendCode.sucess)
+      setErroMessage(newPassword.sucess)
    } else {
     setResponse(response)
-    setErroMessage(sendCode.error)   
+    setErroMessage(newPassword.error)   
    }
   }
   return (
     <div>
       { erroMessage && 
       <Alert response={response}
-      text='ao Enviar Código'
+      text='ao Mudar Senha'
       error={erroMessage}
-      onClose={() => {setErroMessage(""); route('/code-verify')}}
+      onClose={() => {setErroMessage(""); route('/')}}
       />
       }
     <div className="background-login">
@@ -49,14 +49,14 @@ function ForgotPassword(){
           </div>
 
         <div className="content-login">
-        <label className='label-login'> Email: </label>
-        <input className='input-login' type="email" name="email" 
-        id="email" 
-        value={email}
-        onChange={(e) => setEmail(e.target.value)} />
+        <label className='label-login'> Nova Senha: </label>
+        <input className='input-login' type="password" name="password" 
+        id="password" 
+        value={senha}
+        onChange={(e) => setSenha(e.target.value)} />
 
-        <button type="submit" className={`button-login ${!email ? 'disable' : ''}`} 
-        disabled={!email}>Entrar</button>
+        <button type="submit" className={`button-login ${!senha ? 'disable' : ''}`} 
+        disabled={!senha}>Entrar</button>
       
         <a className='forgot-password' href="/">Voltar ao login</a>
         </div> 
@@ -66,4 +66,4 @@ function ForgotPassword(){
     </div>
     </div>
   )
-}export default ForgotPassword;
+}export default ResetPassword;

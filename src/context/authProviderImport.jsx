@@ -9,7 +9,7 @@ import { addAdmin, deleteEmployee, updateAdmin, addEmployeeAdmin } from "../serv
 import { findTeams, addTeam } from '../services/teamsServices'
 import { findRegions } from '../services/regionsServices'
 import { findTurns, addTurn } from '../services/turnsServices'
-
+import { forgotPassword, codeVerify, resetPassword } from '../services/sessionServices'
 export const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
@@ -234,6 +234,8 @@ export const AuthProvider = ({ children }) => {
       addTeam,
       deleteSector: handleDelSector,
       updateSector,
+      forgotPassword, codeVerify, resetPassword,
+      
 
       findTeams,
       teams,
