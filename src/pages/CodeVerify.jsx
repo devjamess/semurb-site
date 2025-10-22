@@ -8,19 +8,22 @@ import Alert from '../components/modals/Alert'
 function CodeVerify(){
 
   const route = useNavigate();
-  const [code, setCode] = useState()
+  const [codigo, setCodigo] = useState()
   const [erroMessage, setErroMessage] = useState('')
   const [response, setResponse] = useState('Erro')
   const {codeVerify} = useAuth()
   const {id} = useParams()
+  const matricula_funcionario = id
+  const [code, setCode] = useState()
+
   const handleSignIn = async (e) => {
     e.preventDefault();
 
-   const receiveCode = await codeVerify(id, code)
+   const receiveCode = await codeVerify(codigo, matricula_funcionario)
    if(receiveCode?.result){
       setResponse('Sucesso')
       setErroMessage(receiveCode.sucess)
-      console.log(receiveCode)
+      setCode(receiveCode.codigo)
    } else {
     setResponse(response)
     setErroMessage(receiveCode.error)   
@@ -34,7 +37,7 @@ function CodeVerify(){
       error={erroMessage}
       onClose={() => {setErroMessage("");
         if(response === 'Sucesso')
-        route(`/reset-password/${re}`)
+        route(`/reset-password/${code}`)
     }}
       />
       }
@@ -56,11 +59,11 @@ function CodeVerify(){
         <label className='label-login'> Código: </label>
         <input className='input-login' type="number" name="code" 
         id="code" 
-        value={code}
-        onChange={(e) => setCode(e.target.value)} />
+        value={codigo}
+        onChange={(e) => setCodigo(e.target.value)} />
 
-        <button type="submit" className={`button-login ${!code ? 'disable' : ''}`} 
-        disabled={!code}>Entrar</button>
+        <button type="submit" className={`button-login ${!codigo ? 'disable' : ''}`} 
+        disabled={!codigo}>Entrar</button>
       
         <a className='forgot-password' href="/">Voltar ao login</a>
         </div> 

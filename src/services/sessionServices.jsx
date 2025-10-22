@@ -13,10 +13,10 @@ export const forgotPassword = async(email) =>{
   }
 }
 
-export const codeVerify = async(code) =>{
+export const codeVerify = async(codigo, matricula_funcionario) =>{
   try{
     const {data} = await api.post('/verificacaoCodigoAdm',{
-      code
+      codigo, matricula_funcionario
     })
     const sucess = "Codigo verificado com sucesso"
     return {result: data, error: null, sucess: sucess}
@@ -26,10 +26,10 @@ export const codeVerify = async(code) =>{
   }
 }
 
-export const resetPassword = async(nova_senha, confirmar_senha) =>{
+export const resetPassword = async(matricula_funcionario, codigo, nova_senha, confirmar_senha) =>{
   try{
     const {data} = await api.put('/redefinirSenhaAdm',{
-      nova_senha, confirmar_senha
+      nova_senha, confirmar_senha, matricula_funcionario, codigo
     })
     const sucess = "Senha redefinida com sucesso"
     return {result: data, error: null, sucess: sucess}
