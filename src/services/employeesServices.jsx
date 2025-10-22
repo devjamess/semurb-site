@@ -54,3 +54,15 @@ export const findActives = async (user, date) => {
         return { result: null, error: erro, sucess: null }
     }
 };
+
+export const contEmployees = async(user) => {
+    try{
+        const{data} = await apt.get(`/funcionariosEscala/${user?.funcionario?.matricula_funcionario}`)
+        const sucess = 'quantidades de funcionarios por escala listados com sucesso'
+        return { result: data, error: null, sucess: sucess }
+    } catch (error) {
+        const erro = error?.response?.data?.mensagem
+        console.error('Erro ao listar funcionarios por escala', error?.message)
+        return { result: null, error: erro, sucess: null }
+    }
+}

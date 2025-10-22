@@ -12,7 +12,7 @@ function ForgotPassword(){
   const [erroMessage, setErroMessage] = useState('')
   const [response, setResponse] = useState('Erro')
   const {forgotPassword} = useAuth()
-
+  const [matricula, setMatricula] = useState()
   const handleSignIn = async (e) => {
     e.preventDefault();
 
@@ -20,18 +20,23 @@ function ForgotPassword(){
    if(sendCode?.result){
       setResponse('Sucesso')
       setErroMessage(sendCode.sucess)
+      setMatricula(sendCode.result.matricula_funcionario)
    } else {
     setResponse(response)
     setErroMessage(sendCode.error)   
    }
   }
+
   return (
     <div>
       { erroMessage && 
       <Alert response={response}
       text='ao Enviar Código'
       error={erroMessage}
-      onClose={() => {setErroMessage(""); route('/code-verify')}}
+      onClose={() => {setErroMessage(""); 
+      if(response === 'Sucesso'){
+      route(`/code-verify/${matricula}`)
+    }}}
       />
       }
     <div className="background-login">
@@ -56,7 +61,7 @@ function ForgotPassword(){
         onChange={(e) => setEmail(e.target.value)} />
 
         <button type="submit" className={`button-login ${!email ? 'disable' : ''}`} 
-        disabled={!email}>Entrar</button>
+        disabled={!email}>Enviar Código</button>
       
         <a className='forgot-password' href="/">Voltar ao login</a>
         </div> 

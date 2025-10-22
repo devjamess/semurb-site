@@ -59,8 +59,8 @@ function App() {
         <Route path='/' element={ <Login /> } />
         <Route path='/login/admin' element={ <LoginAdmin /> } />
         <Route path='/forgot-password' element={ <ForgotPassword /> } />
-        <Route path='/code-verify' element={ <CodeVerify /> } />
-        <Route path='/reset-password' element={ <ResetPassword /> } />
+        <Route path='/code-verify/:id' element={ <CodeVerify /> } />
+        <Route path='/reset-password/:id' element={ <ResetPassword /> } />
        
         <Route  element={<AuthApp />}>
           <Route path='/home' element={ <Home /> }/>

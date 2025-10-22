@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import '../styles/login.css'
 import logo from '../assets/images/semurb-logo-login.png'
 import {useAuth} from '../hook/useAuth'
@@ -12,14 +12,15 @@ function CodeVerify(){
   const [erroMessage, setErroMessage] = useState('')
   const [response, setResponse] = useState('Erro')
   const {codeVerify} = useAuth()
-
+  const {id} = useParams()
   const handleSignIn = async (e) => {
     e.preventDefault();
 
-   const receiveCode = await codeVerify(code)
+   const receiveCode = await codeVerify(id, code)
    if(receiveCode?.result){
       setResponse('Sucesso')
       setErroMessage(receiveCode.sucess)
+      console.log(receiveCode)
    } else {
     setResponse(response)
     setErroMessage(receiveCode.error)   
@@ -31,7 +32,10 @@ function CodeVerify(){
       <Alert response={response}
       text='ao Verificar Código'
       error={erroMessage}
-      onClose={() => {setErroMessage(""); route('/reset-password')}}
+      onClose={() => {setErroMessage("");
+        if(response === 'Sucesso')
+        route(`/reset-password/${re}`)
+    }}
       />
       }
     <div className="background-login">

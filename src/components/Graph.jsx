@@ -5,7 +5,7 @@ import "../styles/Graph.css";
 
 function MyChart() {
   const [data, setData] = useState([]);
-
+  
 
 
   useEffect(() => {

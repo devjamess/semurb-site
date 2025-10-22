@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import api from '../api/api';
 import AuthContext from "./authContextImport";
 
-import { addEmployee, findEmployees, findAllEmployees, findActives } from "../services/employeesServices";
+import { addEmployee, findEmployees, findAllEmployees, findActives, contEmployees } from "../services/employeesServices";
 import { addScale, findScales, updateScale } from "../services/scalesServices";
 import { findAllSectors, addSector, deleteSector, updateSector } from "../services/sectorsServices";
 import { addAdmin, deleteEmployee, updateAdmin, addEmployeeAdmin } from "../services/adminsServices"
@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }) => {
   const [allSectors, setAllSectors] = useState([])
   const [turns, setTurns] = useState([])
   const [actives, setActives] = useState([])
+  const [scalesEmployees, setScalesEmployees] = useState([])
 
   const signIn = async (matricula_funcionario, senha) => {
     try {
@@ -159,6 +160,7 @@ export const AuthProvider = ({ children }) => {
         setTurns(await findTurns(user));
         setEmployees(await findEmployees(user));
         setScales(await findScales(user));
+        setScalesEmployees(await contEmployees(user));
       })();
     }
   }, [user])
@@ -235,7 +237,7 @@ export const AuthProvider = ({ children }) => {
       deleteSector: handleDelSector,
       updateSector,
       forgotPassword, codeVerify, resetPassword,
-      
+      scalesEmployees,
 
       findTeams,
       teams,

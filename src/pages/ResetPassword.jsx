@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import '../styles/login.css'
 import logo from '../assets/images/semurb-logo-login.png'
 import {useAuth} from '../hook/useAuth'
@@ -8,15 +8,16 @@ import Alert from '../components/modals/Alert'
 function ResetPassword(){
 
   const route = useNavigate();
-  const [senha, setSenha] = useState()
+  const [nova_senha, setSenha] = useState()
+  const [confirmar_senha, setConfirmSenha] = useState()
   const [erroMessage, setErroMessage] = useState('')
   const [response, setResponse] = useState('Erro')
   const {resetPassword} = useAuth()
-
+  const {id} = useParams()
   const handleSignIn = async (e) => {
     e.preventDefault();
 
-   const newPassword = await resetPassword(senha)
+   const newPassword = await resetPassword(nova_senha, confirmar_senha)
    if(newPassword?.result){
       setResponse('Sucesso')
       setErroMessage(newPassword.sucess)
@@ -31,7 +32,10 @@ function ResetPassword(){
       <Alert response={response}
       text='ao Mudar Senha'
       error={erroMessage}
-      onClose={() => {setErroMessage(""); route('/')}}
+      onClose={() => {setErroMessage("");
+      if(response === 'Sucesso')
+      route('/')
+    }}
       />
       }
     <div className="background-login">
@@ -50,13 +54,17 @@ function ResetPassword(){
 
         <div className="content-login">
         <label className='label-login'> Nova Senha: </label>
-        <input className='input-login' type="password" name="password" 
-        id="password" 
-        value={senha}
+        <input className='input-login' type="password"
+        value={nova_senha}
         onChange={(e) => setSenha(e.target.value)} />
 
-        <button type="submit" className={`button-login ${!senha ? 'disable' : ''}`} 
-        disabled={!senha}>Entrar</button>
+         <label className='label-login'> Confirmar Senha: </label>
+        <input className='input-login' type="password" 
+        value={confirmar_senha}
+        onChange={(e) => setConfirmSenha(e.target.value)} />
+
+        <button type="submit" className={`button-login ${!nova_senha || !confirmar_senha ? 'disable' : ''}`} 
+        disabled={!nova_senha || !confirmar_senha}>Enviar</button>
       
         <a className='forgot-password' href="/">Voltar ao login</a>
         </div> 
