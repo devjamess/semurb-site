@@ -29,7 +29,7 @@ export const codeVerify = async(codigo, matricula_funcionario) =>{
 export const resetPassword = async(matricula_funcionario, codigo, nova_senha, confirmar_senha) =>{
   try{
     const {data} = await api.put('/redefinirSenhaAdm',{
-      nova_senha, confirmar_senha, matricula_funcionario, codigo
+       matricula_funcionario, codigo, nova_senha, confirmar_senha
     })
     const sucess = "Senha redefinida com sucesso"
     return {result: data, error: null, sucess: sucess}

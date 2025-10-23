@@ -14,10 +14,11 @@ function ResetPassword(){
   const [response, setResponse] = useState('Erro')
   const {resetPassword} = useAuth()
   const {id} = useParams()
+  const codigo = id
   const handleSignIn = async (e) => {
     e.preventDefault();
 
-   const newPassword = await resetPassword(nova_senha, confirmar_senha)
+   const newPassword = await resetPassword(codigo, nova_senha, confirmar_senha)
    if(newPassword?.result){
       setResponse('Sucesso')
       setErroMessage(newPassword.sucess)

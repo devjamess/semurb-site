@@ -120,14 +120,14 @@ function Page1({ isOpenEmployee, setIsOpenEmployee, goNextPage }) {
             <input name='cargo' type="text" className="form-input" placeholder="Cargo"
               value={form.cargo} onChange={handleChange} />
 
-            <input name='nome_equipe' id="equipe-input" list="equipes-list" className="form-input"
-              placeholder="Equipe" value={form.nome_equipe} onChange={handleChange} />
-            <datalist id="equipes-list">
-              {teams?.result?.map((eq) => (
-                <option key={eq.id_equipe} value={eq.nome_equipe} />
-              ))}
-            </datalist>
-
+            <select name='nome_equipe' id="equipe-input" list="equipes-list" className="form-input"
+              placeholder="Equipe" value={form.nome_equipe} onChange={handleChange}>
+                <option value="">Selecione uma equipe</option>
+                {teams?.result?.map((eq) => (
+                  <option key={eq.id_equipe} value={eq.nome_equipe}> {eq.nome_equipe}</option>
+                ))}
+            </select>
+            
             <input name='nome_regiao' id="regiao-input" list="regioes-list" className="form-input"
               placeholder="Regiao" value={form.nome_regiao} onChange={handleChange} />
             <datalist id="regioes-list">
@@ -218,7 +218,8 @@ function Page2({ employee, setIsOpenEmployee, goNextPage }) {
             <input name='tipo_escala' id="escala-input" list="escalas-list" className="form-input"
               placeholder="Escala" value={form.tipo_escala} onChange={handleChange} />
             <datalist id="escalas-list">
-              {scales?.map(s => <option key={s.id_escala} value={s.tipo_escala} />)}
+              {scales?.result?.map(s =>
+                <option key={s.id_escala} value={s.tipo_escala} />)}
             </datalist>
 
             <label>Usar dias específicos de folga:</label>

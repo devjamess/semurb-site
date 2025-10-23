@@ -4,7 +4,7 @@ import Alert from './Alert'
 
 
 function UpdateAdmin({ isOpen, setIsOpen, employee }) {
-  const { updateAdmin, allSectors, teams, regions } = useAuth()
+  const { updateAdmin, allSectors, teams, regions, user, findTeams } = useAuth()
   const [erroMessage, setErroMessage] = useState()
   const [response, setResponse] = useState('Erro')
 
@@ -17,6 +17,7 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
   employee.id_equipe == team.id_equipe)?.nome_equipe
   const region = regions?.result?.find(region => 
   employee.id_regiao == region.id_regiao)?.nome_regiao
+  const sectorUser = user?.funcionario?.id_setor === employee?.id_setor ? user?.setor?.nome_setor : null
 
   useEffect(()=>{
     if(isOpen && employee)
@@ -24,11 +25,12 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
     email: employee.email,
     telefone: employee.telefone,
     cargo: employee.cargo,
-    setor: sector,
+    setor: sector || sectorUser,
     status_permissao: employee.status_permissao,
     equipe: team,
     regiao: region,
     })
+
   },[isOpen, employee])
 
   const handleChange = (e) => {
@@ -41,9 +43,14 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
 
   async function handleAddEmployee(e) {
     e.preventDefault()
+
+    console.log("dadoas enviados", form)
+
     const EditEmployee = await updateAdmin(employee.matricula_funcionario, form)
 
-    if (EditEmployee.sucess) {
+    console.log("Resposta do backend", EditEmployee)
+    
+  if (EditEmployee.sucess) {
       setResponse('Sucesso')
       setErroMessage(EditEmployee.sucess)
     } else {
@@ -62,6 +69,7 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
           onClose={() => {
             setErroMessage("")
             setIsOpen(!isOpen)
+            window.location.reload()
           }}
         />
       )}
@@ -95,13 +103,12 @@ function UpdateAdmin({ isOpen, setIsOpen, employee }) {
               <option value="Não" className=""></option>
             </datalist>
 
-            <input name="equipe" id="equipe-input" list="equipes-list" className="form-input"
-              placeholder="Equipe" value={form.equipe} onChange={handleChange} />
-            <datalist id="equipes-list">
-              {teams?.result?.map((team, key) => (
-                <option key={key} value={team.nome_equipe} />
-              ))}
-            </datalist>
+            <select name='equipe'className="form-input" value={form.equipe} onChange={handleChange}>
+                <option value="">Selecione uma equipe</option>
+                {teams?.result?.map((eq) => (
+                  <option key={eq.id_equipe} value={eq.nome_equipe}> {eq.nome_equipe}</option>
+                ))}
+            </select>
 
             <input name="regiao" id="regiao-input" list="regioes-list" className="form-input"
               placeholder="Regiao" value={form.regiao} onChange={handleChange} />

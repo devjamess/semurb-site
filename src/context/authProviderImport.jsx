@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
       }
       return { result: data, error: null };
     } catch (error) {
-      const erro = error.response?.data?.mensagem
+      const erro = error?.response?.data?.mensagem || error.message
       console.error("Erro ao fazer login como admin", erro)
       return { result: null, error: erro }
     }

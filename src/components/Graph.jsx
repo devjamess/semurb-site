@@ -1,24 +1,27 @@
 import { Chart } from "react-google-charts";
 import { useEffect, useState } from "react";
 import "../styles/Graph.css";
+import {useAuth} from '../hook/useAuth'
+import { BeatLoader } from "react-spinners";
 
 
 function MyChart() {
   const [data, setData] = useState([]);
+  const {scalesEmployees} = useAuth()
   
-
-
   useEffect(() => {
-    setData([
+    if(scalesEmployees?.result){
+   const dataChart = [
       ["Escala", "Funcionarios", { role: "style" }],
-      ["6x1", 10, "#F4D03F"],
-      ["5x2", 29, "#F4D03F"],
-      ["4x3", 18, "#F4D03F"],
-      ["3x4", 15, "#F4D03F"],
-      ["2x5", 23, "#F4D03F"],
-      ["1x6", 7, "#F4D03F"],
-    ]);
-  }, []); 
+      //...retira o array extra
+      ...scalesEmployees.result.map(info =>[
+        info?.tipo_escala, 
+        Number(info?.quantidade), 
+        "#F4D03F"
+      ])
+    ];
+    setData(dataChart)
+  }}, [scalesEmployees]); 
 
   const options = {
     backgroundColor: "transparent",
@@ -39,7 +42,7 @@ function MyChart() {
     legend: { textStyle: { color: "#F4D03F" } },
   };
 
-  if (data.length === 0) return null
+  if (data.length === 0) return <p className="loading-text">Carregando dados...</p>
 
   return (
     <div className="container-graph">

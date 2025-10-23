@@ -23,7 +23,7 @@ function CodeVerify(){
    if(receiveCode?.result){
       setResponse('Sucesso')
       setErroMessage(receiveCode.sucess)
-      setCode(receiveCode.codigo)
+      setCode(receiveCode.result.codigo)
    } else {
     setResponse(response)
     setErroMessage(receiveCode.error)   

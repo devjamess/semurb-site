@@ -57,7 +57,7 @@ export const findActives = async (user, date) => {
 
 export const contEmployees = async(user) => {
     try{
-        const{data} = await apt.get(`/funcionariosEscala/${user?.funcionario?.matricula_funcionario}`)
+        const{data} = await api.get(`/funcionariosEscala/${user?.funcionario?.matricula_funcionario}`)
         const sucess = 'quantidades de funcionarios por escala listados com sucesso'
         return { result: data, error: null, sucess: sucess }
     } catch (error) {
