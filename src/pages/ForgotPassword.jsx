@@ -28,7 +28,7 @@ function ForgotPassword(){
   }
 
   return (
-    <div>
+    <div className='body'>
       { erroMessage && 
       <Alert response={response}
       text='ao Enviar Código'

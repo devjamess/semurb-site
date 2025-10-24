@@ -14,11 +14,13 @@ function ResetPassword(){
   const [response, setResponse] = useState('Erro')
   const {resetPassword} = useAuth()
   const {id} = useParams()
-  const codigo = id
+  const [codigo, matricula_funcionario] = id.split('-');
+
+  console.log(codigo, matricula_funcionario)
   const handleSignIn = async (e) => {
     e.preventDefault();
 
-   const newPassword = await resetPassword(codigo, nova_senha, confirmar_senha)
+   const newPassword = await resetPassword(matricula_funcionario, codigo, nova_senha, confirmar_senha)
    if(newPassword?.result){
       setResponse('Sucesso')
       setErroMessage(newPassword.sucess)
@@ -28,7 +30,7 @@ function ResetPassword(){
    }
   }
   return (
-    <div>
+    <div className='body'>
       { erroMessage && 
       <Alert response={response}
       text='ao Mudar Senha'

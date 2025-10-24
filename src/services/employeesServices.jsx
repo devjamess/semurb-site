@@ -35,7 +35,7 @@ export const findEmployees = async (user) => {
         const sucess = "funcionarios listados com sucesso"
         return { result: data, error: null, sucess: sucess }
     } catch (error) {
-        const erro = error.response?.data?.mensagem
+        const erro = error.response?.data?.mensagem || error?.message
         console.error('Erro ao listar funcionarios', erro)
         return { result: null, error: erro, sucess: null }
     }
@@ -49,8 +49,8 @@ export const findActives = async (user, date) => {
         const sucess = 'funcionarios do dia listados com sucesso'
         return { result: data, error: null, sucess: sucess }
     } catch (error) {
-        const erro = error?.response?.data?.mensagem
-        console.error('Erro ao listar funcionarios do dia', error?.message)
+        const erro = error?.response?.data?.mensagem || error?.message
+        console.error('Erro ao listar funcionarios do dia', erro)
         return { result: null, error: erro, sucess: null }
     }
 };
@@ -61,8 +61,22 @@ export const contEmployees = async(user) => {
         const sucess = 'quantidades de funcionarios por escala listados com sucesso'
         return { result: data, error: null, sucess: sucess }
     } catch (error) {
-        const erro = error?.response?.data?.mensagem
-        console.error('Erro ao listar funcionarios por escala', error?.message)
+        const erro = error?.response?.data?.mensagem || error?.message
+        console.error('Erro ao listar funcionarios por escala',erro)
+        return { result: null, error: erro, sucess: null }
+    }
+}
+
+export const updateEmployee = async(user, payload) => {
+    try{
+        const {data} = await api.put(`/editarFuncionario/${user?.funcionario?.matricula_funcionario}`, {
+            ...payload
+        })
+        const sucess = 'Funcionario atualizado com sucesso'
+        return { result: data, error: null, sucess: sucess }
+    } catch (error) {
+        const erro = error?.response?.data?.mensagem || error?.message
+        console.error('Erro ao atualizar funcionario', erro)
         return { result: null, error: erro, sucess: null }
     }
 }

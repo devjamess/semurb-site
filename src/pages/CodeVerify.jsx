@@ -30,14 +30,14 @@ function CodeVerify(){
    }
   }
   return (
-    <div>
+    <div className='body'>
       { erroMessage && 
       <Alert response={response}
       text='ao Verificar Código'
       error={erroMessage}
       onClose={() => {setErroMessage("");
         if(response === 'Sucesso')
-        route(`/reset-password/${code}`)
+        route(`/reset-password/${code}-${matricula_funcionario}`)
     }}
       />
       }

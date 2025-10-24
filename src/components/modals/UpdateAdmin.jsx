@@ -4,7 +4,7 @@ import Alert from './Alert'
 
 
 function UpdateAdmin({ isOpen, setIsOpen, employee }) {
-  const { updateAdmin, allSectors, teams, regions, user, findTeams } = useAuth()
+  const { updateAdmin, allSectors, teams, regions, user } = useAuth()
   const [erroMessage, setErroMessage] = useState()
   const [response, setResponse] = useState('Erro')
 

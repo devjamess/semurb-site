@@ -97,8 +97,8 @@ function EditEmployee() {
             <p className="profile-info">Setor: <span className="info-auth">{sector}</span></p>
             <p className="profile-info">Escala: <span className="info-auth">{scale}</span></p>
           </div>
-          <button className="confirm-button" onClick={() => setIsOpenAdminUpdate(!isOpenAdminUpdate)}>Editar</button>
-          <button className="cancel-button" onClick={() => setIsOpenDelete(!isOpenDelete)}>Deletar</button>
+          <button className="confirm-button" onClick={() => setIsOpenAdminUpdate(!isOpenAdminUpdate)}>Atualizar Dados</button>
+          <button className="cancel-button" onClick={() => setIsOpenDelete(!isOpenDelete)}>Deletar Funcionario</button>
         </div>
 
         <div className="profile-escale">
@@ -112,6 +112,7 @@ function EditEmployee() {
             <div className="details">Feriados</div>
             <div className="details">{`Horario: ${turn?.inicio_turno} - ${turn?.termino_turno} / Intervalo: ${turn?.intervalo_turno}`}</div>
           </div>
+          <div className="update-buttons">
           <button className="confirm-button"
             onClick={() => {
               if (currentEmployee?.id_escala) {
@@ -123,6 +124,8 @@ function EditEmployee() {
             }}>
             {currentEmployee?.id_escala ? 'Atualizar Escala' : 'Nova Escala'}
           </button>
+          <button className="confirm-button">Atualizar Turno</button>
+          </div>
 
         </div>
       </div>

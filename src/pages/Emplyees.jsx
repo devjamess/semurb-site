@@ -5,20 +5,22 @@ import CalendarProfile from '../components/CalendarProfile'
 import { useState, useMemo } from 'react'
 import UpdateScale from "../components/modals/UpdateScale"
 import AddEmployeeCard from '../components/modals/AddEmployee'
-import {getRestDayDisplay} from '../utils/RestDays'
+import { getRestDayDisplay } from '../utils/RestDays'
 import UpdateAdmin from '../components/modals/UpdateAdmin'
 
 function Employee() {
 
   const { employees, user, teams, scales, regions, turns } = useAuth()
   const { id } = useParams()
-  
+
   const [isOpenScaleUpdate, setIsOpenScaleUpdate] = useState(false)
   const [isOpenEmployeeAdd, setIsOpenEmployeeAdd] = useState(false)
   const [isOpenEmployeeUpdate, setIsOpenEmployeeUpdate] = useState(false)
+  const [isOpenTurnUpdate, setIsOpenTurnUpdate] = useState(false)
+  const [isOpenTurnAdd, setIsOpenTurnAdd] = useState(false)
   const [page, setPage] = useState(1)
   const [selectedDate, setSelectedDate] = useState(null);
- 
+
   // Otimização: Os dados do funcionário só são recalculados se 'employees' ou 'id' mudarem.
   const currentEmployee = useMemo(() => {
     if (!employees?.result) return null;
@@ -52,10 +54,10 @@ function Employee() {
 
   console.log(currentEmployee)
 
-  if(!employees || !employees?.result)
+  if (!employees || !employees?.result)
     return <p className="loading-text">Carregando funcionário...</p>
 
-  if(!currentEmployee)
+  if (!currentEmployee)
     return <p className="loading-text">Não foi possível carregar o funcionário..</p>
 
   return (
@@ -65,20 +67,25 @@ function Employee() {
         setIsOpenEmployee={setIsOpenScaleUpdate}
         isOpenEmployee={isOpenScaleUpdate}
       />
-      <AddEmployeeCard 
+      <AddEmployeeCard
         isOpenEmployee={isOpenEmployeeAdd}
         setIsOpenEmployee={setIsOpenEmployeeAdd}
         setPage={page}
         employee={currentEmployee}
       />
       <UpdateAdmin
+        isOpen={isOpenEmployeeUpdate}
+        setIsOpen={setIsOpenEmployeeUpdate}
+        employee={currentEmployee}
+      />
+      <UpdateTurn
       isOpen={isOpenEmployeeUpdate}
       setIsOpen={setIsOpenEmployeeUpdate}
       employee={currentEmployee}
       />
 
       <div className="container-profile-page">
-        
+
         <div key={currentEmployee?.matricula_funcionario} className="profile-container">
           <div className="profile-card-up">
             <IoIosContact size={200} color={'#6B7280'} />
@@ -93,9 +100,9 @@ function Employee() {
             <p className="profile-info">Regiao: <span className="info-auth">{region}</span></p>
             <p className="profile-info">Setor: <span className="info-auth">{sector}</span></p>
           </div>
-          <button className="confirm-button" onClick={() => setIsOpenEmployeeUpdate(!isOpenEmployeeUpdate)}>Atualizar</button>
+          <button className="confirm-button" onClick={() => setIsOpenEmployeeUpdate(!isOpenEmployeeUpdate)}>Atualizar Dados </button>
         </div>
- 
+
         <div className="profile-escale">
           <CalendarProfile
             value={selectedDate}
@@ -103,22 +110,33 @@ function Employee() {
             escala={scale || null}
           />
           <div className="profile-escale-details">
-            
+
             <div className="details">{`Folgas: ${getRestDayDisplay(scale)}`}</div>
             <div className="details">Feriados</div>
             <div className="details">{`Horario: ${turn?.inicio_turno} - ${turn?.termino_turno} / Intervalo: ${turn?.intervalo_turno}`}</div>
           </div>
-          <button className="confirm-button" onClick={() => {
-            if(currentEmployee.id_escala){
-              setIsOpenScaleUpdate(!isOpenScaleUpdate)
-            }
-            if(!currentEmployee.id_escala){
-              setIsOpenEmployeeAdd(!isOpenEmployeeAdd)
-              setPage(2)
-            }
-          }}>
-            {currentEmployee?.id_escala ? 'Atualizar Escala' : 'Nova Escala'}
-          </button>
+          <div className="update-buttons">
+            <button className="confirm-button" onClick={() => {
+              if (currentEmployee.id_escala) {
+                setIsOpenScaleUpdate(!isOpenScaleUpdate)
+              }
+              if (!currentEmployee.id_escala) {
+                setIsOpenEmployeeAdd(!isOpenEmployeeAdd)
+                setPage(2)
+              }
+            }}>
+              {currentEmployee?.id_escala ? 'Atualizar Escala' : 'Nova Escala'}
+            </button>
+            <button className="confirm-button" onClick={() => {
+              if (currentEmployee.id_turno) {
+                setIsOpenTurnUpdate(!isOpenTurnUpdate)
+              }
+              if (!currentEmployee.id_turno) {
+                setIsOpenEmployeeAdd(!isOpenEmployeeAdd)
+                setPage(3)
+              }
+            }}>{currentEmployee?.id_escala ? 'Atualizar Turno' : 'Novo Turno'}</button>
+          </div>
         </div>
 
       </div>

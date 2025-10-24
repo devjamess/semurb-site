@@ -73,6 +73,11 @@
     font-size: large;
     font-weight: bold;
 }
+.update-buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
 
 @media (max-width: 1210px) {
   .container-profile-page {

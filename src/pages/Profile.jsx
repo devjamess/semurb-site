@@ -32,7 +32,7 @@ function Profile() {
             <p className="profile-info">Setor: <span className="info-auth">{user ? user.setor?.nome_setor : 'Desconhecido'}</span></p>
 
           </div>
-          <button className="confirm-button">Atualizar</button>
+
         </div>
 
         <div className="profile-escale">
@@ -48,7 +48,6 @@ function Profile() {
             <div className="details">Feriados</div>
             <div className="details">Trabalho</div>
           </div>
-          <button className="confirm-button">Nova Escala</button>
 
         </div>
 

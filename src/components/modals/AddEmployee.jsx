@@ -83,7 +83,7 @@ function Page1({ isOpenEmployee, setIsOpenEmployee, goNextPage }) {
       setErroMessage(employee.error)
     }
   }
-
+  const isDisable = Object.values(form).some(values => values === '')
   return (
     <div>
       {erroMessage && (
@@ -138,8 +138,8 @@ function Page1({ isOpenEmployee, setIsOpenEmployee, goNextPage }) {
           </div>
 
           <div className="buttons-form">
-            <button type="submit" className={`confirm-button ${Object.values(form).some(values => values === '') ? 'disable' : ''}`}
-              disabled={Object.values(form).some(values => values === '')}>
+            <button type="submit" className={`confirm-button ${isDisable ? 'disable' : ''}`}
+              disabled={isDisable}>
               Continuar
             </button>
             <button type="button" className="cancel-button" onClick={() => setIsOpenEmployee(false)}>Fechar</button>
@@ -244,7 +244,7 @@ function Page2({ employee, setIsOpenEmployee, goNextPage }) {
           </div>
 
           <div className="buttons-form">
-            <button type="submit" className={`confirm-button ${isDisabled ? 'disabel' : ''}`} disabled={isDisabled}>Concluir</button>
+            <button type="submit" className={`confirm-button ${isDisabled ? 'disable' : ''}`} disabled={isDisabled}>Concluir</button>
             <button type="button" className="cancel-button" onClick={() => setIsOpenEmployee(false)}>Fechar</button>
           </div>
         </form>
@@ -254,24 +254,26 @@ function Page2({ employee, setIsOpenEmployee, goNextPage }) {
 }
 
 function Page3({ employee, setIsOpenEmployee }) {
-  const { addTurn } = useAuth()
+  const { addTurn, user } = useAuth()
   const [erroMessage, setErroMessage] = useState()
   const [response, setResponse] = useState('Erro')
   const [save, setSave] = useState()
 
-  const [matricula_funcionario, setMatriculaFuncionario] = useState(employee?.matricula_funcionario)
-  const [inicio_turno, setInicioTurno] = useState("")
-  const [termino_turno, setTerminoTurno] = useState("")
-  const [duracao_turno, setDuracaoTurno] = useState("")
-  const [intervalo_turno, setIntervaloTurno] = useState("")
+  const [form, setForm] = useState({
+    matricula_funcionario: employee.matricula_funcionario,
+    inicio_turno: '',
+    termino_turno: '',
+    duracao_turno: '',
+    intervalo_turno: ''
+  })
+  const handleChange = (e) => {
+    const {name, value} = e.target
+    setForm(prev => ({...prev, [name]: value}))
+  }
 
   async function handleAddTurn(e) {
     e.preventDefault()
-    const turn = await addTurn(
-      matricula_funcionario,
-      inicio_turno, termino_turno,
-      duracao_turno, intervalo_turno
-    )
+    const turn = await addTurn(user, form)
     if (turn.result) {
       setResponse('Sucesso')
       setErroMessage(turn.sucess)
@@ -282,6 +284,7 @@ function Page3({ employee, setIsOpenEmployee }) {
     }
   }
 
+  const isDisable = Object.values(form).some(values => values === '')
   return (
     <div>
       {erroMessage && (
@@ -303,33 +306,30 @@ function Page3({ employee, setIsOpenEmployee }) {
           <p className="form-title">Cadastrar Turno</p>
           <div className="form-card">
 
-            <label className="form-label">Matricula do Funcionário</label>
-            <input type="number" className="form-input" placeholder="Matricula"
-              value={matricula_funcionario} onChange={(e) => setMatriculaFuncionario(e.target.value)} />
+            <label className="form-label">Matricula</label>
+            <input name='matricula_funcionario' type="number" className="form-input" placeholder="Matricula"
+              value={form.matricula_funcionario} onChange={handleChange} />
 
             <label className="form-label">Inicio do Turno</label>
-            <input type="time" className="form-input"
-              value={inicio_turno} onChange={(e) => setInicioTurno(e.target.value)} />
+            <input name='inicio_turno' type="time" className="form-input"
+              value={form.inicio_turno} onChange={handleChange} />
 
-            <label className="form-label">Termino do Turno</label>
+            <label name='termino_turno' className="form-label">Termino do Turno</label>
             <input type="time" className="form-input"
-              value={termino_turno} onChange={(e) => setTerminoTurno(e.target.value)} />
+              value={form.termino_turno} onChange={handleChange} />
 
-            <label className="form-label">Duração do Turno</label>
+            <label name='duracao_turno' className="form-label">Duração do Turno</label>
             <input type="time" className="form-input"
-              value={duracao_turno} onChange={(e) => setDuracaoTurno(e.target.value)} />
+              value={form.duracao_turno} onChange={handleChange} />
 
-            <label className="form-label">Intervalo do Turno</label>
+            <label name='intervalo_turno' className="form-label">Intervalo do Turno</label>
             <input type="time" className="form-input"
-              value={intervalo_turno} onChange={(e) => setIntervaloTurno(e.target.value)} />
+              value={form.intervalo_turno} onChange={handleChange} />
           </div>
 
           <div className="buttons-form">
-            <button type="submit" className="confirm-button"
-              disabled={
-                !matricula_funcionario || !inicio_turno ||
-                !termino_turno || !duracao_turno || !intervalo_turno
-              }>
+            <button type="submit" className={`confirm button ${isDisable ? 'disable' : ''} `}
+              disabled={isDisable}>
               Concluir
             </button>
             <button type="button" className="cancel-button" onClick={() => setIsOpenEmployee(false)}>Fechar</button>

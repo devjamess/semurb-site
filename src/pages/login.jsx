@@ -30,13 +30,15 @@ function Login() {
     setLoad(false);
   }
   return (
-    <div>
+    <div className='body'>
       {erroMessage &&
+      <div className="form-container">
         <Alert response={response}
           text='ao Fazer Login'
           error={erroMessage}
           onClose={() => setErroMessage("")}
         />
+      </div>
       }
       <div className="background-login">
 
