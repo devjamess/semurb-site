@@ -48,6 +48,8 @@ function Employee() {
     console.log('Data selecionada:', date.toLocaleDateString('pt-BR'));
   };
 
+  const folgas = ['12x36', '18x36', '24x48, 24x72']
+
   console.log(currentEmployee)
 
   if(!employees || !employees?.result)
@@ -101,6 +103,7 @@ function Employee() {
             escala={scale || null}
           />
           <div className="profile-escale-details">
+            
             <div className="details">{`Folgas: ${getRestDayDisplay(scale)}`}</div>
             <div className="details">Feriados</div>
             <div className="details">{`Horario: ${turn?.inicio_turno} - ${turn?.termino_turno} / Intervalo: ${turn?.intervalo_turno}`}</div>

@@ -63,9 +63,9 @@ export default function UpdateScale({ employee, setIsOpenEmployee, isOpenEmploye
       {erroMessage && (
         <Alert response={response} text='ao Atualizar Escala' error={erroMessage} onClose={() => {
           setErroMessage("")
-          if (response === 'Sucesso' && save) 
+          if (response === 'Sucesso' && save)
             setIsOpenEmployee(false)
-            window.location.reload()
+          window.location.reload()
         }} />
       )}
       <div className="form-card-position">
@@ -86,11 +86,13 @@ export default function UpdateScale({ employee, setIsOpenEmployee, isOpenEmploye
               ))}
             </datalist>
 
-            <label>Usar dias específicos de folga:</label>
-            <select name="usa_dias_especificos" value={form?.usa_dias_especificos} onChange={handleChange}>
-              <option value="SIM">SIM</option>
-              <option value="NAO">NAO</option>
-            </select>
+            <div className="">
+              <p className="">Dias da Semana:</p>
+              <select name="usa_dias_especificos" value={form?.usa_dias_especificos} onChange={handleChange} className="daysofweek">
+                <option value="SIM">SIM</option>
+                <option value="NAO">NAO</option>
+              </select>
+            </div>
 
             {form?.usa_dias_especificos === 'SIM' && (
               <div className="dias-semana-checkboxes">
