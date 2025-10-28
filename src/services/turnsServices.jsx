@@ -26,3 +26,18 @@ import api from '../api/api'
       return { result: null, error: erro, sucess: null }
     }
   }
+
+  export const updateTurn = async (user, payload) => {
+    try{
+      const {data} = await api.put('/',{
+        matricula_adm: user?.funcionario?.matricula_funcionario,
+        ...payload
+      })
+      const sucess = 'Turno alterado com sucesso'
+      return {result: data, error: null, sucess: sucess}
+    }catch (error){
+      const erro = error?.response?.data?.mensagem || error.message
+      console.error('Erro ao alterar turno ', erro)
+      return { result: null, error: erro, sucess: null}
+    }
+  }

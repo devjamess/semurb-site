@@ -5,10 +5,10 @@ import AuthContext from "./authContextImport";
 import { addEmployee, findEmployees, findAllEmployees, findActives, contEmployees } from "../services/employeesServices";
 import { addScale, findScales, updateScale } from "../services/scalesServices";
 import { findAllSectors, addSector, deleteSector, updateSector } from "../services/sectorsServices";
-import { addAdmin, deleteEmployee, updateAdmin, addEmployeeAdmin } from "../services/adminsServices"
+import { addAdmin, deleteEmployee, updateAdmin } from "../services/adminsServices"
 import { findTeams, addTeam } from '../services/teamsServices'
 import { findRegions } from '../services/regionsServices'
-import { findTurns, addTurn } from '../services/turnsServices'
+import { findTurns, addTurn, updateTurn } from '../services/turnsServices'
 import { forgotPassword, codeVerify, resetPassword } from '../services/sessionServices'
 export const AuthProvider = ({ children }) => {
 
@@ -238,6 +238,7 @@ export const AuthProvider = ({ children }) => {
       updateSector,
       forgotPassword, codeVerify, resetPassword,
       scalesEmployees,
+      updateTurn,
 
       findTeams,
       teams,
@@ -256,7 +257,7 @@ export const AuthProvider = ({ children }) => {
       inAdmin: !!admin,
       adminSignIn,
       addSector,
-      addEmployeeAdmin,
+
 
       findAllEmployees,
       allEmployees,
