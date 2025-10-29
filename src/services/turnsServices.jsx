@@ -29,7 +29,7 @@ import api from '../api/api'
 
   export const updateTurn = async (user, payload) => {
     try{
-      const {data} = await api.put('/',{
+      const {data} = await api.put('/alterarTurno',{
         matricula_adm: user?.funcionario?.matricula_funcionario,
         ...payload
       })

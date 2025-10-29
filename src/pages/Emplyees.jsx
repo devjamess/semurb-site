@@ -7,6 +7,7 @@ import UpdateScale from "../components/modals/UpdateScale"
 import AddEmployeeCard from '../components/modals/AddEmployee'
 import { getRestDayDisplay } from '../utils/RestDays'
 import UpdateAdmin from '../components/modals/UpdateAdmin'
+import UpdateTurn from '../components/modals/UpdateTurn'
 
 function Employee() {
 
@@ -17,7 +18,6 @@ function Employee() {
   const [isOpenEmployeeAdd, setIsOpenEmployeeAdd] = useState(false)
   const [isOpenEmployeeUpdate, setIsOpenEmployeeUpdate] = useState(false)
   const [isOpenTurnUpdate, setIsOpenTurnUpdate] = useState(false)
-  const [isOpenTurnAdd, setIsOpenTurnAdd] = useState(false)
   const [page, setPage] = useState(1)
   const [selectedDate, setSelectedDate] = useState(null);
 
@@ -50,9 +50,8 @@ function Employee() {
     console.log('Data selecionada:', date.toLocaleDateString('pt-BR'));
   };
 
-  const folgas = ['12x36', '18x36', '24x48, 24x72']
+  // const folgas = ['12x36', '18x36', '24x48, 24x72']
 
-  console.log(currentEmployee)
 
   if (!employees || !employees?.result)
     return <p className="loading-text">Carregando funcionário...</p>
@@ -79,8 +78,8 @@ function Employee() {
         employee={currentEmployee}
       />
       <UpdateTurn
-      isOpen={isOpenEmployeeUpdate}
-      setIsOpen={setIsOpenEmployeeUpdate}
+      isOpen={isOpenTurnUpdate}
+      setIsOpen={setIsOpenTurnUpdate}
       employee={currentEmployee}
       />
 
