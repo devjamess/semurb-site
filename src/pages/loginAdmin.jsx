@@ -4,29 +4,49 @@ import '../styles/login.css'
 import logo from '../assets/images/semurb-logo-login.png'
 import {useAuth} from '../hook/useAuth'
 import {BeatLoader} from 'react-spinners'
+import Alert from '../components/modals/Alert'
+
 function LoginAdmin() {
   const route = useNavigate();
-  const {adminSignIn, logout} = useAuth();
+  const {adminSignIn} = useAuth();
   const [registration, setMatricula] = useState()
   const [password, setPassword] = useState()
   const [loading, setLoad] = useState(false)
+  const [response, setResponse] = useState('Erro')
+  const [error, setError] = useState()
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     setLoad(true)
 
     const adminData = await adminSignIn(registration, password);
-    if(adminData){
-      route('/admin', {replace: true});
+    if(adminData?.result){
+      route('/admin', {replace: true})
+      console.log('suesso login')
     } else {
-     alert('Falha no login, verifique suas credenciais') 
-     logout()  
+     setResponse(response)
+     setError(adminData.error) 
+     console.log('erro login')
     }
 
     setLoad(false)
   }
+
   return (
+    <div className="body">
+      {error &&
+      <div className="form-container">
+        <Alert response={response}
+          text='ao Fazer Login'
+          error={error}
+          onClose={() => 
+            setError("")
+        }
+        />
+      </div> 
+      }
     <div className="background-login">
+      
       <div className="container-login">
         <div className="logo-login">
           <img src={logo} alt="semurb-logo" className=""/>
@@ -58,6 +78,7 @@ function LoginAdmin() {
         </form>
       </div>
 
+    </div>
     </div>
   )
 }

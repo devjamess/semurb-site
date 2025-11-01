@@ -61,7 +61,10 @@ export default function UpdateScale({ employee, setIsOpenEmployee, isOpenEmploye
   return (
     <div className='form-container'>
       {erroMessage && (
-        <Alert response={response} text='ao Atualizar Escala' error={erroMessage} onClose={() => {
+        <Alert response={response} 
+        text='ao Atualizar Escala' 
+        error={erroMessage} 
+        onClose={() => {
           setErroMessage("")
           if (response === 'Sucesso' && save)
             setIsOpenEmployee(false)

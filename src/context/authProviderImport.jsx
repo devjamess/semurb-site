@@ -46,12 +46,12 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('user_data', JSON.stringify(data));
         return { result: data, error: null };
       }
-      return { result: data, error: null };
+      const sucess = 'Login realizado com sucesso'
+      return { result: data, error: null, sucess: sucess };
     } catch (error) {
-      const erro = error.response?.data?.mensagem ||
-        "Erro Desconhecido"
+      const erro = error.response?.data?.mensagem ||error.message
       console.error('Erro ao fazer login: ', erro)
-      return { result: null, error: erro }
+      return { result: null, error: erro, sucess: null }
     }
   };
   const logout = async () => {
@@ -74,11 +74,12 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('admin_data', JSON.stringify(data));
         return data;
       }
-      return { result: data, error: null };
+      const sucess = 'Login realizado com sucesso'
+      return { result: data, error: null, sucess: sucess };
     } catch (error) {
       const erro = error?.response?.data?.mensagem || error.message
       console.error("Erro ao fazer login como admin", erro)
-      return { result: null, error: erro }
+      return { result: null, error: erro, sucess: null}
     }
   };
 
